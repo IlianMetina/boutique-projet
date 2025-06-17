@@ -1,1 +1,15 @@
-/* You can add global styles to this file, and also import other style files */
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f4f6f9;
+}
+
+a{
+    text-decoration: none;
+}
