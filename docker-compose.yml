@@ -1,7 +1,9 @@
+# Changer le .env.example => .env
+
 services: 
   mysql:
     image: mysql
     env_file:
-      - ./back-end/.env
+      - ./back-end/.env.example
     ports:
       - '3306:3306'
