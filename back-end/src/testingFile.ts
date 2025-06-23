@@ -1,3 +1,5 @@
+/* Fichier à intégrer Front/Back ? */
+
 interface Product {
   id: number;
   name: string;
