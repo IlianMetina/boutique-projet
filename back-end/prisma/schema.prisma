@@ -35,6 +35,8 @@ model User {
   lastName  String
   createdAt DateTime @default(now())
   role      UserRole @default(CUSTOMER)
+
+  orders Order[]
 }
 
 model Category {
@@ -77,4 +79,6 @@ model Product {
 
   category    Category @relation(fields: [categoryId], references: [id])
   categoryId  Int
+
+  orderItems OrderItem[]
 }
