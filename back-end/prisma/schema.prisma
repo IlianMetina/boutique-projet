@@ -27,7 +27,11 @@ enum OrderStatus {
   CANCELLED
 }
 
+// Enlever orders Order[] pour faire une table de jointure
+// Si on veut faire une jointure entre User et Order, on peut utiliser une relation un-à-plusieurs
+// entre User et Order, où un utilisateur peut avoir plusieurs commandes, mais une commande n'appartient qu'à un seul utilisateur.
 model User {
+  
   id        Int      @id @default(autoincrement())
   email     String   @unique
   password  String
@@ -38,6 +42,7 @@ model User {
 
   orders Order[]
 }
+
 
 model Category {
   id          Int      @id @default(autoincrement())
@@ -67,6 +72,8 @@ model OrderItem {
   product   Product @relation(fields: [productId], references: [id])
 
   @@unique([orderId, productId]) // Ensure a product can only appear once in an order
+
+  // Il faudra peut être faire un algo pour si le produit est déjà dans la commande, on incrémente la quantité
 }
 
 model Product {
