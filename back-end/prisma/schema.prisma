@@ -6,7 +6,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/prisma"
 }
 
 datasource db {
@@ -27,9 +26,6 @@ enum OrderStatus {
   CANCELLED
 }
 
-// Enlever orders Order[] pour faire une table de jointure
-// Si on veut faire une jointure entre User et Order, on peut utiliser une relation un-à-plusieurs
-// entre User et Order, où un utilisateur peut avoir plusieurs commandes, mais une commande n'appartient qu'à un seul utilisateur.
 model User {
   
   id        Int      @id @default(autoincrement())
@@ -42,7 +38,6 @@ model User {
 
   orders Order[]
 }
-
 
 model Category {
   id          Int      @id @default(autoincrement())
@@ -59,6 +54,8 @@ model Order {
   createdAt   DateTime    @default(now())
   user        User        @relation(fields: [userId], references: [id])
   orderItems  OrderItem[]
+
+  @@index([userId]) // Index for faster lookups by user
 }
 
 model OrderItem {
