@@ -1,6 +1,8 @@
+/* eslint-disable prettier/prettier */
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { Prisma } from '@prisma/client';
+
 
 @Controller('products')
 export class ProductsController {
@@ -8,7 +10,8 @@ export class ProductsController {
 
   @Post()
   async create(@Body() createProductDto: Prisma.ProductCreateInput) {
-    return this.productsService.create(createProductDto);
+        
+    return this.productsService.create(createProductDto);;
   }
 
   @Get()

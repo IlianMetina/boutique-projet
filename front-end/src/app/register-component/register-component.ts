@@ -2,8 +2,9 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Validators } from '@angular/forms';
+import { AuthService } from '../services/auth/auth.service';
 
-interface RegisterData {
+export interface RegisterData {
 
   firstname: string,
   lastname: string,
@@ -39,6 +40,14 @@ export class RegisterComponent {
     conditions: new FormControl(false),
     newsletter: new FormControl(false)
   })
+
+  constructor(private authService: AuthService){}
+
+  saveUser(data: RegisterData){
+
+    this.authService.saveUser
+    
+  }
 
   onSubmit(): void {
 

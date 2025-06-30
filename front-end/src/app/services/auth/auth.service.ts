@@ -1,14 +1,18 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { RegisterData } from '../../register-component/register-component';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthService {
 
-  private port = 3000;
+  private apiUrl = 'http://localhost:3000/auth';
 
-  private apiUrl = 'http://localhost:3000/auth'
+  saveUser(data: RegisterData): Promise <RegisterData> {
 
-  constructor(private http: HttpClient) {}
+    const saveUser = fetch(this.apiUrl).then(res => res.json());
+    return saveUser;
+  }
+
 }
