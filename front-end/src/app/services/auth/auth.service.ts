@@ -8,7 +8,7 @@ export class AuthService {
 
   private port = 3000;
 
-  private apiUrl = 'http://localhost:3000/'
+  private apiUrl = 'http://localhost:3000/auth'
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 }
