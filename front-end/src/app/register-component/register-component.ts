@@ -4,8 +4,7 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { AuthService } from '../services/auth/auth.service';
 
-
-interface RegisterData {
+export interface RegisterData {
 
   firstName: string,
   lastName: string,

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 
-
 interface RegisterData {
 
   firstName: string,
@@ -9,12 +8,10 @@ interface RegisterData {
   phoneNumber: string,
   password: string,
   confirmedPassword: string,
-  address: {
-    street: string,
-    city: string,
-    zipCode: string,
-    country: string,
-  },
+  street: string,
+  city: string,
+  zipCode: string,
+  country: string,
   conditions: boolean,
   newsletter: boolean
 }
@@ -25,8 +22,6 @@ interface RegisterData {
 })
 
 export class AuthService {
-
-  private port = 3000;
 
   private apiUrl = 'http://localhost:3000/users'
 
