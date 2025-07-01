@@ -33,6 +33,15 @@ model User {
   password  String
   firstName String
   lastName  String
+  phoneNumber String
+
+  city String
+  street String
+  zipCode String
+  country String
+  
+  conditions Boolean
+  newsletter Boolean?
   createdAt DateTime @default(now())
   role      UserRole @default(CUSTOMER)
 

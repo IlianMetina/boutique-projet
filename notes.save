@@ -12,3 +12,5 @@ Vu que ma page inscription et connexion sont les memes sauf pour
 
 Ne pas laisser synchronize: true (app.ts), ça peut détruire les données. 
 Utiliser des migrations (typeorm migration:create).
+
+Modifier le cors pour autoriser que certaines choses et pas tout ?
