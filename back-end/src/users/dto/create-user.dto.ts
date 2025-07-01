@@ -1,16 +1,13 @@
 export class CreateUserDto {
-
   firstName: string;
   lastName: string;
   email: string;
   phoneNumber: string;
   password: string;
-  confirmedPassword: string;
-  city: String;
-  street: String;
-  zipCode: String;
-  country: String; 
+  city: string;
+  street: string;
+  zipCode: string;
+  country: string;
   conditions: boolean;
   newsletter: boolean;
 }
-

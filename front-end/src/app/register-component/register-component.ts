@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { Validators } from '@angular/forms';
 import { AuthService } from '../services/auth/auth.service';
+import { Validators } from '@angular/forms';
 
 export interface RegisterData {
 
@@ -12,10 +12,10 @@ export interface RegisterData {
   phoneNumber: string,
   password: string,
   confirmedPassword: string,
-  street: string,
   city: string,
   zipCode: string,
-  country: string 
+  country: string,
+  street: string,
   conditions: boolean,
   newsletter: boolean
 }
@@ -29,63 +29,56 @@ export interface RegisterData {
 
 export class RegisterComponent {
 
-  constructor(private authService: AuthService){}
-
-   myForm = new FormGroup({
-      firstname: new FormControl(''),
-      lastname: new FormControl(''),
-      email: new FormControl(''),
-      phoneNumber: new FormControl(''),
-      password: new FormControl(''),
-      confirmedPassword: new FormControl(''),
-      address: new FormControl(''),
-      city: new FormControl(''),
-      zipCode: new FormControl(''),
-      country: new FormControl(''),
-      conditions: new FormControl(false),
-      newsletter: new FormControl(false)
+  myForm = new FormGroup({
+    firstName: new FormControl(''),
+    lastName: new FormControl(''),
+    email: new FormControl(''),
+    phoneNumber: new FormControl(''),
+    password: new FormControl(''),
+    confirmedPassword: new FormControl(''),
+    address: new FormControl(''),
+    city: new FormControl(''),
+    zipCode: new FormControl(''),
+    country: new FormControl(''),
+    conditions: new FormControl(false),
+    newsletter: new FormControl(false)
   })
 
-  
-  onSubmit(): void {
+  constructor(private authService: AuthService){}
 
-    const formValue = this.myForm.value;
-    
-    const registerData: RegisterData = {
-      
-      firstName: formValue.firstname ?? '',
-      lastName: formValue.lastname ?? '',
-      email: formValue.email ?? '',
-      phoneNumber: formValue.phoneNumber ?? '',
-      password: formValue.password ?? '',
-      confirmedPassword: formValue.confirmedPassword ?? '',
-      street: formValue.address ?? '',
-      city: formValue.city ?? '',
-      zipCode: formValue.zipCode ?? '',
-      country: formValue.country ?? '',
-      conditions: formValue.conditions ?? false,
-      newsletter: formValue.newsletter ?? false
+  onSubmit(): void  {
+
+    if (this.myForm.invalid) {
+      console.error("Form is invalid");
+      return;
     }
 
-    
-    this.authService.postData(registerData).then((response)=> {
-      
-      console.log("Statut de la réponse : ", response);
-    })
-    
+    if (this.myForm.value.password !== this.myForm.value.confirmedPassword) {
+      console.error("Passwords do not match");
+      return;
+    }
+
+    const registerUser: RegisterData = {
+      firstName: this.myForm.value.firstName || '',
+      lastName: this.myForm.value.lastName || '',
+      email: this.myForm.value.email || '',
+      phoneNumber: this.myForm.value.phoneNumber || '',
+      password: this.myForm.value.password || '',
+      confirmedPassword: this.myForm.value.confirmedPassword || '',
+      street: this.myForm.value.address || '',
+      city: this.myForm.value.city || '',
+      zipCode: this.myForm.value.zipCode || '',
+      country: this.myForm.value.country || '',
+      conditions: this.myForm.value.conditions || false,
+      newsletter: this.myForm.value.newsletter || false
+    }
+
+    this.authService.postData(registerUser).then((response) => {
+      console.log("User registered successfully", response);
+      this.myForm.reset();
+    }).catch((error) => {
+      console.error("Error registering user", error);
+    });
   }
 
 }
-
-    // console.log("logs email : " + this.myForm.value.email)
-    // console.log("logs nom de famille : " + this.myForm.value.lastname)
-    // console.log("logs prénom : " + this.myForm.value.firstname)
-    // console.log("logs téléphone : " + this.myForm.value.phoneNumber)
-    // console.log("logs password : " + this.myForm.value.password)
-    // console.log("logs confirmedPassword : " + this.myForm.value.confirmedPassword)
-    // console.log("logs address : " + this.myForm.value.address)
-    // console.log("logs city : " + this.myForm.value.city)
-    // console.log("logs zipCode : " + this.myForm.value.zipCode)
-    // console.log("logs country : " + this.myForm.value.country)
-    // console.log("logs conditions : " + this.myForm.value.conditions)
-    // console.log("logs newsletter : " + this.myForm.value.newsletter)

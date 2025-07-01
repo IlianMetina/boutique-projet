@@ -1,6 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { UsersService } from './users.service';
-import { Prisma } from '@prisma/client';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
@@ -12,7 +19,7 @@ export class UsersController {
 
   @Post()
   async create(@Body() createUserDto: CreateUserDto) {
-    console.log("create users : " + createUserDto);
+    console.log('create users : ', createUserDto);
     return this.usersService.create(createUserDto);
   }
 
@@ -35,5 +42,4 @@ export class UsersController {
   async remove(@Param('id') id: string) {
     return this.usersService.remove(+id);
   }
-
 }

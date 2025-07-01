@@ -1,28 +1,30 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Body, Patch, Param, Delete } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Prisma } from '@prisma/client';
+import { User } from 'generated/prisma';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Get()
-  async findAll() {
+  async findAll(): Promise<User[]> {
     return this.authService.findAll();
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string) {
+  async findOne(@Param('id') id: string): Promise<User> {
     return this.authService.findOne(+id);
   }
 
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() updateAuthDto: Prisma.UserUpdateInput) {
-    return this.authService.update(+id, updateAuthDto);
+  // eslint-disable-next-line prettier/prettier
+  async update(@Param('id') id: string, @Body() updateAuthDto: Prisma.UserUpdateInput): Promise<User> {
+    return await this.authService.update(+id, updateAuthDto);
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: string) {
+  async remove(@Param('id') id: string): Promise<User> {
     return this.authService.remove(+id);
   }
 }
