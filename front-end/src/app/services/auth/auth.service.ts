@@ -7,7 +7,7 @@ interface RegisterData {
   email: string,
   phoneNumber: string,
   password: string,
-  confirmedPassword: string,
+  confirmedPassword?: string,
   street: string,
   city: string,
   zipCode: string,
