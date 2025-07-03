@@ -15,7 +15,38 @@ Utiliser des migrations (typeorm migration:create).
 
 Modifier le cors pour autoriser que certaines choses et pas tout ?
 
-                            ------------------------ IMPORTANT ----------------------
+
+Faire en sorte de vérifier le responsive tablettes/téléphone notamment pour la page login/register (surtout tablette, 800x800)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        ------------------------ IMPORTANT ----------------------
 
 Voici une analyse et une justification pour structurer correctement ton code :
 

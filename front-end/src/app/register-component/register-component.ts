@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../services/auth/auth.service';
-import { Validators } from '@angular/forms';
 
 export interface RegisterData {
 
