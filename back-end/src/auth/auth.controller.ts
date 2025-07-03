@@ -1,10 +1,18 @@
-import { Controller, Get, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Body, Patch, Param, Delete, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Prisma, User } from '@prisma/client';
+import { ConnectAuthDto } from './dto/connect-auth.dto';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
+
+  @Post()
+  async connect(@Body() connectAuthDto: ConnectAuthDto) {
+
+    
+
+  }
 
   @Get()
   async findAll(): Promise<User[]> {

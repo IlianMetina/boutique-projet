@@ -10,6 +10,7 @@ import {
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { CheckLogsDto } from './dto/check-logs.dto';
 
 @Controller('users')
 export class UsersController {
@@ -50,5 +51,18 @@ export class UsersController {
   @Delete(':id')
   async remove(@Param('id') id: string) {
     return this.usersService.remove(+id);
+  }
+
+  @Post('login')
+  async login(@Body() checkLogsDto: CheckLogsDto): Promise<boolean> {
+
+    const isValid = await this.usersService.isPasswordCorrect(checkLogsDto)
+
+    if(isValid){
+
+      return {}
+    }
+  
+
   }
 }
