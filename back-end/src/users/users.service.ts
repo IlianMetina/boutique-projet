@@ -4,11 +4,12 @@ import { PrismaService } from 'prisma/prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './entities/user.entity';
 import { CheckLogsDto } from './dto/check-logs.dto';
+import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService, private readonly jwtService: JwtService) {}
 
   async create(createUserDto: CreateUserDto) {
     console.log('createdUserDTO = : ' + createUserDto.firstName);
@@ -78,6 +79,13 @@ export class UsersService {
 
     return await bcrypt.compare(checkLogsDto.password, user.password);
 
+  }
+
+  async generateJwt(email: string, userID: number): Promise<string> {
+
+    const payload = { email, sub: userID};
+
+    return this.jwtService.sign(payload);
   }
 
 }

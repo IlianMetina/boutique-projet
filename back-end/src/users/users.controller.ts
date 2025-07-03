@@ -54,13 +54,16 @@ export class UsersController {
   }
 
   @Post('login')
-  async login(@Body() checkLogsDto: CheckLogsDto): Promise<boolean> {
+  async login(@Body() checkLogsDto: CheckLogsDto): Promise<{success: boolean}> {
 
     const isValid = await this.usersService.isPasswordCorrect(checkLogsDto)
 
     if(isValid){
 
-      return {}
+      return {success: true}
+    }else {
+
+      return {success: false}
     }
   
 
