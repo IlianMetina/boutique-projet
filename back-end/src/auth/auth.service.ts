@@ -3,6 +3,7 @@ import { User } from '@prisma/client';
 import { ConnectAuthDto } from './dto/connect-auth.dto';
 import { UpdateAuthDto } from './dto/update-auth.dto';
 import { PrismaService } from 'prisma/prisma.service';
+import { UsersService } from 'src/users/users.service';
 
 @Injectable()
 export class AuthService {
@@ -11,7 +12,7 @@ export class AuthService {
 
   async connect(connectAuthDto: ConnectAuthDto) {
 
-      
+  
   }
 
   async findAll(): Promise<User[]> {
