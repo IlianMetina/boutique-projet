@@ -19,8 +19,17 @@ export class UsersController {
 
   @Post()
   async create(@Body() createUserDto: CreateUserDto) {
-    console.log('create users : ', createUserDto);
-    return this.usersService.create(createUserDto);
+
+    if(createUserDto.checkPassword()){
+
+      console.log('create users : ', createUserDto);
+      return this.usersService.create(createUserDto);
+
+    }else {
+
+      return;
+    }
+
   }
 
   @Get()

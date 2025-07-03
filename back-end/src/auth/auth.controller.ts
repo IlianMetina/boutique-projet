@@ -1,7 +1,6 @@
 import { Controller, Get, Body, Patch, Param, Delete } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { Prisma } from '@prisma/client';
-import { User } from 'generated/prisma';
+import { Prisma, User } from '@prisma/client';
 
 @Controller('auth')
 export class AuthController {
