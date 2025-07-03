@@ -77,6 +77,7 @@ export class User {
 
     setPassword(password: string): User{
 
+        
         this.password = password;
         return this;
 
