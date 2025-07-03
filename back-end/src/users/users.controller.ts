@@ -25,13 +25,17 @@ export class UsersController {
     if(createUserDto.checkPassword()){
 
       console.log('create users : ', createUserDto);
+
+      const hashedPassword = await this.usersService.hashPassword(createUserDto.password);
+
+      console.log("Mot de passe hashé : " + hashedPassword);
+
       return this.usersService.create(createUserDto);
 
     }else {
 
       return;
     }
-
   }
 
   @Get()
@@ -55,18 +59,18 @@ export class UsersController {
   }
 
   @Post('login')
-  async login(@Body() checkLogsDto: CheckLogsDto): Promise<{success: boolean, token: Jwt}> {
+  async login(@Body() checkLogsDto: CheckLogsDto): Promise<{success: boolean}> { // Rajouter token: jwt après success: boolean
 
     const isValid = await this.usersService.isPasswordCorrect(checkLogsDto)
 
     if(isValid){
 
-      // Créer le token jwt et le return ?
+      // Créer le token jwt et le return ? Puis isPlateformBrowser == true, cookies.set(token) ? LoginComponent
       return {success: true}
 
     }else {
 
-      return {success: false, token: }
+      return {success: false}
     }
 
 

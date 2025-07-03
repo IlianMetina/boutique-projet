@@ -1,11 +1,13 @@
 import { Injectable } from '@nestjs/common';
-import { Prisma, PrismaClient, User } from '@prisma/client';
+import { User } from '@prisma/client';
 import { ConnectAuthDto } from './dto/connect-auth.dto';
+import { UpdateAuthDto } from './dto/update-auth.dto';
+import { PrismaService } from 'prisma/prisma.service';
 
 @Injectable()
 export class AuthService {
 
-  constructor(private readonly prisma: PrismaClient){}
+  constructor(private readonly prisma: PrismaService){}
 
   async connect(connectAuthDto: ConnectAuthDto) {
 
@@ -22,7 +24,7 @@ export class AuthService {
 
   async update(
     id: number,
-    updateAuthDto: Prisma.UserUpdateInput,
+    updateAuthDto: UpdateAuthDto,
   ): Promise<User> {
     return this.update(id, updateAuthDto);
   }
