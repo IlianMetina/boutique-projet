@@ -11,6 +11,7 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { CheckLogsDto } from './dto/check-logs.dto';
+import { Jwt } from 'jsonwebtoken';
 
 @Controller('users')
 export class UsersController {
@@ -54,18 +55,20 @@ export class UsersController {
   }
 
   @Post('login')
-  async login(@Body() checkLogsDto: CheckLogsDto): Promise<{success: boolean}> {
+  async login(@Body() checkLogsDto: CheckLogsDto): Promise<{success: boolean, token: Jwt}> {
 
     const isValid = await this.usersService.isPasswordCorrect(checkLogsDto)
 
     if(isValid){
 
+      // Créer le token jwt et le return ?
       return {success: true}
+
     }else {
 
-      return {success: false}
+      return {success: false, token: }
     }
-  
+
 
   }
 }
