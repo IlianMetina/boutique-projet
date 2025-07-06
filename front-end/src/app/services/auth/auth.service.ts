@@ -1,4 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { CookieService } from 'ngx-cookie-service';
 
 interface RegisterData {
 
@@ -16,6 +18,17 @@ interface RegisterData {
   newsletter: boolean
 }
 
+interface Login {
+
+  email: string;
+  password: string;
+}
+
+interface LoginResponse {
+
+  success: string;
+  token: string;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -23,13 +36,30 @@ interface RegisterData {
 
 export class AuthService {
 
-  private apiUrl = 'http://localhost:3000/users'
+  private usersUrl = 'http://localhost:3000/users/register';
+  private loginUrl = 'http://localhost:3000/users/login';
+  private platformID = inject(PLATFORM_ID);
 
-  constructor() {}
+  constructor(private cookieService: CookieService) {}
 
-  async postData(data: RegisterData): Promise<{status: string}>{
+  async register(data: RegisterData): Promise<{status: string}>{
 
-    const response = fetch(this.apiUrl, {
+    const response = fetch(this.usersUrl, {
+      method: "POST",
+      headers: { 
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data),
+    })
+
+    const status = (await response).json();
+
+    return status;
+  }
+
+   async connect(data: Login): Promise<LoginResponse> {
+
+    const response = await fetch(this.loginUrl, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -37,7 +67,27 @@ export class AuthService {
       body: JSON.stringify(data),
     })
 
-    const status = (await response).json();
+    const status = await response.json();
+  
+    if(!status.token){
+      
+      throw new Error('Token manquant dans la réponse');
+    }
+
+    const token = status.token;
+    
+    if(isPlatformBrowser(this.platformID)){
+
+      this.cookieService.set('token', token, {
+        expires: 10,
+        path: '/',
+        secure: true,
+        sameSite: 'Lax',
+      });
+    }
+
+    console.log('Status de la connexion : ', status);
+    console.log("Token reçu : ", status.token);
 
     return status;
   }

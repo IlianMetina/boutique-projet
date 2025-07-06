@@ -62,6 +62,7 @@ export class RegisterComponent {
       lastName: this.myForm.value.lastName || '',
       email: this.myForm.value.email || '',
       phoneNumber: this.myForm.value.phoneNumber || '',
+      confirmedPassword: this.myForm.value.confirmedPassword || '',
       password: this.myForm.value.password || '',
       street: this.myForm.value.street || '',
       city: this.myForm.value.city || '',
@@ -71,7 +72,9 @@ export class RegisterComponent {
       newsletter: this.myForm.value.newsletter || false
     }
 
-    this.authService.postData(registerUser).then((response) => {
+    console.log("Registering user:", registerUser);
+
+    this.authService.register(registerUser).then((response) => {
       console.log("User registered successfully", response);
       this.myForm.reset();
     }).catch((error) => {

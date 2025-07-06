@@ -6,13 +6,12 @@ import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
-
     JwtModule.register({
       secret: 'FalseSecretKey123',
-      signOptions: { expiresIn: '24h'},
+      signOptions: { expiresIn: '24h' },
     }),
   ],
-  
+
   controllers: [AuthController],
   providers: [AuthService, PrismaService],
 })

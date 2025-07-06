@@ -1,5 +1,12 @@
 import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
+import { AuthService } from '../services/auth/auth.service';
+
+interface Login {
+
+  email: string;
+  password: string;
+}
 
 @Component({
   selector: 'app-login-component',
@@ -9,16 +16,23 @@ import { FormsModule, NgForm } from '@angular/forms';
 })
 export class LoginComponent {
 
+  constructor(private authService: AuthService){}
+
   onSubmit(form: NgForm): void {
 
     if(form.valid){
 
       console.log(form.value);
 
-      const userEmail = form.value.email;
-      const userPassword = form.value.password;
+      const userInfos: Login = { 
+        email: form.value.email,
+        password: form.value.password,
+      }
 
-      console.log(userEmail, userPassword);
+      const token = this.authService.connect(userInfos);
+      console.log(token);
+      
+      console.log(userInfos);
     }
   }
 

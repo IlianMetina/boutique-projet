@@ -17,17 +17,17 @@ export class UsersService {
 
     const passwordHashed = this.hashPassword(createUserDto.password);
 
-    user.setEmail(createUserDto.email)
-        .setPassword(await passwordHashed)
-        .setFirstName(createUserDto.firstName)
-        .setLastName(createUserDto.lastName)
-        .setPhoneNumber(createUserDto.phoneNumber)
-        .setCity(createUserDto.city)
-        .setStreet(createUserDto.street)
-        .setZipCode(createUserDto.zipCode)
-        .setCountry(createUserDto.country)
-        .setConditions(createUserDto.conditions)
-        .setNewsletter(createUserDto.newsletter);
+    user.setEmail(createUserDto.email);
+    user.setPassword(await passwordHashed);
+    user.setFirstName(createUserDto.firstName);
+    user.setLastName(createUserDto.lastName);
+    user.setPhoneNumber(createUserDto.phoneNumber);
+    user.setCity(createUserDto.city);
+    user.setStreet(createUserDto.street);
+    user.setZipCode(createUserDto.zipCode);
+    user.setCountry(createUserDto.country);
+    user.setConditions(createUserDto.conditions);
+    user.setNewsletter(createUserDto.newsletter);
 
     return this.prisma.user.create({
       data: user,
@@ -55,29 +55,22 @@ export class UsersService {
     });
   }
 
-  async hashPassword(password: string) {
-
-    const bcrypt = require('bcrypt');
-    const saltRounds = 10;
+  hashPassword(password: string): Promise<string> {
+    const saltRounds: number = 10;
 
     return bcrypt.hash(password, saltRounds);
   }
 
   async isPasswordCorrect(checkLogsDto: CheckLogsDto): Promise<boolean> {
-
     const user = await this.prisma.user.findUnique({
-
-      where: {email: checkLogsDto.email},
-      select: {password: true},
+      where: { email: checkLogsDto.email },
+      select: { password: true },
     });
 
-    if(!user){
-
+    if (!user) {
       return false;
     }
 
     return await bcrypt.compare(checkLogsDto.password, user.password);
-
   }
-
 }

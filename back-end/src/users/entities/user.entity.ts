@@ -1,157 +1,122 @@
 export class User {
+  username: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  password: string;
+  city: string;
+  street: string;
+  zipCode: string;
+  country: string;
+  conditions: boolean;
+  newsletter: boolean;
 
-    username: string;
-    firstName: string;
-    lastName: string;
-    email: string;
-    phoneNumber: string;
-    password: string;
-    city: string;
-    street: string;
-    zipCode: string;
-    country: string;
-    conditions: boolean;
-    newsletter: boolean;
+  getUsername(): string {
+    return this.username;
+  }
 
-    getUsername(): string {
-        return this.username;
-    }
+  setUsername(username: string): User {
+    this.username = username;
+    return this;
+  }
 
-    setUsername(username: string): User {
-        this.username = username;
-        return this;
-    }
+  getFirstName(): string {
+    return this.firstName;
+  }
 
-    getFirstName(): string {
+  setFirstName(firstName: string): User {
+    this.firstName = firstName;
+    return this;
+  }
 
-        return this.firstName;
-    }
+  getLastName(): string {
+    return this.lastName;
+  }
 
-    setFirstName(firstName: string): User{
+  setLastName(lastName: string): User {
+    this.lastName = lastName;
+    return this;
+  }
 
-        this.firstName = firstName;
-        return this;
+  getEmail(): string {
+    return this.email;
+  }
 
-    }
+  setEmail(email: string): User {
+    this.email = email;
+    return this;
+  }
 
-    getLastName(): string{
+  getPhoneNumber(): string {
+    return this.phoneNumber;
+  }
 
-        return this.lastName;
-    }
+  setPhoneNumber(phoneNumber: string): User {
+    this.phoneNumber = phoneNumber;
+    return this;
+  }
 
-    setLastName(lastName: string): User{
+  getPassword(): string {
+    return this.password;
+  }
 
-        this.lastName = lastName;
-        return this;
+  setPassword(password: string): User {
+    this.password = password;
+    return this;
+  }
 
-    }
+  getCity(): string {
+    return this.city;
+  }
 
-    getEmail(): string{
+  setCity(city: string): User {
+    this.city = city;
+    return this;
+  }
 
-        return this.email;
-    }
+  getStreet(): string {
+    return this.street;
+  }
 
-    setEmail(email: string) : User{
+  setStreet(street: string): User {
+    this.street = street;
+    return this;
+  }
 
-        this.email = email;
-        return this;
+  getZipCode(): string {
+    return this.zipCode;
+  }
 
-    }
+  setZipCode(zipCode: string): User {
+    this.zipCode = zipCode;
+    return this;
+  }
 
-    getPhoneNumber() : string{
+  getCountry(): string {
+    return this.country;
+  }
 
-        return this.phoneNumber;
-    }
+  setCountry(country: string): User {
+    this.country = country;
+    return this;
+  }
 
-    setPhoneNumber(phoneNumber: string): User{
+  getConditions(): boolean {
+    return this.conditions;
+  }
 
-        this.phoneNumber = phoneNumber;
-        return this;
+  setConditions(conditions: boolean): User {
+    this.conditions = conditions;
+    return this;
+  }
 
-    }
+  getNewsletter(): boolean {
+    return this.newsletter;
+  }
 
-    getPassword(): string{
-
-        return this.password;
-    }
-
-    setPassword(password: string): User{
-
-        
-        this.password = password;
-        return this;
-
-    }
-
-    getCity(): string {
-
-        return this.city;
-    }
-
-    setCity(city: string): User{
-
-        this.city = city; 
-        return this;
-
-    }
-
-    getStreet(): string {
-
-        return this.street;
-    }
-
-    setStreet(street: string): User{
-
-        this.street = street;
-        return this;
-
-    }
-
-    getZipCode(): string {
-
-        return this.zipCode;
-    }
-
-    setZipCode(zipCode:string): User {
-
-        this.zipCode = zipCode;
-        return this;
-
-    }
-
-    getCountry(): string {
-
-        return this.country;
-    }
-
-    setCountry(country: string): User {
-
-        this.country = country;
-        return this;
-
-    }
-    
-    getConditions(): boolean {
-
-        return this.conditions;
-    }
-
-    setConditions(conditions: boolean): User {
-
-        this.conditions = conditions;
-        return this;
-
-    }
-
-    getNewsletter(): boolean {
-
-        return this.newsletter;
-    }
-
-    setNewsletter(newsletter: boolean): User {
-
-        this.newsletter = newsletter;
-        return this;
-
-    }
+  setNewsletter(newsletter: boolean): User {
+    this.newsletter = newsletter;
+    return this;
+  }
 }

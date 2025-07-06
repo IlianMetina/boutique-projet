@@ -12,15 +12,11 @@ export class CreateUserDto {
   conditions: boolean;
   newsletter: boolean;
 
-  checkPassword(){
-
+  checkPassword() {
     // Check si this.password && this.confirmedPassword not null
     if (this.password == this.confirmedPassword) {
-
       return true;
-      
-    }else {
-
+    } else {
       return false;
     }
   }
