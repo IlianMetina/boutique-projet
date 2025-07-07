@@ -5,7 +5,7 @@
         <div class="menu-infos">
             <!-- Logo -->
             <div class="logo">
-                <a href="#"><img src="logo.png" alt="Logo Workhaus" class="main-logo" /></a>
+                <a routerLink="/"><img src="logo.png" alt="Logo Workhaus" class="main-logo" /></a>
             </div>
 
             <!-- Barre de recherche -->
@@ -16,12 +16,12 @@
             <!-- Infos rapides -->
             <div class="info-icons">
                 <div class="info-item">
-                    <i class="fas fa-info-circle" style="font-size: 24px;color: rgb(4, 185, 4);"></i>
+                    <a routerLink="a-propos"><i class="fas fa-info-circle" style="font-size: 24px;color: rgb(4, 185, 4);"></i></a>
                     <p>À propos</p>
                 </div>
                 <div class="info-item">
-                    <i class="fas fa-user-alt" style="font-size: 24px; color: rgb(113, 113, 255);"></i>
-                    <p><a routerLink="/login">Se connecter</a></p>
+                    <a routerLink="/login"><i class="fas fa-user-alt" style="font-size: 24px; color: rgb(113, 113, 255);"></i></a>
+                    <p>Se connecter</p>
                 </div>
                 <div class="info-item">
                     <i class="fas fa-heart" style="font-size: 24px; color: rgb(221, 22, 22);"></i>
