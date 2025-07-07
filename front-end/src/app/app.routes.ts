@@ -21,5 +21,6 @@ export const routes: Routes = [
   { path: 'rangements', component: RangementsComponent },
   { path: 'tech', component: GadgetsComponent },
   { path: 'tables', component: TablesComponent },
-  { path: 'sieges-fauteils', component: SiegesComponent },
+  { path: 'sieges-fauteuils', component: SiegesComponent },
+  // { path: 'admin', component: AdminComponent}
 ];

@@ -6,41 +6,20 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { CheckLogsDto } from './dto/check-logs.dto';
-import { User } from 'generated/prisma';
-import { AuthService } from 'src/auth/auth.service';
+import { User } from '@prisma/client';
+import { UserDto } from './dto/user.dto';
+import { AuthGuard } from 'src/auth/auth.guard';
 
 @Controller('users')
 export class UsersController {
   // The UsersController is responsible for handling HTTP requests related to users.
   // It uses the UsersService to perform operations on user data.
-  constructor(
-    private readonly usersService: UsersService,
-    private readonly authService: AuthService,
-  ) {}
-
-  @Post('login')
-  async login(
-    @Body() checkLogsDto: CheckLogsDto,
-  ): Promise<{ success: boolean; token: string }> {
-    // Rajouter token: jwt après success: boolean
-
-    const isValid = await this.usersService.isPasswordCorrect(checkLogsDto);
-    console.log(isValid ? 'Mot de passe correct' : 'Mot de passe incorrect');
-
-    if (isValid) {
-      // Créer le token jwt et le return ? Puis isPlateformBrowser == true, cookies.set(token) ? LoginComponent
-      const token = await this.authService.generateJwt(checkLogsDto.email, 1);
-      console.log('Token généré avec succès : ', token);
-      return { success: true, token: token };
-    } else {
-      throw new Error('!!! Identifiants incorrects !!!');
-    }
-  }
+  constructor(private readonly usersService: UsersService,) {}
 
   @Post('register')
   async create(@Body() createUserDto: CreateUserDto): Promise<User | void> {
@@ -67,12 +46,13 @@ export class UsersController {
   }
 
   @Get('all')
-  async findAll(): Promise<User[]> {
+  @UseGuards(AuthGuard)
+  async findAll(): Promise<UserDto[]> {
     return this.usersService.findAll();
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string): Promise<User | null> {
+  async findOne(@Param('id') id: string): Promise<UserDto | null> {
     return this.usersService.findOne(+id);
   }
 

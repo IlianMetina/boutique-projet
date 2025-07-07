@@ -37,8 +37,9 @@ interface LoginResponse {
 export class AuthService {
 
   private usersUrl = 'http://localhost:3000/users/register';
-  private loginUrl = 'http://localhost:3000/users/login';
+  private loginUrl = 'http://localhost:3000/auth/login';
   private platformID = inject(PLATFORM_ID);
+  private isAuthenticated = false;
 
   constructor(private cookieService: CookieService) {}
 
@@ -49,15 +50,16 @@ export class AuthService {
       headers: { 
         "Content-Type": "application/json"
       },
+
       body: JSON.stringify(data),
-    })
+    });
 
     const status = (await response).json();
 
     return status;
   }
 
-   async connect(data: Login): Promise<LoginResponse> {
+  async connect(data: Login): Promise<LoginResponse> {
 
     const response = await fetch(this.loginUrl, {
       method: "POST",
@@ -91,4 +93,5 @@ export class AuthService {
 
     return status;
   }
+
 }

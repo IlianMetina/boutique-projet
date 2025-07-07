@@ -5,6 +5,23 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './entities/user.entity';
 import { CheckLogsDto } from './dto/check-logs.dto';
 import * as bcrypt from 'bcrypt';
+import { User as PrismaUser, UserRole } from '@prisma/client';
+
+type UserWithoutPassword = {
+
+  id: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  city: string;
+  street: string;
+  zipCode: string;
+  country: string;
+  conditions: boolean;
+  newsletter: boolean | null;
+  role: UserRole;
+}
 
 @Injectable()
 export class UsersService {
@@ -35,11 +52,60 @@ export class UsersService {
   }
 
   async findAll() {
-    return this.prisma.user.findMany();
+    
+    return this.prisma.user.findMany({ select: {
+
+      id: true,
+      firstName: true,
+      lastName: true,
+      email: true,
+      phoneNumber: true,
+      city: true,
+      street: true,
+      zipCode: true,
+      country: true,
+      conditions: true,
+      newsletter: true,
+      role: true,
+
+    } });
   }
 
   async findOne(id: number) {
-    return this.prisma.user.findUnique({ where: { id } });
+    return this.prisma.user.findUnique({ where: { id }, select: {
+      id: true,
+      firstName: true,
+      lastName: true,
+      email: true,
+      phoneNumber: true,
+      city: true,
+      street: true,
+      zipCode: true,
+      country: true,
+      conditions: true,
+      newsletter: true,
+      role: true,
+    }});
+  }
+
+  async findByEmail(email: string){
+
+    return this.prisma.user.findUnique({where: {email}, select: {
+
+      id: true,
+      firstName: true,
+      lastName: true,
+      email: true,
+      phoneNumber: true,
+      city: true,
+      street: true,
+      zipCode: true,
+      country: true,
+      conditions: true,
+      newsletter: true,
+      role: true,
+
+    }});
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
@@ -55,10 +121,16 @@ export class UsersService {
     });
   }
 
-  hashPassword(password: string): Promise<string> {
+  async hashPassword(password: string): Promise<string> {
     const saltRounds: number = 10;
 
     return bcrypt.hash(password, saltRounds);
+  }
+
+  async isUserExists(email: string): Promise<UserWithoutPassword | null>{
+
+    return this.findByEmail(email);
+
   }
 
   async isPasswordCorrect(checkLogsDto: CheckLogsDto): Promise<boolean> {

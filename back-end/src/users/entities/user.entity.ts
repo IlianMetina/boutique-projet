@@ -1,5 +1,4 @@
 export class User {
-  username: string;
   firstName: string;
   lastName: string;
   email: string;
@@ -11,15 +10,6 @@ export class User {
   country: string;
   conditions: boolean;
   newsletter: boolean;
-
-  getUsername(): string {
-    return this.username;
-  }
-
-  setUsername(username: string): User {
-    this.username = username;
-    return this;
-  }
 
   getFirstName(): string {
     return this.firstName;

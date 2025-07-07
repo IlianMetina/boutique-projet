@@ -1,41 +1,27 @@
-/* eslint-disable @typescript-eslint/require-await */
 import { Injectable } from '@nestjs/common';
-import { User } from '@prisma/client';
-import { UpdateAuthDto } from './dto/update-auth.dto';
 import { PrismaService } from 'prisma/prisma.service';
 import { Jwt } from 'jsonwebtoken';
 import { JwtService } from '@nestjs/jwt';
+import { UsersService } from 'src/users/users.service';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly jwtService: JwtService,
+    private readonly userService: UsersService,
   ) {}
 
-  async checkJwt(token: Jwt) {
-    // Check le jwt en le comparant à celui qui serait stocké en BDD, ou le stocké seulement dans les cookies et le récupérer pour le comparer ?
-  }
-
-  async generateJwt(email: string, userID: number): Promise<string> {
-    const payload = { email, sub: userID };
+  async generateJwt(email: string, userID: number, role: string): Promise<string> {
+    const payload = { email, sub: userID, role };
 
     return this.jwtService.sign(payload);
   }
 
-  async findAll(): Promise<User[]> {
-    return this.findAll();
-  }
+  // async checkJWT(token: Jwt): Promise<boolean> {
 
-  async findOne(id: number): Promise<User> {
-    return this.findOne(id);
-  }
 
-  async update(id: number, updateAuthDto: UpdateAuthDto): Promise<User> {
-    return this.update(id, updateAuthDto);
-  }
 
-  async remove(id: number): Promise<User> {
-    return this.remove(id);
-  }
+  //   return true;
+  // }
 }

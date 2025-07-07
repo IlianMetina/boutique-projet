@@ -1,16 +1,18 @@
-export class CreateUserDto {
-  
+import { UserRole } from "@prisma/client";
+
+export class UserDto {
+
+  id: number;
   firstName: string;
   lastName: string;
   email: string;
   phoneNumber: string;
-  password: string;
-  confirmedPassword?: string;
   city: string;
   street: string;
   zipCode: string;
   country: string;
   conditions: boolean;
-  newsletter: boolean;
+  newsletter: boolean | null;
+  role: UserRole;
 
 }

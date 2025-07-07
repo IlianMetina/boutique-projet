@@ -18,7 +18,14 @@ Modifier le cors pour autoriser que certaines choses et pas tout ?
 
 Faire en sorte de vérifier le responsive tablettes/téléphone notamment pour la page login/register (surtout tablette, 800x800)
 
+Routes à protéger backend : 
 
+/account
+/my-orders
+/payment
+/addresses ?
+/checkout
+/products/avis ?
 
 
 

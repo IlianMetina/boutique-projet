@@ -7,6 +7,7 @@ interface Product {
   description: string;
 }
 
+
 interface ICart {
   items: Product[];
 }
@@ -34,7 +35,9 @@ const testProduit: Product[] = [
   },
 ];
 
-class CartItem implements Product {
+class CartItem{
+
+
   id: number;
   name: string;
   price: number;
@@ -42,6 +45,7 @@ class CartItem implements Product {
   description: string;
 
   constructor(product: Product, quantity: number) {
+    
     this.id = product.id;
     this.name = product.name;
     this.price = product.price;

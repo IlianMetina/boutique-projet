@@ -10,6 +10,7 @@ import { FooterComponent } from './footer-component/footer-component';
   imports: [RouterOutlet , HeaderComponent, FooterComponent],
   templateUrl: './app.html',
   styleUrl: './app.css'
+  
 })
 export class App {
   protected title = 'Workhaus meubles télétravail';

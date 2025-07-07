@@ -1,29 +1,38 @@
-import { Controller, Get, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Body, Patch, Param, Delete, Post, UnauthorizedException } from '@nestjs/common';
+import { UsersService } from 'src/users/users.service';
 import { AuthService } from './auth.service';
-import { Prisma, User } from '@prisma/client';
+import { CheckLogsDto } from 'src/users/dto/check-logs.dto';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(private readonly userService: UsersService, private readonly authService: AuthService) {}
 
-  @Get()
-  async findAll(): Promise<User[]> {
-    return this.authService.findAll();
+  @Post('login')
+  async login(
+    @Body() checkLogsDto: CheckLogsDto,
+  ): Promise<{ success: boolean; token: string }> {
+    // Rajouter token: jwt après success: boolean
+
+    const isValid = await this.userService.isPasswordCorrect(checkLogsDto);
+    console.log(isValid ? 'Mot de passe correct' : 'Mot de passe incorrect');
+
+    if (isValid) {
+
+      const user = await this.userService.isUserExists(checkLogsDto.email);
+
+      if(!user){
+
+        throw new UnauthorizedException('Utilisateur non trouvé');
+      }
+      
+      const token = await this.authService.generateJwt(checkLogsDto.email, user.id, user.role);
+      console.log('Token généré avec succès : ', token);
+      
+      return { success: true, token: token };
+    } else {
+      throw new UnauthorizedException('!!! Identifiants incorrects !!!');
+    }
   }
 
-  @Get(':id')
-  async findOne(@Param('id') id: string): Promise<User> {
-    return this.authService.findOne(+id);
-  }
 
-  @Patch(':id')
-  // eslint-disable-next-line prettier/prettier
-  async update(@Param('id') id: string, @Body() updateAuthDto: Prisma.UserUpdateInput): Promise<User> {
-    return await this.authService.update(+id, updateAuthDto);
-  }
-
-  @Delete(':id')
-  async remove(@Param('id') id: string): Promise<User> {
-    return this.authService.remove(+id);
-  }
 }
