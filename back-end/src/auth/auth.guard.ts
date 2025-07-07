@@ -20,9 +20,15 @@ export class AuthGuard implements CanActivate {
     }
 
     try{
+
       const payload = this.jwtService.verify(token);
-      request.user = payload;
-      return true;
+      if(payload){
+
+        request.user = payload;
+        return true;
+      }
+
+      throw new UnauthorizedException('Erreur récupération payload ?');
       
     }catch(err){
 
