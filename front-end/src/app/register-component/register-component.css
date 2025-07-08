@@ -52,6 +52,13 @@
     max-height: 800px;
 }
 
+.password-error{
+
+    color: red;
+    font-weight: 200;
+    font-size: 0.9em;
+}
+
 .brand {
     text-align: center;
     margin-bottom: 30px;

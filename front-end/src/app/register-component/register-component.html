@@ -61,7 +61,6 @@
                                 <div class="strength-bar"></div>
                                 <div class="strength-bar"></div>
                             </div>
-                            <span class="strength-text">Faible</span>
                         </div>
                     </div>
 
@@ -69,6 +68,11 @@
                         <label for="confirm-password">Confirmer le mot de passe *</label>
                         <input type="password" id="confirm-password" name="confirm-password" formControlName="confirmedPassword" required minlength="8">
                     </div>
+
+                    @if(myForm.errors?.['isMatching'] == false){
+                        <div class="password-error">Les mots de passe ne correspondent pas</div>
+                    }
+               
                 </div>
 
                 <!-- Adresse -->

@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors } from '@angular/forms';
 import { AuthService } from '../services/auth/auth.service';
+import { Validators } from '@angular/forms';
 
 export interface RegisterData {
 
@@ -19,6 +20,21 @@ export interface RegisterData {
   newsletter: boolean
 }
 
+function isPasswordMatch(group: AbstractControl): ValidationErrors | null{
+
+  const password = group.get('password')?.value;
+  const confirmedPassword = group.get('confirmedPassword')?.value;
+
+  if(password == confirmedPassword){
+
+    return null;
+  
+  }else{
+
+    return {isMatching: false};
+  }
+}
+
 @Component({
   selector: 'app-register-component',
   imports: [ReactiveFormsModule, CommonModule],
@@ -29,19 +45,54 @@ export interface RegisterData {
 export class RegisterComponent {
 
   myForm = new FormGroup({
-    firstName: new FormControl(''),
-    lastName: new FormControl(''),
-    email: new FormControl(''),
-    phoneNumber: new FormControl(''),
-    password: new FormControl(''),
-    confirmedPassword: new FormControl(''),
-    street: new FormControl(''),
-    city: new FormControl(''),
-    zipCode: new FormControl(''),
-    country: new FormControl(''),
-    conditions: new FormControl(false),
+    firstName: new FormControl('',[
+        Validators.required,
+        Validators.pattern(/^[A-Za-zÀ-ÿ\-'\s]{2,}$/),
+    ]),
+
+    lastName: new FormControl('', [
+        Validators.required,
+        Validators.pattern(/^[A-Za-zÀ-ÿ\-'\s]{2,}$/),
+    ]),
+
+    email: new FormControl('', [Validators.required, Validators.email]),
+
+    phoneNumber: new FormControl('', [
+      Validators.required, 
+      Validators.pattern(/^\+?[0-9]{7,15}$/),
+    ]),
+
+    password: new FormControl('', [
+      Validators.required,
+      Validators.minLength(8),
+      Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/),
+    ]),
+
+    confirmedPassword: new FormControl('', [Validators.required]),
+    street: new FormControl('', [
+      Validators.required,
+      Validators.pattern(/^[\wÀ-ÿ0-9\s\.,'\-]{3,}$/),
+    ]),
+
+    city: new FormControl('', [
+      Validators.required,
+      Validators.pattern(/^[A-Za-zÀ-ÿ\-'\s]{2,}$/),
+    ]),
+
+    zipCode: new FormControl('', [
+      Validators.required,
+      Validators.pattern(/^\d{5}$/),
+    ]),
+
+    country: new FormControl('', [
+      Validators.required,
+
+    ]),
+
+    conditions: new FormControl(false, [Validators.requiredTrue]),
     newsletter: new FormControl(false)
-  })
+
+  }, {validators: isPasswordMatch});
 
   constructor(private authService: AuthService){}
 
