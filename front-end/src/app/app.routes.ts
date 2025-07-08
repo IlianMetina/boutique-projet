@@ -9,6 +9,8 @@ import { RangementsComponent } from './rangements-component/rangements-component
 import { GadgetsComponent } from './gadgets-component/gadgets-component';
 import { TablesComponent } from './tables-component/tables-component';
 import { SiegesComponent } from './sieges-component/sieges-component';
+import { AuthGuard } from './services/auth/auth-guard';
+import { LikeComponent } from './like-component/like-component';
 
 export const routes: Routes = [
 
@@ -21,6 +23,12 @@ export const routes: Routes = [
   { path: 'rangements', component: RangementsComponent },
   { path: 'tech', component: GadgetsComponent },
   { path: 'tables', component: TablesComponent },
-  { path: 'sieges-fauteuils', component: SiegesComponent },
-  // { path: 'admin', component: AdminComponent}
+  { path: 'mes-envies', component: LikeComponent, canActivate: [AuthGuard] },
+  // { path: 'mon-compte', component: AccountComponent, canActivate: [AuthGuard] },
+  // { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+  // { path: 'mes-commandes', component: CommandesComponent, canActivate: [AuthGuard] },
+  // { path: 'admin', component: AdminComponent, canActivate: [AuthGuard] },
+
+  
+
 ];

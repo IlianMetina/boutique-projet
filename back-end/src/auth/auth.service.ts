@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'prisma/prisma.service';
-import { Jwt } from 'jsonwebtoken';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from 'src/users/users.service';
 
@@ -17,11 +16,4 @@ export class AuthService {
 
     return this.jwtService.sign(payload);
   }
-
-  // async checkJWT(token: Jwt): Promise<boolean> {
-
-
-
-  //   return true;
-  // }
 }

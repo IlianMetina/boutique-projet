@@ -51,7 +51,8 @@ export class AuthService {
         "Content-Type": "application/json"
       },
 
-      body: JSON.stringify(data),
+      body: data ? JSON.stringify(data) : undefined,
+
     });
 
     const status = (await response).json();
@@ -63,10 +64,8 @@ export class AuthService {
 
     const response = await fetch(this.loginUrl, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(data),
+      headers: {'Content-Type': 'application/json'},
+      body: data ? JSON.stringify(data) : undefined,
     })
 
     const status = await response.json();
@@ -83,15 +82,53 @@ export class AuthService {
       this.cookieService.set('token', token, {
         expires: 10,
         path: '/',
-        secure: true,
+        secure: false, // A modifier en prod, "true"
         sameSite: 'Lax',
       });
     }
+
+    // Token créer puis stocké, on considère donc le client comme connecté : true
+    this.isAuthenticated = true; 
 
     console.log('Status de la connexion : ', status);
     console.log("Token reçu : ", status.token);
 
     return status;
+  }
+
+  logOut(){
+
+    this.isAuthenticated = false;
+  }
+
+  isUserAuthenticated(): boolean{
+
+    return this.isAuthenticated;
+  }
+
+  private getToken(): string | null {
+
+    if(isPlatformBrowser(this.platformID)){
+
+      return this.cookieService.get('token') || null;
+    }
+
+    return null;
+  }
+
+  getAuthHeaders(): HeadersInit {
+
+    const token = this.getToken();
+    const headers: HeadersInit = {
+      'Content-Type': 'application/json',
+    };
+
+    if(token){
+
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+
+    return headers;
   }
 
 }
