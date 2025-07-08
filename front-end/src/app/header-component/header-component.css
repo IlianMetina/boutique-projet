@@ -120,6 +120,10 @@
     flex-wrap: nowrap;
 }
 
+.cart-icon{
+
+}
+
 .info-item {
     display: flex;
     flex-direction: column;

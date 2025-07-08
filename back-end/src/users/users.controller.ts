@@ -52,6 +52,7 @@ export class UsersController {
   }
 
   @Get(':id')
+  @UseGuards(AuthGuard)
   async findOne(@Param('id') id: string): Promise<UserDto | null> {
     return this.usersService.findOne(+id);
   }

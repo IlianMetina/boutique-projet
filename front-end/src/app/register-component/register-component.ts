@@ -70,6 +70,7 @@ export class RegisterComponent {
     ]),
 
     confirmedPassword: new FormControl('', [Validators.required]),
+    
     street: new FormControl('', [
       Validators.required,
       Validators.pattern(/^[\wÀ-ÿ0-9\s\.,'\-]{3,}$/),
