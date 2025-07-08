@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors } from '@angular/forms';
 import { AuthService } from '../services/auth/auth.service';
 import { Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 export interface RegisterData {
 
@@ -94,7 +95,7 @@ export class RegisterComponent {
 
   }, {validators: isPasswordMatch});
 
-  constructor(private authService: AuthService){}
+  constructor(private authService: AuthService, private router: Router){}
 
   onSubmit(): void  {
 
@@ -128,6 +129,8 @@ export class RegisterComponent {
     this.authService.register(registerUser).then((response) => {
       console.log("User registered successfully", response);
       this.myForm.reset();
+      this.router.navigate(['/login']);
+
     }).catch((error) => {
       console.error("Error registering user", error);
     });

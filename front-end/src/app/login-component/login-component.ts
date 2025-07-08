@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { AuthService } from '../services/auth/auth.service';
+import { Router } from '@angular/router';
 
 interface Login {
 
@@ -16,7 +17,7 @@ interface Login {
 })
 export class LoginComponent {
 
-  constructor(private authService: AuthService){}
+  constructor(private authService: AuthService, private router: Router){}
 
   onSubmit(form: NgForm): void {
 
@@ -31,6 +32,8 @@ export class LoginComponent {
 
       const token = this.authService.connect(userInfos);
       console.log(token);
+      this.router.navigate(['/']);
+
       
       console.log(userInfos);
     }
