@@ -11,6 +11,7 @@ import { TablesComponent } from './tables-component/tables-component';
 import { SiegesComponent } from './sieges-component/sieges-component';
 import { AuthGuard } from './services/auth/auth-guard';
 import { LikeComponent } from './like-component/like-component';
+import { PanierComponent } from './panier-component/panier-component';
 
 export const routes: Routes = [
 
@@ -24,6 +25,7 @@ export const routes: Routes = [
   { path: 'tech', component: GadgetsComponent },
   { path: 'tables', component: TablesComponent },
   { path: 'mes-envies', component: LikeComponent, canActivate: [AuthGuard] },
+  { path: 'panier', component: PanierComponent, canActivate: [AuthGuard] },
   // { path: 'mon-compte', component: AccountComponent, canActivate: [AuthGuard] },
   // { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   // { path: 'mes-commandes', component: CommandesComponent, canActivate: [AuthGuard] },
