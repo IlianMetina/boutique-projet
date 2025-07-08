@@ -131,4 +131,16 @@ export class AuthService {
     return headers;
   }
 
+    async AuthenticatedRequest(url: string, method: string, data?: any){
+ 
+    const fetching = await fetch(url, {
+
+      method: method,
+      headers: this.getAuthHeaders(),
+      body: data ? JSON.stringify(data) : undefined,
+    });
+
+    return fetching;
+  }
+
 }
