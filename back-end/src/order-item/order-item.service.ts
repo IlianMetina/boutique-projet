@@ -18,7 +18,7 @@ export class OrderItemService {
     orderItem.setQuantity(createOrderItemDto.quantity);
 
     return this.prisma.orderItem.create({
-      data: createOrderItemDto,
+      data: orderItem,
     });
   }
 
