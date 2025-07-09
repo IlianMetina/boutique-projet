@@ -7,3 +7,4 @@ services:
       - ./back-end/.env
     ports:
       - '3306:3306'
+      

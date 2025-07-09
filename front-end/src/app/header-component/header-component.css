@@ -136,6 +136,7 @@
     overflow: hidden;
     min-width: 52px;
     min-height: 52px;
+    margin-left: 50px;
 }
 
 .cart-icon::before {
@@ -234,7 +235,6 @@
 .cart-icon:focus,
 .cart-icon a:focus {
     outline: none;
-    box-shadow: 0 0 0 3px rgba(247, 60, 60, 0.3);
 }
 
 /* ===== RESPONSIVE DESIGN POUR L'ICÔNE PANIER ===== */

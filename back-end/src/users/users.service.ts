@@ -2,10 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'prisma/prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
-import { User } from './entities/user.entity';
 import { CheckLogsDto } from './dto/check-logs.dto';
 import * as bcrypt from 'bcrypt';
 import { User as PrismaUser, UserRole } from '@prisma/client';
+import { User } from './entities/user.entity';
 
 type UserWithoutPassword = {
 
@@ -32,10 +32,10 @@ export class UsersService {
 
     const user = new User();
 
-    const passwordHashed = this.hashPassword(createUserDto.password);
+    const passwordHashed = await this.hashPassword(createUserDto.password);
 
     user.setEmail(createUserDto.email);
-    user.setPassword(await passwordHashed);
+    user.setPassword(passwordHashed);
     user.setFirstName(createUserDto.firstName);
     user.setLastName(createUserDto.lastName);
     user.setPhoneNumber(createUserDto.phoneNumber);

@@ -1,15 +1,27 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { PrismaService } from '../../prisma/prisma.service';
-import { CreateProductDto } from 'src/auth/dto/create-product.dto';
+import { CreateProductDto } from 'src/products/dto/create-product.dto';
+import { UpdateProductDto } from './dto/update-product.dto';
+import { Product } from './entities/product.entity';
 
 @Injectable()
 export class ProductsService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(createProductDto: CreateProductDto) {
+
+    const product = new Product();
+
+    product.setProductName(createProductDto.name);
+    product.setProductDescription(createProductDto.description);
+    product.setProductPrice(createProductDto.price);
+    product.setImageUrl(createProductDto.imageUrl);
+    product.setProductStock(createProductDto.stock);
+    product.setCategoryId(createProductDto.categoryId);
+
     return this.prisma.product.create({
-      data: createProductDto,
+      data: product,
     });
   }
 
@@ -26,7 +38,7 @@ export class ProductsService {
     return this.prisma.product.findUnique({ where: { id } });
   }
 
-  async update(id: number, updateProductDto: Prisma.ProductUpdateInput) {
+  async update(id: number, updateProductDto: UpdateProductDto) {
 
     console.log("Entrée méthode update products.service");
 

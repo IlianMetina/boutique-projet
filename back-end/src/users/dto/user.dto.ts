@@ -1,18 +1,38 @@
 import { UserRole } from "@prisma/client";
+import { IsBoolean, IsEmail, IsEnum, IsInt, IsString } from "class-validator";
 
 export class UserDto {
 
-  id: number;
+  @IsString()
   firstName: string;
-  lastName: string;
-  email: string;
-  phoneNumber: string;
-  city: string;
-  street: string;
-  zipCode: string;
-  country: string;
-  conditions: boolean;
-  newsletter: boolean | null;
-  role: UserRole;
 
+  @IsString()
+  lastName: string;
+
+  @IsEmail()
+  email: string;
+
+  @IsString()
+  phoneNumber: string;
+
+  @IsString()
+  city: string;
+
+  @IsString()
+  street: string;
+
+  @IsString()
+  zipCode: string;
+
+  @IsString()
+  country: string;
+
+  @IsBoolean()
+  conditions: boolean;
+
+  @IsBoolean()
+  newsletter: boolean | null;
+
+  @IsEnum(UserRole)
+  role: UserRole;
 }

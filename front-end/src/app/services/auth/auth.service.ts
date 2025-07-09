@@ -64,7 +64,10 @@ export class AuthService {
 
     const response = await fetch(this.loginUrl, {
       method: "POST",
-      headers: {'Content-Type': 'application/json'},
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      
       body: data ? JSON.stringify(data) : undefined,
     })
 
@@ -99,6 +102,11 @@ export class AuthService {
   logOut(){
 
     this.isAuthenticated = false;
+
+    if(isPlatformBrowser(this.platformID)){
+
+      this.cookieService.delete('token', '/');
+    }
   }
 
   isUserAuthenticated(): boolean{
