@@ -1,5 +1,5 @@
 import { UserRole } from "@prisma/client";
-import { IsBoolean, IsEmail, IsEnum, IsInt, IsString } from "class-validator";
+import { IsBoolean, IsEmail, IsEnum, IsInt, IsOptional, IsString } from "class-validator";
 
 export class UserDto {
 
@@ -31,7 +31,8 @@ export class UserDto {
   conditions: boolean;
 
   @IsBoolean()
-  newsletter: boolean | null;
+  @IsOptional()
+  newsletter?: boolean | null;
 
   @IsEnum(UserRole)
   role: UserRole;
