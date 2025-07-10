@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-interface Cart {
+export interface Cart {
 
   id: number;
   products: {
@@ -20,7 +20,7 @@ export class CartService {
 
   constructor() { }
 
-  private cartUrl = "http://localhost:3000/orders/"
+  private cartUrl = "http://localhost:3000/orders/";
 
   async getCartProducts(id: number): Promise<Cart>{
 

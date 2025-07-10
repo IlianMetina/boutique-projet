@@ -1,6 +1,7 @@
 import { Injectable, inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
+import { jwtDecode } from 'jwt-decode';
 
 interface RegisterData {
 
@@ -16,6 +17,13 @@ interface RegisterData {
   country: string,
   conditions: boolean,
   newsletter: boolean
+}
+
+interface tokenPayload {
+
+  id: number;
+  email: string;
+  role: string;
 }
 
 interface Login {
@@ -114,7 +122,7 @@ export class AuthService {
     return this.isAuthenticated;
   }
 
-  private getToken(): string | null {
+  getToken(): string | null {
 
     if(isPlatformBrowser(this.platformID)){
 
@@ -139,7 +147,7 @@ export class AuthService {
     return headers;
   }
 
-    async AuthenticatedRequest(url: string, method: string, data?: any){
+  async AuthenticatedRequest(url: string, method: string, data?: any){
  
     const response = await fetch(url, {
 
@@ -151,6 +159,14 @@ export class AuthService {
     const body = await response.json();
 
     return body;
+  }
+
+  getIdFromToken(token: string): number{
+
+    const decodedToken: tokenPayload = jwtDecode(token);
+
+    return decodedToken.id;
+
   }
 
 }
