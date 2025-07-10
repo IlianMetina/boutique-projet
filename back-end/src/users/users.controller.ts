@@ -17,12 +17,15 @@ import { AuthGuard } from 'src/auth/auth.guard';
 
 @Controller('users')
 export class UsersController {
+
   // The UsersController is responsible for handling HTTP requests related to users.
   // It uses the UsersService to perform operations on user data.
-  constructor(private readonly usersService: UsersService,) {}
 
+  constructor(private readonly usersService: UsersService) {}
+  
   @Post('register')
   async create(@Body() createUserDto: CreateUserDto): Promise<User | void> {
+    
     console.log('Début de la méthode create');
     console.log(
       'mot de passe : ',

@@ -14,9 +14,9 @@ export class OrderService {
 
     const order = new Order();
 
+    order.setUserID(createOrderDto.userId);
     order.setStatus(createOrderDto.status as OrderStatus);
     order.setTotal(createOrderDto.total);
-    order.setUserID(createOrderDto.userId);
 
     return this.prisma.order.create({
 
@@ -29,7 +29,7 @@ export class OrderService {
   }
 
   findOne(id: number) {
-    
+
     return this.prisma.order.findUnique({where: {id}});
   }
 
