@@ -52,6 +52,15 @@ export class ProductsService {
 
     console.log("Entrée méthode remove products.service");
 
+    console.log("ID du produit à supprimer : " + id);
+
+    const product = await this.prisma.product.findUnique({where: {id}});
+
+    if(!product){
+
+      throw new Error("Le produit correspondant à l'ID " + id + " n'existe pas.")
+    }
+
     return this.prisma.product.delete({
       where: { id },
     });

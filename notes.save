@@ -28,7 +28,8 @@ Routes à protéger backend :
 /products/avis ?
 
 
-
+Faire en sorte que si l'admin choisis de supprimer une catégorie, il doit en créer une nouvelle, réassigner les produits
+dépendant de l'ancienne catégorie à la nouvelle, puis il pourra supprimer l'ancienne catégorie ?
 
 
 

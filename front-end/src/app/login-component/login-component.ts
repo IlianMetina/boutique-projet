@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { AuthService } from '../services/auth/auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 interface Login {
 
@@ -11,7 +11,7 @@ interface Login {
 
 @Component({
   selector: 'app-login-component',
-  imports: [FormsModule],
+  imports: [FormsModule, RouterLink],
   templateUrl: './login-component.html',
   styleUrl: './login-component.css'
 })

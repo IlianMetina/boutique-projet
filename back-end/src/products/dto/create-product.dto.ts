@@ -1,5 +1,5 @@
 import { Transform } from "class-transformer";
-import { IsString, IsInt, IsDecimal } from "class-validator";
+import { IsString, IsInt, IsDecimal, IsNumber } from "class-validator";
 
 export class CreateProductDto{
 
@@ -9,8 +9,7 @@ export class CreateProductDto{
     @IsString()
     description: string;
 
-    @IsDecimal()
-    @Transform(({ value }) => Number(value))
+    @IsNumber()
     price: number;
 
     @IsString()

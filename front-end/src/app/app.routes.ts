@@ -22,6 +22,7 @@ export const routes: Routes = [
   { path: 'mobilier', component: MeublesComponent },
   { path: 'accessoires', component: AccessoiresComponent },
   { path: 'rangements', component: RangementsComponent },
+  { path: 'sieges-fauteuils', component: SiegesComponent },
   { path: 'tech', component: GadgetsComponent },
   { path: 'tables', component: TablesComponent },
   { path: 'mes-envies', component: LikeComponent, canActivate: [AuthGuard] },
