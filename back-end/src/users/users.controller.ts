@@ -8,6 +8,7 @@ import {
   Delete,
   UseGuards,
 } from '@nestjs/common';
+
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -22,10 +23,10 @@ export class UsersController {
   // It uses the UsersService to perform operations on user data.
 
   constructor(private readonly usersService: UsersService) {}
-  
+
   @Post('register')
-  async create(@Body() createUserDto: CreateUserDto): Promise<User | void> {
-    
+  async create(@Body() createUserDto: CreateUserDto): Promise<User | void> {  
+
     console.log('Début de la méthode create');
     console.log(
       'mot de passe : ',
