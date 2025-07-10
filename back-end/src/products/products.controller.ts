@@ -10,7 +10,7 @@ import { UpdateProductDto } from './dto/update-product.dto';
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
-  @Post('create') //create ?
+  @Post('create') 
   async create(@Body() createProductDto: CreateProductDto) {
     console.log("Entrée méthode create products.controller");
     console.log("-----------------------------------------");

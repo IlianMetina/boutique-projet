@@ -19,6 +19,7 @@ enum UserRole {
 }
 
 enum OrderStatus {
+  BASKET
   PENDING
   PROCESSING
   SHIPPED
@@ -62,11 +63,12 @@ model Order {
   status      OrderStatus @default(PENDING)
   total       Decimal
   createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @default(now())
   user        User        @relation(fields: [userId], references: [id])
-  orderItems  OrderItem[]
+  orderItems  OrderItem[] 
 
   @@index([userId]) // Index for faster lookups by user
-}
+}                              
 
 model OrderItem {
   id        Int     @id @default(autoincrement())

@@ -3,16 +3,16 @@ import { OrderService } from './order.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 
-@Controller('order')
+@Controller('orders')
 export class OrderController {
   constructor(private readonly orderService: OrderService) {}
 
-  @Post()
+  @Post('create')
   create(@Body() createOrderDto: CreateOrderDto) {
     return this.orderService.create(createOrderDto);
   }
 
-  @Get()
+  @Get('all')
   findAll() {
     return this.orderService.findAll();
   }
@@ -27,7 +27,7 @@ export class OrderController {
     return this.orderService.update(+id, updateOrderDto);
   }
 
-  @Delete(':id')
+  @Delete('remove/:id')
   remove(@Param('id') id: string) {
     return this.orderService.remove(+id);
   }

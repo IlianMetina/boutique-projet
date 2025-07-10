@@ -29,6 +29,7 @@ export class OrderService {
   }
 
   findOne(id: number) {
+    
     return this.prisma.order.findUnique({where: {id}});
   }
 
