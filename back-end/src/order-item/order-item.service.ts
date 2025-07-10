@@ -17,24 +17,24 @@ export class OrderItemService {
     orderItem.setProductItemID(createOrderItemDto.productId);
     orderItem.setQuantity(createOrderItemDto.quantity);
 
-    return this.prisma.orderItem.create({
+    return this.prisma.productInOrder.create({
       data: orderItem,
     });
   }
 
   findAll() {
-    return this.prisma.orderItem.findMany();
+    return this.prisma.productInOrder.findMany();
   }
 
   findOne(id: number) {
-    return this.prisma.orderItem.findUnique({where: {id}});
+    return this.prisma.productInOrder.findUnique({where: {id}});
   }
 
   update(id: number, updateOrderItemDto: UpdateOrderItemDto) {
-    return this.prisma.orderItem.update({where: {id}, data: updateOrderItemDto})
+    return this.prisma.productInOrder.update({where: {id}, data: updateOrderItemDto})
   }
 
   remove(id: number) {
-    return this.prisma.orderItem.delete({where: {id}});
+    return this.prisma.productInOrder.delete({where: {id}});
   }
 }
