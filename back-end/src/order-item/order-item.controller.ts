@@ -3,6 +3,7 @@ import { OrderItemService } from './order-item.service';
 import { CreateOrderItemDto } from './dto/create-order-item.dto';
 import { UpdateOrderItemDto } from './dto/update-order-item.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
+import { UserId } from 'src/decorator/user-id.decorator';
 
 @Controller('order-item')
 export class OrderItemController {
@@ -10,7 +11,10 @@ export class OrderItemController {
 
   @Post('create')
   @UseGuards(AuthGuard)
-  create(@Body() createOrderItemDto: CreateOrderItemDto) {
+  create(@Body() createOrderItemDto: CreateOrderItemDto, @UserId() userId: number) {
+    console.log('---------------------------------------');
+    console.log("Id de l'utilisateur concerné : ", userId);
+    console.log('---------------------------------------');
     return this.orderItemService.create(createOrderItemDto);
   }
 
@@ -19,7 +23,7 @@ export class OrderItemController {
   findAll() {
     return this.orderItemService.findAll();
   }
-
+lors
   @Get(':id')
   @UseGuards(AuthGuard)
   findOne(@Param('id') id: string) {
