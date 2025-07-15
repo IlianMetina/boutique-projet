@@ -15,3 +15,4 @@ import { FooterComponent } from './footer-component/footer-component';
 export class App {
   protected title = 'Workhaus meubles télétravail';
 }
+
