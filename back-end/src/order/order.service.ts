@@ -4,13 +4,27 @@ import { UpdateOrderDto } from './dto/update-order.dto';
 import { PrismaService } from '../../prisma/prisma.service'
 import { Order } from './entities/order.entity';
 import { OrderStatus } from '@prisma/client';
+import { Decimal } from '@prisma/client/runtime/library';
+
+export interface Basket {
+
+  userId: number;
+  status: string;
+  total: Decimal;
+}
 
 @Injectable()
 export class OrderService {
 
   constructor(private readonly prisma: PrismaService){}
 
-  create(createOrderDto: CreateOrderDto) {
+  async create(createOrderDto: CreateOrderDto) {
+
+    const userBasket = await this.findBasket(createOrderDto.userId);
+    if(userBasket != null){
+
+      return userBasket;
+    }
 
     const order = new Order();
 
@@ -25,6 +39,7 @@ export class OrderService {
   }
 
   findAll() {
+
     return this.prisma.order.findMany();
   }
 
@@ -34,6 +49,7 @@ export class OrderService {
   }
 
  update(id: number, updateOrderDto: UpdateOrderDto) {
+
   const updateData: any = {};
   
   if (updateOrderDto.status) {
@@ -51,6 +67,22 @@ export class OrderService {
 }
 
   remove(id: number) {
+
     return this.prisma.order.delete({where: {id}});
+  }
+
+  async findBasket(userId: number): Promise<Basket | null>{
+
+    let basket = await this.prisma.order.findFirst({where: {
+      userId: userId,
+      status: 'BASKET',
+    }});
+
+    if(!basket){
+
+      return null;
+    }
+
+    return basket;
   }
 }

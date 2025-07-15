@@ -11,7 +11,6 @@ export class AuthController {
   async login(
     @Body() checkLogsDto: CheckLogsDto,
   ): Promise<{ success: boolean; token: string }> {
-    // Rajouter token: jwt après success: boolean
 
     const isValid = await this.userService.isPasswordCorrect(checkLogsDto);
     console.log(isValid ? 'Mot de passe correct' : 'Mot de passe incorrect');
@@ -24,12 +23,14 @@ export class AuthController {
 
         throw new UnauthorizedException('Utilisateur non trouvé');
       }
-      
+
       const token = await this.authService.generateJwt(checkLogsDto.email, user.id, user.role);
       console.log('Token généré avec succès : ', token);
-      
+
       return { success: true, token: token };
+
     } else {
+      
       throw new UnauthorizedException('!!! Identifiants incorrects !!!');
     }
   }

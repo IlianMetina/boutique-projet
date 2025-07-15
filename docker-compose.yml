@@ -2,6 +2,7 @@
 
 services: 
   mysql:
+    restart: always
     image: mysql
     env_file:
       - ./back-end/.env

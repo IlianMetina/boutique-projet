@@ -16,7 +16,7 @@ export class OrderItem {
         return this.orderId;
     }
 
-    setOrderItemID(orderId: number){
+    setOrderID(orderId: number){
 
         this.orderId = orderId;
     }

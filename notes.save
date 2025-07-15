@@ -32,6 +32,35 @@ Faire en sorte que si l'admin choisis de supprimer une catégorie, il doit en cr
 dépendant de l'ancienne catégorie à la nouvelle, puis il pourra supprimer l'ancienne catégorie ?
 
 
+Faire en sorte que lorsque le client ajoute un produit au panier, une requête POST s'effectue avec le produit qu'il a ajouté.
+Ensuite on vérifie côté backend toutes les Order de ce client, et vérifie qu'il n'y ait pas une commande qui possède déjà un statut "BASKET"
+S'il possède une Order avec le statut "BASKET", on ajoute le produit dans la table Order, sinon on crée une nouvelle Order et on y ajoute le produit.
+Lorsque le client arrive sur la page panier, on fait un fetch pour récupérer tous les produits de son Order, et on les affiche
+
+Il faut que le format renvoyé par le backend au client soit de ce type :
+
+OrderItemDto : 
+
+orderId
+
+productsList: productsItemDto {
+
+  price: number;
+  quantity: number;
+  productId: number
+}
+
++ rajouter grâce à une requête vers la BDD avec le productId de chacun des produits :
+
+{
+
+  imageUrl: string;
+  name: string;
+  description?: string;
+}
+
+Ensuite avant la dernière étape pour passer au paiement, on récupère la commande et on calcule le total du panier TTC, qu'on renvoie au client.
+
 
 
 
