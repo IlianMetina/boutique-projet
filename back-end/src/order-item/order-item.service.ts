@@ -18,9 +18,9 @@ export class OrderItemService {
 
   constructor(private readonly prisma: PrismaService){}
 
-  async create(createOrderItemDto: CreateOrderItemDto) {
+  async create(createOrderItemDto: CreateOrderItemDto, userId: number) {
 
-    // const basket = this.getOrCreateBasket() Il faut récupérer l'ID de l'utilisateur avec le token JWT
+    const basket = this.getOrCreateBasket()
 
     const isProductExist = await this.isProductExists(createOrderItemDto.orderId, createOrderItemDto.productId);
     if(isProductExist){

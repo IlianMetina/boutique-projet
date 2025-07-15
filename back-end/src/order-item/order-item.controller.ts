@@ -23,7 +23,7 @@ export class OrderItemController {
   findAll() {
     return this.orderItemService.findAll();
   }
-lors
+  
   @Get(':id')
   @UseGuards(AuthGuard)
   findOne(@Param('id') id: string) {
