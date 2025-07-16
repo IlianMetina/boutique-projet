@@ -30,8 +30,7 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
-  background-color: #f5f9ff; /* Bleu-gris pastel doux */
-
+  background: linear-gradient(180deg, #f5f9ff 0%, #e0f0ff 100%);
   box-shadow: 0 4px 10px rgba(255, 255, 255, 0.4), 0 6px 20px rgba(173, 216, 230, 0.5);
   min-height: 100vh;
   border-top: 1px solid #ccc;
@@ -303,6 +302,7 @@
 .icon-minus, .icon-plus {
 
   color: blue;
+  font-size: 20px;
 }
 
 /* Panier vide */
