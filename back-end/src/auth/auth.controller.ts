@@ -34,6 +34,4 @@ export class AuthController {
       throw new UnauthorizedException('!!! Identifiants incorrects !!!');
     }
   }
-
-
 }

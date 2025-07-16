@@ -10,34 +10,34 @@ export class OrderItemController {
   constructor(private readonly orderItemService: OrderItemService) {}
 
   @Post('create')
-  @UseGuards(AuthGuard)
+  // @UseGuards(AuthGuard)
   create(@Body() createOrderItemDto: CreateOrderItemDto, @UserId() userId: number) {
     console.log('---------------------------------------');
     console.log("Id de l'utilisateur concerné : ", userId);
     console.log('---------------------------------------');
-    return this.orderItemService.create(createOrderItemDto);
+    return this.orderItemService.create(createOrderItemDto, userId);
   }
 
   @Get('all')
-  @UseGuards(AuthGuard)
+  // @UseGuards(AuthGuard)
   findAll() {
     return this.orderItemService.findAll();
   }
   
   @Get(':id')
-  @UseGuards(AuthGuard)
+  // @UseGuards(AuthGuard)
   findOne(@Param('id') id: string) {
     return this.orderItemService.findOne(+id);
   }
 
   @Patch(':id')
-  @UseGuards(AuthGuard)
+  // @UseGuards(AuthGuard)
   update(@Param('id') id: string, @Body() updateOrderItemDto: UpdateOrderItemDto) {
     return this.orderItemService.update(+id, updateOrderItemDto);
   }
 
   @Delete(':id')
-  @UseGuards(AuthGuard)
+  // @UseGuards(AuthGuard)
   remove(@Param('id') id: string) {
     return this.orderItemService.remove(+id);
   }

@@ -26,7 +26,7 @@ export const routes: Routes = [
   { path: 'tech', component: GadgetsComponent },
   { path: 'tables', component: TablesComponent },
   { path: 'mes-envies', component: LikeComponent, canActivate: [AuthGuard] },
-  { path: 'panier', component: PanierComponent, canActivate: [AuthGuard] },
+  { path: 'panier', component: PanierComponent },
   // { path: 'mon-compte', component: AccountComponent, canActivate: [AuthGuard] },
   // { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   // { path: 'mes-commandes', component: CommandesComponent, canActivate: [AuthGuard] },

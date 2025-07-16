@@ -18,9 +18,10 @@ export class OrderItemService {
 
   constructor(private readonly prisma: PrismaService){}
 
+  /* Méthode qui permet d'ajouter un produit au panier */
   async create(createOrderItemDto: CreateOrderItemDto, userId: number) {
 
-    const basket = this.getOrCreateBasket()
+    const basket = this.getOrCreateBasket(userId);
 
     const isProductExist = await this.isProductExists(createOrderItemDto.orderId, createOrderItemDto.productId);
     if(isProductExist){
@@ -64,12 +65,10 @@ export class OrderItemService {
 
   calculateOrderProductPrice(orderItem: OrderItem): number{
 
-    const total = this.calculateOrderProductPrice(orderItem)
-    console.log("variable total = ", total);
-
-    return total;
+    return orderItem.price * orderItem.quantity;
   }
 
+  /* Méthode qui vérifie si un produit X est déjà présent dans le panier */
   async isProductExists(orderId: number, productId: number): Promise<boolean>{
 
     const isProduct = await this.prisma.productInOrder.findFirst({
@@ -88,6 +87,7 @@ export class OrderItemService {
     }
   }
 
+  /* Méthode qui s'occupe d'incrémenter la quantité d'un produit s'il est déjà présent dans le panier */
   async updateProductQuantity(updateOrderItemDto: UpdateOrderItemDto): Promise<ProductInOrder>{
 
     if(updateOrderItemDto.orderId == undefined || updateOrderItemDto.productId == undefined){
@@ -110,6 +110,7 @@ export class OrderItemService {
     });
   }
 
+/* Méthode qui vérifie si un panier avec le statut "BASKET" pour un utilisateur X existe, sinon on en crée un */
 async getOrCreateBasket(userId: number): Promise<Basket>{
 
   let basket = await this.prisma.order.findFirst({

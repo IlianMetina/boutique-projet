@@ -45,7 +45,16 @@ export class OrderService {
 
   findOne(id: number) {
 
-    return this.prisma.order.findUnique({where: {id}});
+    return this.prisma.order.findUnique({
+      where: {
+        id: id,
+      },
+
+      include: {
+        productsInOrder: true,
+      },
+      
+    });
   }
 
  update(id: number, updateOrderDto: UpdateOrderDto) {
@@ -84,5 +93,10 @@ export class OrderService {
     }
 
     return basket;
+  }
+
+  calculateOrderTotalTTC(){
+
+
   }
 }

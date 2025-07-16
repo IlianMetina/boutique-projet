@@ -61,9 +61,7 @@ productsList: productsItemDto {
 
 Ensuite avant la dernière étape pour passer au paiement, on récupère la commande et on calcule le total du panier TTC, qu'on renvoie au client.
 
-
-
-
+Faire en sorte de mettre un guard backend pour vérifier le role admin
 
 
 

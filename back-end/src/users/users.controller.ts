@@ -50,19 +50,19 @@ export class UsersController {
   }
 
   @Get('all')
-  @UseGuards(AuthGuard)
+  // @UseGuards(AuthGuard)
   async findAll(): Promise<UserDto[]> {
     return this.usersService.findAll();
   }
 
   @Get(':id')
-  @UseGuards(AuthGuard)
+  // @UseGuards(AuthGuard)
   async findOne(@Param('id') id: string): Promise<UserDto | null> {
     return this.usersService.findOne(+id);
   }
 
   @Patch(':id')
-  @UseGuards(AuthGuard)
+  // @UseGuards(AuthGuard)
   async update(
     @Param('id') id: string,
     @Body() updateUserDto: UpdateUserDto,
@@ -71,7 +71,7 @@ export class UsersController {
   }
 
   @Delete(':id')
-  @UseGuards(AuthGuard)
+  // @UseGuards(AuthGuard)
   async remove(@Param('id') id: string): Promise<User> {
     return this.usersService.remove(+id);
   }
