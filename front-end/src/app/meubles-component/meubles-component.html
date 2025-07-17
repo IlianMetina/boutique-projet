@@ -14,17 +14,17 @@
                     @for(product of products; track product.name){
 
                         <h3 class="product-name">{{product.name}}</h3>
+                        <p class="product-description">{{product.description}}</p>
+                        <div class="product-features">
+                            <span class="feature">Réglable en hauteur</span>
+                            <span class="feature">Chêne massif</span>
+                            <span class="feature">120x60cm</span>
+                        </div>
+                        <div class="product-footer">
+                            <div class="price">
+                                <span class="current-price">{{product.price}}</span>
+                                <span class="old-price">529€</span>
                     }
-                    <p class="product-description">Bureau réglable en hauteur avec plateau en chêne massif, parfait pour le télétravail. Dimensions : 120x60cm</p>
-                    <div class="product-features">
-                        <span class="feature">Réglable en hauteur</span>
-                        <span class="feature">Chêne massif</span>
-                        <span class="feature">120x60cm</span>
-        </div>
-        <div class="product-footer">
-            <div class="price">
-                <span class="current-price">459€</span>
-                <span class="old-price">529€</span>
             </div>
             <button class="add-to-cart-btn">Ajouter au panier</button>
         </div>
