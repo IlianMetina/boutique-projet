@@ -13,7 +13,7 @@ export class MeublesComponent implements OnInit{
 
   private productService = inject(ProductsService);
   private platformID = inject(PLATFORM_ID);
-  private products: Product[] | undefined = [];
+  products: Product[] | undefined = [];
 
   constructor(){}
 

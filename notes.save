@@ -71,3 +71,8 @@ Catégorie 3 : Rangements (id:3)
 Catégorie 4 : Tech & Gadgets (id:4)
 Catégorie 5 : Tables (id:5)
 Catégorie 6 : Sièges & fauteuils (id:6)
+
+Problème responsive : 
+
+Entre 1024 px et 1400px, une partie des catégories dépasse sur
+la droite et n'est pas visible sauf si on scroll horizontalement

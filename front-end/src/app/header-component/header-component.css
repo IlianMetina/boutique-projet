@@ -18,10 +18,12 @@
 
 /* Container principal */
 .menu-container {
-    max-width: 1400px;
+    max-width: 100%;
     margin: 0 auto;
     position: relative;
     height: 100%;
+    overflow-x: hidden;
+    padding: 0 1rem
 }
 
 /* ===== SECTION SUPÉRIEURE (Logo, Recherche, Actions) ===== */
@@ -533,6 +535,38 @@
     .nav-menu a {
         font-size: 0.95rem;
         padding: 0.7rem 1.2rem;
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1400px) {
+    .flex-menu {
+        gap: 1rem; /* Réduit encore plus l'espacement entre les éléments */
+    }
+
+    .button-menu {
+        padding: 0.5rem 0.8rem; /* Réduit la taille du bouton */
+        font-size: 0.85rem; /* Réduit légèrement la taille du texte */
+    }
+
+    .nav-menu a {
+        padding: 0.5rem 0.8rem; /* Réduit la taille des liens du menu */
+        font-size: 0.85rem; /* Réduit légèrement la taille du texte */
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1270px) {
+    .flex-menu {
+        gap: 1rem; /* Réduit encore plus l'espacement entre les éléments */
+    }
+
+    .button-menu {
+        padding: 0.4rem 0.7rem; /* Réduit la taille du bouton */
+        font-size: 0.8rem; /* Réduit légèrement la taille du texte */
+    }
+
+    .nav-menu a {
+        padding: 0.4rem 0.7rem; /* Réduit la taille des liens du menu */
+        font-size: 0.8rem; /* Réduit légèrement la taille du texte */
     }
 }
 

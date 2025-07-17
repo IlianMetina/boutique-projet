@@ -11,7 +11,10 @@
                     <div class="product-badge">Bestseller</div>
                 </div>
                 <div class="product-info">
-                    <h3 class="product-name">Bureau Ergonomique ProDesk</h3>
+                    @for(product of products; track product.name){
+
+                        <h3 class="product-name">{{product.name}}</h3>
+                    }
                     <p class="product-description">Bureau réglable en hauteur avec plateau en chêne massif, parfait pour le télétravail. Dimensions : 120x60cm</p>
                     <div class="product-features">
                         <span class="feature">Réglable en hauteur</span>
