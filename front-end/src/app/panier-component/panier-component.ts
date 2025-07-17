@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { Cart, CartService } from '../services/cart/cart-service';
 import { AuthService } from '../services/auth/auth.service';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-panier-component',
@@ -10,11 +11,32 @@ import { AuthService } from '../services/auth/auth.service';
 })
 export class PanierComponent implements OnInit {
 
-  constructor(private readonly cartService: CartService, private readonly authService: AuthService){}
+  private authService = inject(AuthService);
+  private platformId = inject(PLATFORM_ID);
+  initCount = 0;
 
-  async ngOnInit(): Promise<Cart>{
+  constructor(private readonly cartService: CartService){}
+
+  /* On enregistre et récupère le panier que pour ceux ayant un token, pas de persistance si l'utilisateur reste en invité */
+  async ngOnInit(): Promise<Cart | undefined>{
     
+    this.initCount++;
+    console.log("Tour ngOnInit n°" + this.initCount);
+
+    if(!isPlatformBrowser(this.platformId)){
+
+      console.log("Côté serveur, aucun token disponible");
+      return;
+    }
+
     const token = this.authService.getToken();
+    console.log('------------------------');
+    console.log("Récupération du token onInit : ");
+    console.log(token);
+    console.log('------------------------');
+
+    console.log("IsTokenFalsy ? : ");
+    console.log(token == null);
 
     if(token == null){
 

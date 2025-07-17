@@ -95,7 +95,7 @@
 .cart-header {
   text-align: center;
   margin-bottom: 2rem;
-  padding: 2rem 0;
+  padding: 1rem 0;
 }
 
 .cart-header h1 {
@@ -275,7 +275,7 @@
   text-align: center;
   font-weight: 600;
   font-size: 1.1rem;
-  color: rgb(124, 67, 67);
+  color: rgb(0, 0, 0);
 }
 
 /* Bouton supprimer */
@@ -376,6 +376,7 @@
   align-items: center;
   padding: 0.75rem 0;
   font-size: 1rem;
+  border-top: 1px solid #ebeaea;
 }
 
 .summary-line span:first-child {
@@ -385,6 +386,7 @@
 .summary-line span:last-child {
   font-weight: 600;
   color: var(--gray-800);
+  
 }
 
 .free-shipping {
@@ -503,7 +505,7 @@
 
 .continue-shopping-link:hover {
   background: var(--primary-blue);
-  color: var(--white);
+  color: rgb(151, 151, 255);
   transform: translateY(-3px);
   box-shadow: 0 8px 24px rgba(0, 191, 255, 0.3), 0 4px 12px rgba(0, 191, 255, 0.2);
 

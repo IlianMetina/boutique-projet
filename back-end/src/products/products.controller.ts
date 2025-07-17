@@ -19,13 +19,19 @@ export class ProductsController {
     return this.productsService.create(createProductDto);
   }
 
+  @Get('category/:id')
+  async findAllProducts(@Param('id') id: string) {
+    const numericId = parseInt(id, 10);
+    return this.productsService.findAllByCategory(numericId); 
+  }
+
   @Get('all')
   async findAll() {
     return this.productsService.findAll(); 
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string) {
+  async findOne(@Param('id') id: number) {
     return this.productsService.findOne(Number(id));
   }
 

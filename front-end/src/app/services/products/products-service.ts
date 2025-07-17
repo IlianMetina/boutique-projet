@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { inject } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 
-interface Product {
+export interface Product {
   id: number;
   name: string;
   price: number;
@@ -19,6 +19,7 @@ export class ProductsService {
   private allProductsURL = "http://localhost:3000/products/all";
   private singleProductURL = "http://localhost:3000/products";
   private createProductURL = "http://localhost:3000/products";
+  private categoriesUrl = "http://localhost:3000/products/category/";
   private authService = inject(AuthService);
 
   async getProducts(): Promise<Product[] | undefined> {
@@ -26,6 +27,14 @@ export class ProductsService {
     const data = await this.authService.AuthenticatedRequest(this.allProductsURL, 'GET');
 
     console.log("Data reçue getProducts() : " + data);
+
+    return data ?? undefined;
+  }
+
+  async getAllProductsByCategory(categoryId: number): Promise<Product[] | undefined>{
+
+    const categoryUrl = this.categoriesUrl + categoryId;
+    const data = await this.authService.AuthenticatedRequest(categoryUrl, 'GET');
 
     return data ?? undefined;
   }

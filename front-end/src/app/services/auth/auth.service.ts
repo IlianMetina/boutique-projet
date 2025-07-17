@@ -124,9 +124,24 @@ export class AuthService {
 
   getToken(): string | null {
 
+    console.log("---------- isPlatformBrowser ? --------");
+    console.log(isPlatformBrowser(this.platformID));
+
     if(isPlatformBrowser(this.platformID)){
 
-      return this.cookieService.get('token') || null;
+      const token = this.cookieService.get('token');
+      console.log('------------------------');
+      console.log("Récupération du token :");
+      console.log('------------------------');
+      console.log(token);
+      if(token != null){
+
+        return token;
+
+      }else {
+
+        return null;
+      }
     }
 
     return null;
@@ -166,7 +181,6 @@ export class AuthService {
     const decodedToken: tokenPayload = jwtDecode(token);
 
     return decodedToken.id;
-
   }
 
 }

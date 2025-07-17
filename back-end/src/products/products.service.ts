@@ -25,6 +25,18 @@ export class ProductsService {
     });
   }
 
+  async findAllByCategory(id: number) {
+    
+    console.log("Entrée méthode findAll products.service");
+
+    console.log("Type de l'ID reçu : " + typeof id);
+
+    return this.prisma.product.findMany({
+      where: {
+        categoryId: id,
+      }});
+  }
+
   async findAll() {
     
     console.log("Entrée méthode findAll products.service");
