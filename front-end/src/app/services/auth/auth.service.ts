@@ -51,6 +51,7 @@ export class AuthService {
 
   constructor(private cookieService: CookieService) {}
 
+  /* Méthode qui s'occupe d'envoyer les informations d'inscription au serveur */
   async register(data: RegisterData): Promise<{status: string}>{
 
     const response = fetch(this.usersUrl, {
@@ -68,6 +69,7 @@ export class AuthService {
     return status;
   }
 
+  /* Méthode qui s'occupe d'envoyer les informations de connexion au serveur */
   async connect(data: Login): Promise<LoginResponse> {
 
     const response = await fetch(this.loginUrl, {
@@ -122,6 +124,7 @@ export class AuthService {
     return this.isAuthenticated;
   }
 
+  /* Récupération du token dans les cookies si on est sur le navigateur */
   getToken(): string | null {
 
     console.log("---------- isPlatformBrowser ? --------");
@@ -147,6 +150,7 @@ export class AuthService {
     return null;
   }
 
+  /* Méthode pour enregistrer le token dans les headers */
   getAuthHeaders(): HeadersInit {
 
     const token = this.getToken();
@@ -162,6 +166,7 @@ export class AuthService {
     return headers;
   }
 
+  /* Méthode de requête polyvalente intégrant le token pour vérification de l'utilisateur */
   async AuthenticatedRequest(url: string, method: string, data?: any){
  
     const response = await fetch(url, {
@@ -176,6 +181,7 @@ export class AuthService {
     return body;
   }
 
+  /* Récupérer l'ID utilisateur présent dans le payload du token */
   getIdFromToken(token: string): number{
 
     const decodedToken: tokenPayload = jwtDecode(token);

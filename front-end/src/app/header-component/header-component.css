@@ -9,7 +9,6 @@
     border-bottom: 1px solid rgba(59, 130, 246, 0.08);
     backdrop-filter: blur(10px);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    /* CORRECTION: Hauteur fixe pour éviter que le header prenne toute la page */
 }
 
 .header:hover {
@@ -69,7 +68,7 @@
 /* Barre de recherche */
 .search-bar {
     flex: 1;
-    max-width: 450px;
+    max-width: 650px;
     min-width: 280px;
     position: relative;
 }
@@ -295,14 +294,11 @@
     }
 }
 
-/* Print styles */
 @media print {
     .cart-icon {
         display: none;
     }
 }
-
-
 
 .info-item {
     display: flex;
@@ -460,8 +456,6 @@
     flex: 1;    
 }
 
-
-
 .menu-icon{
 
     white-space: nowrap;
@@ -470,7 +464,7 @@
 .nav-menu a {
     position: relative;
     text-decoration: none;
-    color: #374151;
+    color: #1e3a8a;
     font-weight: 500;
     font-size: 0.9rem;
     padding: 0.6rem 1rem;
@@ -524,9 +518,7 @@
     50% { transform: scale(1.05); }
 }
 
-/* ===== RESPONSIVE DESIGN PARFAIT ===== */
-
-/* Large screens (1200px+) */
+/* Écrans larges (1200px+) */
 @media (min-width: 1200px) {
     .nav-menu {
         gap: 2.5rem;
@@ -540,33 +532,33 @@
 
 @media (min-width: 1024px) and (max-width: 1400px) {
     .flex-menu {
-        gap: 1rem; /* Réduit encore plus l'espacement entre les éléments */
+        gap: 1rem; 
     }
 
     .button-menu {
-        padding: 0.5rem 0.8rem; /* Réduit la taille du bouton */
-        font-size: 0.85rem; /* Réduit légèrement la taille du texte */
+        padding: 0.5rem 0.8rem; 
+        font-size: 0.85rem; 
     }
 
     .nav-menu a {
-        padding: 0.5rem 0.8rem; /* Réduit la taille des liens du menu */
-        font-size: 0.85rem; /* Réduit légèrement la taille du texte */
+        padding: 0.5rem 0.8rem; 
+        font-size: 0.85rem; 
     }
 }
 
 @media (min-width: 1024px) and (max-width: 1270px) {
     .flex-menu {
-        gap: 1rem; /* Réduit encore plus l'espacement entre les éléments */
+        gap: 1rem;
     }
 
     .button-menu {
-        padding: 0.4rem 0.7rem; /* Réduit la taille du bouton */
-        font-size: 0.8rem; /* Réduit légèrement la taille du texte */
+        padding: 0.4rem 0.7rem;
+        font-size: 0.8rem; 
     }
 
     .nav-menu a {
-        padding: 0.4rem 0.7rem; /* Réduit la taille des liens du menu */
-        font-size: 0.8rem; /* Réduit légèrement la taille du texte */
+        padding: 0.4rem 0.7rem; 
+        font-size: 0.8rem; 
     }
 }
 
