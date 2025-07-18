@@ -5,8 +5,9 @@ import { AuthService } from '../auth/auth.service';
 export interface Product {
   id: number;
   name: string;
-  price: number;
+  price: number | string;
   description: string;
+  imageUrl: string;
 }
 
 @Injectable({

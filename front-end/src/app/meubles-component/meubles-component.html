@@ -3,56 +3,34 @@
     <div class="products-container">
         <h2 class="products-title">Nos Meubles Télétravail</h2>
         
+        <!-- Produits -->
         <div class="products-grid">
-            <!-- Produit 1 -->
+            @for(product of products; track product.name){
             <div class="product-card">
-                <div class="product-image">
-                    <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Bureau ergonomique moderne">
-                    <div class="product-badge">Bestseller</div>
-                </div>
-                <div class="product-info">
-                    @for(product of products; track product.name){
+                    <div class="product-image">
+                        <img [src]='product.imageUrl' alt="Bureau ergonomique moderne">
+                        <div class="product-badge">Bestseller</div>
+                    </div>
+                    <div class="product-info">
 
                         <h3 class="product-name">{{product.name}}</h3>
                         <p class="product-description">{{product.description}}</p>
                         <div class="product-features">
-                            <span class="feature">Réglable en hauteur</span>
                             <span class="feature">Chêne massif</span>
                             <span class="feature">120x60cm</span>
                         </div>
                         <div class="product-footer">
                             <div class="price">
-                                <span class="current-price">{{product.price}}</span>
-                                <span class="old-price">529€</span>
-                    }
+                                <span class="current-price">{{product.price}}€</span>
+                            </div>
+                            <button class="add-to-cart-btn">Ajouter au panier</button>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+            }
+            <!-- Produits -->
             </div>
-            <button class="add-to-cart-btn">Ajouter au panier</button>
-        </div>
-    </div>
-</div>
-
-<!-- Produit 2 -->
-<div class="product-card">
-    <div class="product-image">
-        <img src="https://images.unsplash.com/photo-1611269154421-4e27233ac5c7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Chaise ergonomique de bureau">
-        <div class="product-badge new">Nouveau</div>
-    </div>
-    <div class="product-info">
-        <h3 class="product-name">Chaise Ergonomique ComfortMax</h3>
-        <p class="product-description">Chaise de bureau ergonomique avec support lombaire ajustable et accoudoirs 4D. Conçue pour de longues heures de travail.</p>
-        <div class="product-features">
-            <span class="feature">Support lombaire</span>
-            <span class="feature">Accoudoirs 4D</span>
-            <span class="feature">Mesh respirant</span>
-        </div>
-        <div class="product-footer">
-            <div class="price">
-                <span class="current-price">289€</span>
-            </div>
-            <button class="add-to-cart-btn">Ajouter au panier</button>
-        </div>
-    </div>
-    </div>
-    </div>
     </div>
 </main>

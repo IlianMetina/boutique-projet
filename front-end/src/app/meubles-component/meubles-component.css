@@ -9,6 +9,7 @@
   margin: 0 auto;
   padding: 2rem;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: grid;
 }
 
 .products-title {
@@ -33,8 +34,8 @@
 }
 
 .products-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 2rem;
   margin-top: 2rem;
 }
@@ -46,6 +47,9 @@
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease;
   border: 1px solid #e5e7eb;
+  flex: 1 1 calc(33.333% - 2rem); /* 3 cartes par ligne avec un gap de 2rem */
+  max-width: calc(33.333% - 2rem); /* Empêche les cartes de dépasser cette largeur */
+  box-sizing: border-box; /* Inclut le padding et la bordure dans la largeur */
 }
 
 .product-card:hover {
@@ -127,6 +131,7 @@
 .product-footer {
   display: flex;
   justify-content: space-between;
+  gap: 20px;
   align-items: center;
   margin-top: 1.5rem;
 }
