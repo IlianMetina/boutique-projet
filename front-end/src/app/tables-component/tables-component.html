@@ -1,1 +1,36 @@
-<app-filter-products-component></app-filter-products-component>
+<main class="main-meubles-container">
+    <app-filter-products-component></app-filter-products-component>
+    <div class="products-container">
+        <h2 class="products-title">Notre section Tables Télétravail</h2>
+        
+        <!-- Produits -->
+        <div class="products-grid">
+            @for(product of products; track product.name){
+            <div class="product-card">
+                    <div class="product-image">
+                        <img [src]='product.imageUrl' alt="Bureau ergonomique moderne">
+                        <div class="product-badge">Bestseller</div>
+                    </div>
+                    <div class="product-info">
+
+                        <h3 class="product-name">{{product.name}}</h3>
+                        <p class="product-description">{{product.description}}</p>
+                        <div class="product-features">
+                            <span class="feature">Chêne massif</span>
+                            <span class="feature">120x60cm</span>
+                        </div>
+                        <div class="product-footer">
+                            <div class="price">
+                                <span class="current-price">{{product.price}}€</span>
+                            </div>
+                            <button class="add-to-cart-btn">Ajouter au panier</button>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+            }
+            <!-- Produits -->
+            </div>
+    </div>
+</main>

@@ -35,8 +35,9 @@
 
 .products-grid {
   display: flex;
-  flex-wrap: wrap;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
+  flex-wrap: wrap;
   margin-top: 2rem;
 }
 
