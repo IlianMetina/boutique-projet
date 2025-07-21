@@ -21,7 +21,7 @@ export class CartService {
   constructor() { }
 
   private cartUrl = "http://localhost:3000/orders/";
-  private findBasketUrl = "http://localhost:3000/orders/basket/"
+  private findBasketUrl = "http://localhost:3000/orders/basket/";
 
   async getCartProducts(userId: number): Promise<Cart>{
 

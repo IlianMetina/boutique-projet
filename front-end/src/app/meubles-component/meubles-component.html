@@ -5,7 +5,7 @@
         
         <!-- Produits -->
         <div class="products-grid">
-            @for(product of products; track product.name){
+            @for(product of products(); track product.name){
             <div class="product-card">
                     <div class="product-image">
                         <img [src]='product.imageUrl' alt="Bureau ergonomique moderne">
