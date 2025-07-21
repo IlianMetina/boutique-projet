@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { FilterService } from '../services/filter/filter-service';
 
 @Component({
   selector: 'app-filter-products-component',
@@ -7,6 +8,8 @@ import { Component } from '@angular/core';
   styleUrl: './filter-products-component.css'
 })
 export class FilterProductsComponent {
+
+  filterService = inject(FilterService);
 
   isFilterMenuOpen = false;
 

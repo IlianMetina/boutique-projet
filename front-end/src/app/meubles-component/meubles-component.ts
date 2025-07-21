@@ -1,4 +1,4 @@
-import { Component, inject, PLATFORM_ID, signal, Signal } from '@angular/core';
+import { Component, inject, PLATFORM_ID, signal, WritableSignal } from '@angular/core';
 import { Product, ProductsService } from '../services/products/products-service';
 import { OnInit } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
@@ -17,7 +17,7 @@ export class MeublesComponent implements OnInit{
   private platformID = inject(PLATFORM_ID);
   pageSize = 10;
   pageIndex = 0;
-  products: Signal<Product[]> = signal([]);
+  products: WritableSignal<Product[]> = signal([]);
 
   constructor(){}
 
@@ -29,7 +29,7 @@ export class MeublesComponent implements OnInit{
       console.log("Produits récupérés : " + products);
       console.log(products);
 
-      this.products = products;
+      this.products.set(products ?? []);
     }
   }
 }

@@ -1,7 +1,19 @@
-import { Component, inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { Cart, CartService } from '../services/cart/cart-service';
 import { AuthService } from '../services/auth/auth.service';
 import { isPlatformBrowser } from '@angular/common';
+import { WritableSignal } from '@angular/core';
+import { Product } from '../services/products/products-service';
+
+interface ProductInOrder{
+
+  id: number;
+  orderId: number;
+  productId: number;
+  quantity: number;
+  price: number;
+  product: Product;
+}
 
 @Component({
   selector: 'app-panier-component',
@@ -14,12 +26,13 @@ export class PanierComponent implements OnInit {
   private authService = inject(AuthService);
   private platformId = inject(PLATFORM_ID);
   private cartService = inject(CartService);
+  products: WritableSignal<ProductInOrder[]> = signal([]);
   initCount = 0;
 
   constructor(){}
 
   /* On enregistre et récupère le panier que pour ceux ayant un token, pas de persistance si l'utilisateur reste en invité */
-  async ngOnInit(): Promise<Cart | undefined>{
+  async ngOnInit(): Promise<ProductInOrder[] | undefined>{
     
     this.initCount++;
     console.log("Tour ngOnInit n°" + this.initCount);
@@ -51,12 +64,14 @@ export class PanierComponent implements OnInit {
       throw new Error("Erreur récupération ID");
     }
 
-    const cartProducts = this.cartService.getCartProducts(userID);
+    const cartProducts = await this.cartService.getCartProducts(userID);
 
     if(!cartProducts){
 
       throw new Error("Erreur récupération produits panier");
     }
+
+    this.products.set(cartProducts.products ?? []);
 
     return cartProducts;
   }

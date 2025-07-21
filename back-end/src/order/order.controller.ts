@@ -28,6 +28,16 @@ export class OrderController {
     return this.orderService.findOne(+id);
   }
 
+  @Get('basket/:userId')
+  // @UseGuards(AuthGuard)
+  async getBasket(@Param('userId') userId: number) {
+    const basket = await this.orderService.findBasket(userId);
+    if (!basket) {
+      return { message: 'No basket found for this user.' };
+    }
+    return basket;
+  }
+
   @Patch(':id')
   // @UseGuards(AuthGuard)
   update(@Param('id') id: string, @Body() updateOrderDto: UpdateOrderDto) {
