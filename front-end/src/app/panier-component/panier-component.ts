@@ -7,12 +7,12 @@ import { Product } from '../services/products/products-service';
 
 interface ProductInOrder{
 
-  id: number;
-  orderId: number;
-  productId: number;
-  quantity: number;
-  price: number;
-  product: Product;
+  id?: number;
+  orderId?: number;
+  productId?: number;
+  quantity?: number;
+  price?: number;
+  product?: Product;
 }
 
 @Component({
@@ -64,9 +64,9 @@ export class PanierComponent implements OnInit {
       throw new Error("Erreur récupération ID");
     }
 
-    const cartProducts = await this.cartService.getCartProducts(userID);
+    const cart = await this.cartService.getCartProducts(userID);
 
-    if(!cartProducts){
+    if(!cart || !cart.products){
 
       throw new Error("Erreur récupération produits panier");
     }
