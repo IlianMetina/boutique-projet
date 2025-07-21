@@ -13,9 +13,10 @@ export class PanierComponent implements OnInit {
 
   private authService = inject(AuthService);
   private platformId = inject(PLATFORM_ID);
+  private cartService = inject(CartService);
   initCount = 0;
 
-  constructor(private readonly cartService: CartService){}
+  constructor(){}
 
   /* On enregistre et récupère le panier que pour ceux ayant un token, pas de persistance si l'utilisateur reste en invité */
   async ngOnInit(): Promise<Cart | undefined>{

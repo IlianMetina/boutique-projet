@@ -24,6 +24,8 @@ export class CartService {
 
   async getCartProducts(id: number): Promise<Cart>{
 
+    /* A changer car il nous faut un orderId pour le joueur et 
+    pas son UserID pour trouver sa commande associée (status "BASKET")*/
     const response = await fetch(this.cartUrl + id);
 
     if(!response.ok){
@@ -53,6 +55,6 @@ export class CartService {
 
   clearCart(){
 
-    
+
   }
 }
