@@ -71,9 +71,9 @@ export class PanierComponent implements OnInit {
       throw new Error("Erreur récupération produits panier");
     }
 
-    this.products.set(cartProducts.products ?? []);
+    this.products.set(cart.products ?? []);
 
-    return cartProducts;
+    return cart.products;
   }
 
 }
