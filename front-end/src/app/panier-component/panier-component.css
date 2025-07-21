@@ -598,7 +598,7 @@
 .suggestion-item {
   background: var(--white);
   border: 1px solid #d7e7ff;
-  border-radius: 5px;
+  border-radius: 15px;
   padding: 1rem;
   text-align: center;
   transition: all 0.3s ease;
@@ -609,7 +609,7 @@
 .suggestion-item:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow-md);
-  border-color: var(--accent-orange);
+  border-color: rgb(205, 201, 255);
 }
 
 .suggestion-item img {
@@ -640,7 +640,7 @@
   color: var(--white);
   border: none;
   padding: 0.75rem 1.5rem;
-  border-radius: var(--border-radius-sm);
+  border-radius: 15px;
   cursor: pointer;
   font-size: 0.9rem;
   font-weight: 500;
@@ -649,7 +649,7 @@
 }
 
 .add-suggestion-btn:hover {
-  background: #0891b2;
+  background: #cce6ff;
   transform: translateY(-1px);
 }
 

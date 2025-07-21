@@ -76,3 +76,24 @@ Problème responsive :
 
 Entre 1024 px et 1400px, une partie des catégories dépasse sur
 la droite et n'est pas visible sauf si on scroll horizontalement
+
+
+À faire (routes) :
+
+  mon-compte, dashboard, mes-commandes, admin
+
+
+Faire fonctionnalité suppression produits panier, ou ajouts quantité
++ images
+Ajouter bulle icône panier pour indiquer le nb de produits dans le panier ?
+Faire variable (signal) qui indique "Se connecter" si on est déconnecté,
+ou "Mon Compte" si on est connecté.
+Enlever bouton "Tous les produits" version PC pour qu'il y ait que le 
+menu classique, l'afficher en version tablette (?) et mobile pour afficher
+les catégories.
+Faire barre de progression page panier pour indiquer les étapes
+Faire la fonctionnalité barre de recherche (signals ?)
+Ajouter méthode de paiement (Stripe)
+Faire méthode qui change le statut de la commande to "PENDING" après
+paiement.
+Finir filtrage produits

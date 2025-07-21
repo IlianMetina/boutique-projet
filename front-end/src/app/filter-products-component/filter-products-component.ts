@@ -8,4 +8,15 @@ import { Component } from '@angular/core';
 })
 export class FilterProductsComponent {
 
+  isFilterMenuOpen = false;
+
+  toggleFilterMenu(){
+    console.log("Menu ouvert : ");
+    this.isFilterMenuOpen = !this.isFilterMenuOpen;
+  }
+
+  applyFilters(){
+
+    console.log("Application des filtres produtis...");
+  }
 }

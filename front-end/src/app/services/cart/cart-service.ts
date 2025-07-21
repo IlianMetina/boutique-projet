@@ -40,4 +40,19 @@ export class CartService {
 
     return body;
   }
+
+  addToCart(){
+
+
+  }
+
+  removeCartItem(){
+
+
+  }
+
+  clearCart(){
+
+    
+  }
 }

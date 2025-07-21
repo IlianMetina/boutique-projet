@@ -6,6 +6,44 @@
   border: 1px solid #e5e7eb;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   overflow: hidden;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.filter-container.hidden {
+  transform: translateX(-100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Afficher le menu lorsqu'il est ouvert */
+.filter-container.visible {
+  transform: translateX(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.toggle-filter-btn{
+
+  display: block;
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  z-index: 1100;
+}
+
+.toggle-filter-btn:hover{
+
+  background-color: #2563eb;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
 }
 
 .filter-header {
@@ -334,11 +372,19 @@
 /* Responsive Design */
 @media (max-width: 768px) {
   .filter-container {
-    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 80%;
+    height: 100%;
+    z-index: 1000;
+    background: #ffffff;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     border-radius: 0;
-    box-shadow: none;
     border: none;
-    border-bottom: 1px solid #e5e7eb;
+    transform: translateX(-100%);
+    opacity: 0;
+    pointer-events: none;
   }
   
   .filter-sections {

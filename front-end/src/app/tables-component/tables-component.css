@@ -1,7 +1,10 @@
-.main-meubles-container{
+.main-tables-container{
 
-    display: grid;
-    grid-template-columns: 1fr 4fr;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 2rem;
+  align-items: start;
+  width: 100%;
 }
 
 .products-container {
@@ -34,10 +37,9 @@
 }
 
 .products-grid {
-  display: flex;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
-  flex-wrap: wrap;
   margin-top: 2rem;
 }
 
@@ -48,9 +50,7 @@
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease;
   border: 1px solid #e5e7eb;
-  flex: 1 1 calc(33.333% - 2rem); /* 3 cartes par ligne avec un gap de 2rem */
-  max-width: calc(33.333% - 2rem); /* Empêche les cartes de dépasser cette largeur */
-  box-sizing: border-box; /* Inclut le padding et la bordure dans la largeur */
+  box-sizing: border-box;
 }
 
 .product-card:hover {
@@ -179,7 +179,36 @@
   transform: translateY(0);
 }
 
-/* Responsive Design */
+/* RESPONSIVE */
+
+@media (max-width: 1200px) {
+  .products-container {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .product-card .product-footer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .products-title {
+    font-size: 1.8rem;
+  }
+
+  .product-card .product-name {
+    font-size: 1.2rem;
+  }
+
+  .add-to-cart-btn {
+    width: 100%;
+  }
+}
+
 @media (max-width: 768px) {
   .products-container {
     padding: 1rem;
