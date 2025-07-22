@@ -8,7 +8,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
   selector: 'app-sieges-component',
   imports: [FilterProductsComponent, MatPaginator],
   templateUrl: './sieges-component.html',
-  styleUrl: './sieges-component.css'
+  styleUrl: '../css/main-components-css.css'
 })
 export class SiegesComponent implements OnInit{
 

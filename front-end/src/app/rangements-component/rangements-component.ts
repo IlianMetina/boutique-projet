@@ -8,7 +8,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
   selector: 'app-rangements-component',
   imports: [FilterProductsComponent, MatPaginator],
   templateUrl: './rangements-component.html',
-  styleUrl: './rangements-component.css'
+  styleUrl: '../css/main-components-css.css'
 })
 export class RangementsComponent implements OnInit{
 

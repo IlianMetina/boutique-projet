@@ -10,7 +10,7 @@ import { CartService } from '../services/cart/cart-service';
   selector: 'app-meubles-component',
   imports: [FilterProductsComponent, MatPaginator],
   templateUrl: './meubles-component.html',
-  styleUrl: './meubles-component.css'
+  styleUrl: '../css/main-components-css.css'
 })
 export class MeublesComponent implements OnInit{
 

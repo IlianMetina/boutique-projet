@@ -1,4 +1,4 @@
-<main class="main-meubles-container">
+<main class="main-category-container">
     <app-filter-products-component></app-filter-products-component>
     <div class="products-container">
         <h2 class="products-title">Nos Meubles Télétravail</h2>
@@ -23,7 +23,7 @@
                             <div class="price">
                                 <span class="current-price">{{product.price}}€</span>
                             </div>
-                            <button class="add-to-cart-btn">Ajouter au panier</button>
+                            <button class="add-to-cart-btn" (click)="addProduct()">Ajouter au panier</button>
                         </div>
                     </div>
                         

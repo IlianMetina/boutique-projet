@@ -9,7 +9,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
   selector: 'app-accessoires-component',
   imports: [FilterProductsComponent, MatPaginator],
   templateUrl: './accessoires-component.html',
-  styleUrl: './accessoires-component.css'
+  styleUrl: '../css/main-components-css.css'
 })
 export class AccessoiresComponent implements OnInit{
 

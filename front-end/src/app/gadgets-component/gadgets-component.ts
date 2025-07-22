@@ -4,11 +4,12 @@ import { isPlatformBrowser } from '@angular/common';
 import { ProductsService, Product } from '../services/products/products-service';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
+
 @Component({
   selector: 'app-gadgets-component',
   imports: [FilterProductsComponent, MatPaginator],
   templateUrl: './gadgets-component.html',
-  styleUrl: './gadgets-component.css'
+  styleUrl: '../css/main-components-css.css',
 })
 export class GadgetsComponent implements OnInit{
 

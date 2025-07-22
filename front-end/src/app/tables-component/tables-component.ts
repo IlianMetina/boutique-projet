@@ -8,7 +8,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
   selector: 'app-tables-component',
   imports: [FilterProductsComponent, MatPaginator],
   templateUrl: './tables-component.html',
-  styleUrl: './tables-component.css'
+  styleUrl: '../css/main-components-css.css'
 })
 export class TablesComponent implements OnInit{
 
