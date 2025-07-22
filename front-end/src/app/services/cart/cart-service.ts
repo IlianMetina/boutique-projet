@@ -1,4 +1,6 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
+import { AuthService } from '../auth/auth.service';
+import { Product } from '../products/products-service';
 
 export interface Cart {
 
@@ -22,6 +24,8 @@ export class CartService {
 
   private cartUrl = "http://localhost:3000/orders/";
   private findBasketUrl = "http://localhost:3000/orders/basket/";
+  private addToCartUrl = "http://localhost:3000/orders/"
+  private authService = inject(AuthService);
 
   async getCartProducts(userId: number): Promise<Cart>{
 
@@ -70,8 +74,23 @@ export class CartService {
     return userOrderId;
   }
 
-  addToCart(){
+  async addToCart(products: Product[]){
 
+    /* 
+      Logique : Si l'utilisateur est authentifié, on stocke directement les produits mis au panier dans la BDD.
+      Si l'utilisateur n'est pas authentifié, on stocke les produits mis dans le panier dans le localStorage.
+    */
+    const productsToString = products.toString();
+    const isUserAuthed = this.authService.isUserAuthenticated();
+
+    if(isUserAuthed){
+      const response = await this.authService.AuthenticatedRequest(this.addToCartUrl, 'POST', products);
+      const body = await response.json();
+
+    }else{
+
+      localStorage.setItem('cart-products', productsToString);
+    }
 
   }
 

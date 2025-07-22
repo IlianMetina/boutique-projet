@@ -20,6 +20,6 @@ export class FilterProductsComponent {
 
   applyFilters(){
 
-    console.log("Application des filtres produtis...");
+    console.log("Application des filtres produits...");
   }
 }

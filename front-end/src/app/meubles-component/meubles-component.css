@@ -51,6 +51,7 @@
   transition: all 0.3s ease;
   border: 1px solid #e5e7eb;
   box-sizing: border-box;
+  cursor: pointer;
 }
 
 .product-card:hover {
@@ -177,6 +178,15 @@
 
 .add-to-cart-btn:active {
   transform: translateY(0);
+}
+
+mat-paginator {
+  padding: 10px; 
+  display: flex;
+  justify-content: center;
+  font-size: 1.3em;
+  color: #1e3a8a;
+  font-weight: bold;
 }
 
 /* RESPONSIVE */

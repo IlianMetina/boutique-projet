@@ -5,7 +5,7 @@
         
         <!-- Produits -->
         <div class="products-grid">
-            @for(product of products; track product.name){
+            @for(product of productsPerPage(); track product.name){
             <div class="product-card">
                     <div class="product-image">
                         <img [src]='product.imageUrl' alt="Bureau ergonomique moderne">
@@ -32,5 +32,11 @@
             }
             <!-- Produits -->
             </div>
+        <mat-paginator
+            [length]="products().length"
+            [pageSize]="pageSize()"
+            [pageIndex]="pageIndex()"
+            (page)="onPageChange($event)">
+        </mat-paginator>
     </div>
 </main>

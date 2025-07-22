@@ -37,6 +37,9 @@ export class ProductsService {
     const categoryUrl = this.categoriesUrl + categoryId;
     const data = await this.authService.AuthenticatedRequest(categoryUrl, 'GET');
 
+    console.log("Données reçues pour la catégorie n°" + categoryId);
+    console.log(data);
+
     return data ?? undefined;
   }
 

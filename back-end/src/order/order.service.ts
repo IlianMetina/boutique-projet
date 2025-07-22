@@ -62,7 +62,7 @@ export class OrderService {
   const updateData: any = {};
   
   if (updateOrderDto.status) {
-    updateData.status = updateOrderDto.status as OrderStatus;
+    updateData.status = updateOrderDto.status;
   }
   
   if (updateOrderDto.total) {

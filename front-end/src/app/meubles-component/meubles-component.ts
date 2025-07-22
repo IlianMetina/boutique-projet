@@ -1,13 +1,14 @@
-import { Component, inject, PLATFORM_ID, signal, WritableSignal } from '@angular/core';
+import { Component, inject, PLATFORM_ID, signal, ViewChild, WritableSignal } from '@angular/core';
 import { Product, ProductsService } from '../services/products/products-service';
 import { OnInit } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { FilterProductsComponent } from '../filter-products-component/filter-products-component';
-import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { CartService } from '../services/cart/cart-service';
 
 @Component({
   selector: 'app-meubles-component',
-  imports: [FilterProductsComponent, MatPaginatorModule],
+  imports: [FilterProductsComponent, MatPaginator],
   templateUrl: './meubles-component.html',
   styleUrl: './meubles-component.css'
 })
@@ -15,10 +16,12 @@ export class MeublesComponent implements OnInit{
 
   private productService = inject(ProductsService);
   private platformID = inject(PLATFORM_ID);
-  pageSize = 10;
-  pageIndex = 0;
+  private cartService = inject(CartService);
+  pageSize: WritableSignal<number> = signal(6);
+  pageIndex: WritableSignal<number> = signal(0);
   products: WritableSignal<Product[]> = signal([]);
 
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
   constructor(){}
 
   async ngOnInit(){
@@ -26,10 +29,31 @@ export class MeublesComponent implements OnInit{
     if(isPlatformBrowser(this.platformID)){
       const products = await this.productService.getAllProductsByCategory(1);
 
-      console.log("Produits récupérés : " + products);
+      console.log("Produits récupérés : ");
       console.log(products);
 
       this.products.set(products ?? []);
+      console.log("Longueur du tableau produits : " + this.products().length);
     }
+  }
+
+  productsPerPage(): Product[]{
+
+    const start = this.pageIndex() * this.pageSize();
+    const end = start + this.pageSize();
+    
+    return this.products().slice(start, end);
+  }
+
+  onPageChange(event: PageEvent): void{
+
+    console.log("Entrée fonction onPageChange");
+    this.pageIndex.set(event.pageIndex);
+    this.pageSize.set(event.pageSize);
+  }
+
+  addProduct(){
+
+    // const a = this.cartService.addToCart();
   }
 }
