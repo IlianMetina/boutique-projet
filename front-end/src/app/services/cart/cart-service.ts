@@ -27,33 +27,50 @@ export class CartService {
   private addToCartUrl = "http://localhost:3000/orders/"
   private authService = inject(AuthService);
 
-  async getCartProducts(userId: number): Promise<Cart>{
+  async getCartProducts(userId: number): Promise<Cart | null>{
 
     /* A changer car il nous faut un orderId pour le joueur et 
     pas son UserID pour trouver sa commande associée (status "BASKET")*/
+    const isUserAuthed = this.authService.isUserAuthenticated();
+    if(isUserAuthed){
+      
+      const userOrderId: number = await this.getOrderIdbyUser(userId);
+      
+      if(typeof userOrderId !== "number"){
+        
+        throw new Error("Erreur de récupération de l'ID de la commande");
+      }
+      
+      const response = await fetch(this.cartUrl + userOrderId);
+      
+      if(!response.ok){
+        
+        throw new Error("Erreur HTTP: " + response.status);
+      }
+      
+      const body = await response.json();
+      
+      if(!body){
+        
+        throw new Error("Erreur de récupération du panier");
+      }
+      
+      return body;
 
-    const userOrderId: number = await this.getOrderIdbyUser(userId);
+    }else{
 
-    if(typeof userOrderId !== "number"){
+      const productsCart = localStorage.getItem('token');
 
-      throw new Error("Erreur de récupération de l'ID de la commande");
+      if(productsCart){
+        
+        const productsArray = JSON.parse(productsCart) ?? [];
+        return productsArray
+
+      }else{
+
+        return null;
+      }
     }
-
-    const response = await fetch(this.cartUrl + userOrderId);
-
-    if(!response.ok){
-
-      throw new Error("Erreur HTTP: " + response.status);
-    }
-
-    const body = await response.json();
-
-    if(!body){
-
-      throw new Error("Erreur de récupération du panier");
-    }
-
-    return body;
   }
 
   async getOrderIdbyUser(userId: number): Promise<number>{
@@ -84,6 +101,7 @@ export class CartService {
     const isUserAuthed = this.authService.isUserAuthenticated();
 
     if(isUserAuthed){
+
       const response = await this.authService.AuthenticatedRequest(this.addToCartUrl, 'POST', products);
       const body = await response.json();
 
