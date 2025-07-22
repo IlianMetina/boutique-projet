@@ -60,9 +60,8 @@ export class CartService {
     }else{
 
       const productsCart = localStorage.getItem('token');
-
       if(productsCart){
-        
+
         const productsArray = JSON.parse(productsCart) ?? [];
         return productsArray
 
@@ -97,6 +96,7 @@ export class CartService {
       Logique : Si l'utilisateur est authentifié, on stocke directement les produits mis au panier dans la BDD.
       Si l'utilisateur n'est pas authentifié, on stocke les produits mis dans le panier dans le localStorage.
     */
+   
     const productsToString = products.toString();
     const isUserAuthed = this.authService.isUserAuthenticated();
 
@@ -114,6 +114,7 @@ export class CartService {
 
   removeCartItem(){
 
+    
 
   }
 
