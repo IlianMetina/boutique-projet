@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
+import { Component, inject, OnInit, PLATFORM_ID, Signal, signal } from '@angular/core';
 import { Cart, CartService } from '../services/cart/cart-service';
 import { AuthService } from '../services/auth/auth.service';
 import { isPlatformBrowser } from '@angular/common';
@@ -27,16 +27,13 @@ export class PanierComponent implements OnInit {
   private platformId = inject(PLATFORM_ID);
   private cartService = inject(CartService);
   products: WritableSignal<ProductInOrder[]> = signal([]);
-  initCount = 0;
+  currentStage: WritableSignal<number> = signal(0);
 
   constructor(){}
 
   /* On enregistre et récupère le panier que pour ceux ayant un token, pas de persistance si l'utilisateur reste en invité */
   async ngOnInit(): Promise<ProductInOrder[] | undefined>{
     
-    this.initCount++;
-    console.log("Tour ngOnInit n°" + this.initCount);
-
     if(!isPlatformBrowser(this.platformId)){
 
       console.log("Côté serveur, aucun token disponible");
@@ -74,6 +71,22 @@ export class PanierComponent implements OnInit {
     this.products.set(cart.products ?? []);
 
     return cart.products;
+  }
+
+  nextStep(){
+
+    if(this.currentStage() < 2){
+      this.currentStage.set(this.currentStage() + 1);
+    }
+  }
+
+  previousStep(){
+
+    if(this.currentStage() > 0){
+
+      this.currentStage.set(this.currentStage() - 1);
+    }
+
   }
 
 }

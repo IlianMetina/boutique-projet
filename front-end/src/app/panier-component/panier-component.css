@@ -40,21 +40,27 @@
   color: #1e3a8a;
 }
 
+
 .progress-tracker {
   display: flex;
-  justify-content: center;
   align-items: center;
-  gap: 10px;
-  margin: 2rem auto;
-  max-width: 600px;
+  justify-content: space-around;
+  margin: 2rem 0;
 }
 
 .step {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
+  background-color: #e5e7eb; /* gris clair */
+  color: #374151; /* gris foncé */
+  font-weight: 600;
   position: relative;
-  z-index: 1;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.step.active {
+  background-color: #1e3a8a; /* bleu */
+  color: white;
 }
 
 .circle {
@@ -75,24 +81,6 @@
   font-size: 0.9rem;
   color: var(--gray-600);
   text-align: center;
-}
-
-.bar {
-  flex: 1;
-  height: 3px;
-  background-color: var(--gray-300);
-  margin: 0 5px;
-  z-index: 0;
-}
-
-/* Étape active */
-.step.active .circle {
-  background-color: var(--primary-blue);
-  color: var(--white);
-}
-
-.step.active .label {
-  color: var(--primary-blue);
 }
 
 /* En-tête du panier */
@@ -577,8 +565,7 @@
   background: var(--white);
   border-radius: var(--border-radius);
   padding: 2rem;
-  box-shadow: var(--shadow-md);
-  border-top: 4px solid var(--accent-orange);
+  border-top: 1px solid #c8d6ff;
 }
 
 .suggestions h2 {
