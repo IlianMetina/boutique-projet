@@ -4,6 +4,7 @@ import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import { UserId } from 'src/decorator/user-id.decorator';
 import { AuthGuard } from 'src/auth/auth.guard';
+import { userInfo } from 'os';
 
 @Controller('orders')
 export class OrderController {
@@ -36,6 +37,12 @@ export class OrderController {
       return { message: 'No basket found for this user.' };
     }
     return basket;
+  }
+
+  @Get('basket/user/:userId')
+  async findBasketOrderId(@Param('userId') userId: number){
+
+    return this.orderService.findBasketOrderId(Number(userId));
   }
 
   @Patch(':id')

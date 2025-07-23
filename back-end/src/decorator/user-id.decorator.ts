@@ -23,9 +23,6 @@ export const UserId = createParamDecorator(
         try{
 
             const secret = process.env.JWT_SECRET;
-            console.log('----------SECRET_JWT-----------');
-            console.log(secret);
-            console.log('----------SECRET_JWT-----------');
             if(!secret){
 
                 throw new Error("Erreur lors de la récupération");

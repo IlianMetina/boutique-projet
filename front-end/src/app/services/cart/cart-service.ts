@@ -24,18 +24,18 @@ export class CartService {
 
   private cartUrl = "http://localhost:3000/orders/";
   private findBasketUrl = "http://localhost:3000/orders/basket/";
+  private findBasketIdUrl = "http://localhost:3000/basket/user/"
   private addToCartUrl = "http://localhost:3000/orders/"
   private authService = inject(AuthService);
 
   async getCartProducts(userId: number): Promise<Cart | null>{
 
-    /* A changer car il nous faut un orderId pour le joueur et 
-    pas son UserID pour trouver sa commande associée (status "BASKET")*/
     const isUserAuthed = this.authService.isUserAuthenticated();
+    console.log("Utilisateur connecté ? : " + isUserAuthed);
     if(isUserAuthed){
       
       const userOrderId: number = await this.getOrderIdbyUser(userId);
-      
+      console.log("orderId récupérer : " + userOrderId);
       if(typeof userOrderId !== "number"){
         
         throw new Error("Erreur de récupération de l'ID de la commande");
@@ -54,6 +54,9 @@ export class CartService {
         
         throw new Error("Erreur de récupération du panier");
       }
+
+      console.log("-_-_-_-_-_-_-_-Réponse de l'API : -_-_-_-_-_-_-_-");
+      console.log(body);
       
       return body;
 
@@ -63,7 +66,7 @@ export class CartService {
       if(productsCart){
 
         const productsArray = JSON.parse(productsCart) ?? [];
-        return productsArray
+        return productsArray;
 
       }else{
 
@@ -74,7 +77,11 @@ export class CartService {
 
   async getOrderIdbyUser(userId: number): Promise<number>{
 
-    const response = await fetch(this.findBasketUrl + userId);
+    const response = await fetch(this.findBasketIdUrl + userId);
+
+    console.log("-_-_-_-_-_-_-_-_-Réponse API getOrderIdByUser :-_-_-_-_-_-_-_-_-");
+    console.log(response);
+    console.log("-_-_-_-_-_-_-_-_-Réponse API getOrderIdByUser :-_-_-_-_-_-_-_-_-");
 
     if(!response.ok){
       
@@ -97,16 +104,18 @@ export class CartService {
       Si l'utilisateur n'est pas authentifié, on stocke les produits mis dans le panier dans le localStorage.
     */
    
-    const productsToString = products.toString();
-    const isUserAuthed = this.authService.isUserAuthenticated();
-
-    if(isUserAuthed){
-
-      const response = await this.authService.AuthenticatedRequest(this.addToCartUrl, 'POST', products);
-      const body = await response.json();
-
+   const isUserAuthed = this.authService.isUserAuthenticated();
+   
+   if(isUserAuthed){
+     
+     const response = await this.authService.AuthenticatedRequest(this.addToCartUrl, 'POST', products);
+     const body = await response.json();
+     
+     return body;
+     
     }else{
-
+      
+      const productsToString = products.toString();
       localStorage.setItem('cart-products', productsToString);
     }
 
@@ -119,6 +128,11 @@ export class CartService {
   }
 
   clearCart(){
+
+
+  }
+
+  updateQuantity(productId: number){
 
 
   }

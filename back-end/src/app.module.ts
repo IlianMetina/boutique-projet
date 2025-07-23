@@ -7,7 +7,7 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { CategoriesModule } from './categories/categories.module';
 import { OrderModule } from './order/order.module';
-import { OrderItemModule } from './order-item/order-item.module';
+import { OrderItemModule } from './product-in-order/product-in-order.module';
 
 @Module({
   imports: [DatabaseModule, ProductsModule, UsersModule, AuthModule, CategoriesModule, OrderModule, OrderItemModule],

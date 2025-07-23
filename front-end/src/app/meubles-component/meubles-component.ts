@@ -5,6 +5,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { FilterProductsComponent } from '../filter-products-component/filter-products-component';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { CartService } from '../services/cart/cart-service';
+import { response } from 'express';
 
 @Component({
   selector: 'app-meubles-component',
@@ -52,8 +53,14 @@ export class MeublesComponent implements OnInit{
     this.pageSize.set(event.pageSize);
   }
 
-  addProduct(){
+  addProduct(product: Product){
 
-    // const a = this.cartService.addToCart();
+    this.cartService.addToCart([product])
+    .then(response => {
+      console.log("Produit ajouté au panier !")
+    })
+    .catch(error => {
+      console.error("Erreur lors de l'ajout du produit au panier")
+    });
   }
 }

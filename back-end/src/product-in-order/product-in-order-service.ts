@@ -8,6 +8,7 @@ import { Decimal } from '@prisma/client/runtime/library';
 
 interface Basket {
 
+  id: number;
   userId: number;
   status: string;
   total: Decimal;
@@ -21,7 +22,7 @@ export class OrderItemService {
   /* Méthode qui permet d'ajouter un produit au panier */
   async create(createOrderItemDto: CreateOrderItemDto, userId: number) {
 
-    const basket = this.getOrCreateBasket(userId);
+    const basket = await this.getOrCreateBasket(userId);
 
     const isProductExist = await this.isProductExists(createOrderItemDto.orderId, createOrderItemDto.productId);
     if(isProductExist){
@@ -30,17 +31,10 @@ export class OrderItemService {
     }
 
     const orderItem = new OrderItem();
-    orderItem.setOrderID(createOrderItemDto.orderId);
+    orderItem.setOrderID(basket.id);
     orderItem.setPrice(createOrderItemDto.price);
     orderItem.setProductItemID(createOrderItemDto.productId);
     orderItem.setQuantity(createOrderItemDto.quantity);
-
-    const testTotal: number = this.calculateOrderProductPrice(orderItem);
-
-    console.log("---------------------------------------");
-    console.log("Total valeur produit : " + testTotal)
-    console.log("---------------------------------------");
-
 
     return this.prisma.productInOrder.create({
       data: orderItem,
@@ -61,11 +55,6 @@ export class OrderItemService {
 
   remove(id: number) {
     return this.prisma.productInOrder.delete({where: {id}});
-  }
-
-  calculateOrderProductPrice(orderItem: OrderItem): number{
-
-    return orderItem.price * orderItem.quantity;
   }
 
   /* Méthode qui vérifie si un produit X est déjà présent dans le panier */

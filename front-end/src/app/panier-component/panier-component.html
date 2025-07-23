@@ -23,197 +23,45 @@
     <div class="cart-items">
       
       <!-- Article 1 -->
-      <div class="cart-item">
-        <div class="item-image">
-          <img src="https://via.placeholder.com/120x120/f1f5f9/3b82f6?text=Bureau" alt="Bureau ergonomique">
-        </div>
-        
-        <div class="item-details">
-          <h3 class="item-name">Bureau ergonomique réglable</h3>
-          <p class="item-description">Bureau électrique avec plateau en bois massif, idéal pour le télétravail</p>
-          <div class="item-specs">
-            <span class="spec-item">120x60 cm</span>
-            <span class="spec-item">Chêne</span>
-            <span class="spec-item">Naturel</span>
-          </div>
-        </div>
-        
-        <div class="item-actions">
-          <div class="item-price">
-            <span class="price-current">599,99 €</span>
-            <span class="price-original">699,99 €</span>
-          </div>
-          
-          <div class="quantity-controls">
-            <button class="quantity-btn quantity-decrease">
-              <i class="icon-minus">-</i>
-            </button>
-            <span class="quantity-display">1</span>
-            <button class="quantity-btn quantity-increase">
-              <i class="icon-plus">+</i>
-            </button>
-          </div>
-          
-          <button class="remove-btn">
-            <i class="icon-trash">🗑</i>
-            Supprimer
-          </button>
-        </div>
-      </div>
+       @for(product of products(); track product.product?.name){
 
-      <!-- Article 2 -->
-      <div class="cart-item">
-        <div class="item-image">
-          <img src="https://via.placeholder.com/120x120/f1f5f9/3b82f6?text=Chaise" alt="Chaise ergonomique">
-        </div>
-        
-        <div class="item-details">
-          <h3 class="item-name">Chaise ergonomique premium</h3>
-          <p class="item-description">Chaise avec support lombaire ajustable et accoudoirs 4D</p>
-          <div class="item-specs">
-            <span class="spec-item">Mesh</span>
-            <span class="spec-item">Noir</span>
-            <span class="spec-item">Réglable</span>
+         <div class="cart-item">
+           <div class="item-image">
+             <img [src]="product.product?.imageUrl" alt="Bureau ergonomique">
+            </div>
+            
+            <div class="item-details">
+              <h3 class="item-name">{{product.product?.name}}</h3>
+              <p class="item-description">{{product.product?.description}}</p>
+              <div class="item-specs">
+                <span class="spec-item">120x60 cm</span>
+                <span class="spec-item">Chêne</span>
+                <span class="spec-item">Naturel</span>
+              </div>
+            </div>
+            
+            <div class="item-actions">
+              <div class="item-price">
+                <span class="price-current">{{product.product?.price}}€</span>
+              </div>
+              
+              <div class="quantity-controls">
+                <button class="quantity-btn quantity-decrease">
+                  <i class="icon-minus">-</i>
+                </button>
+                <span class="quantity-display">1</span>
+                <button class="quantity-btn quantity-increase">
+                  <i class="icon-plus">+</i>
+                </button>
+              </div>
+              
+              <button class="remove-btn">
+                <i class="icon-trash">🗑</i>
+                Supprimer
+              </button>
+            </div>
           </div>
-        </div>
-        
-        <div class="item-actions">
-          <div class="item-price">
-            <span class="price-current">349,99 €</span>
-          </div>
-          
-          <div class="quantity-controls">
-            <button class="quantity-btn quantity-decrease">
-              <i class="icon-minus">-</i>
-            </button>
-            <span class="quantity-display">2</span>
-            <button class="quantity-btn quantity-increase">
-              <i class="icon-plus">+</i>
-            </button>
-          </div>
-          
-          <button class="remove-btn">
-            <i class="icon-trash">🗑</i>
-            Supprimer
-          </button>
-        </div>
-      </div>
-
-      <!-- Article 3 -->
-      <div class="cart-item">
-        <div class="item-image">
-          <img src="https://via.placeholder.com/120x120/f1f5f9/3b82f6?text=Lampe" alt="Lampe LED">
-        </div>
-        
-        <div class="item-details">
-          <h3 class="item-name">Lampe LED architecte</h3>
-          <p class="item-description">Lampe de bureau avec bras articulé et variateur d'intensité</p>
-          <div class="item-specs">
-            <span class="spec-item">LED</span>
-            <span class="spec-item">Métal</span>
-            <span class="spec-item">Blanc</span>
-          </div>
-        </div>
-        
-        <div class="item-actions">
-          <div class="item-price">
-            <span class="price-current">89,99 €</span>
-          </div>
-          
-          <div class="quantity-controls">
-            <button class="quantity-btn quantity-decrease">
-              <i class="icon-minus">-</i>
-            </button>
-            <span class="quantity-display">1</span>
-            <button class="quantity-btn quantity-increase">
-              <i class="icon-plus">+</i>
-            </button>
-          </div>
-          
-          <button class="remove-btn">
-            <i class="icon-trash">🗑</i>
-            Supprimer
-          </button>
-        </div>
-      </div>
-
-      <!-- AAAAAAAAAAAAAAAAAAAAA -->
-
-      <div class="cart-item">
-        <div class="item-image">
-          <img src="https://via.placeholder.com/120x120/f1f5f9/3b82f6?text=Chaise" alt="Chaise ergonomique">
-        </div>
-        
-        <div class="item-details">
-          <h3 class="item-name">Chaise ergonomique premium</h3>
-          <p class="item-description">Chaise avec support lombaire ajustable et accoudoirs 4D</p>
-          <div class="item-specs">
-            <span class="spec-item">Mesh</span>
-            <span class="spec-item">Noir</span>
-            <span class="spec-item">Réglable</span>
-          </div>
-        </div>
-        
-        <div class="item-actions">
-          <div class="item-price">
-            <span class="price-current">349,99 €</span>
-          </div>
-          
-          <div class="quantity-controls">
-            <button class="quantity-btn quantity-decrease">
-              <i class="icon-minus">-</i>
-            </button>
-            <span class="quantity-display">2</span>
-            <button class="quantity-btn quantity-increase">
-              <i class="icon-plus">+</i>
-            </button>
-          </div>
-          
-          <button class="remove-btn">
-            <i class="icon-trash">🗑</i>
-            Supprimer
-          </button>
-        </div>
-      </div>
-
-      <!-- AAAAAAAAAAAAAAAAAAAAAAAAAAAA -->
-
-      <div class="cart-item">
-        <div class="item-image">
-          <img src="https://via.placeholder.com/120x120/f1f5f9/3b82f6?text=Chaise" alt="Chaise ergonomique">
-        </div>
-        
-        <div class="item-details">
-          <h3 class="item-name">Chaise ergonomique premium</h3>
-          <p class="item-description">Chaise avec support lombaire ajustable et accoudoirs 4D</p>
-          <div class="item-specs">
-            <span class="spec-item">Mesh</span>
-            <span class="spec-item">Noir</span>
-            <span class="spec-item">Réglable</span>
-          </div>
-        </div>
-        
-        <div class="item-actions">
-          <div class="item-price">
-            <span class="price-current">349,99 €</span>
-          </div>
-          
-          <div class="quantity-controls">
-            <button class="quantity-btn quantity-decrease">
-              <i class="icon-minus">-</i>
-            </button>
-            <span class="quantity-display">2</span>
-            <button class="quantity-btn quantity-increase">
-              <i class="icon-plus">+</i>
-            </button>
-          </div>
-          
-          <button class="remove-btn">
-            <i class="icon-trash">🗑</i>
-            Supprimer
-          </button>
-        </div>
-      </div>
+        }
       
       <!-- Message panier vide (caché par défaut) -->
       <div class="empty-cart" style="display: none;">

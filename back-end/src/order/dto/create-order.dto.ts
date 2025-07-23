@@ -1,6 +1,6 @@
 import { Type } from "class-transformer";
 import { IsArray, IsDecimal, IsEnum, IsInt, ValidateNested } from "class-validator";
-import { CreateOrderItemDto } from "src/order-item/dto/create-order-item.dto";
+import { CreateOrderItemDto } from "src/product-in-order/dto/create-order-item.dto";
 
 export class CreateOrderDto {
 

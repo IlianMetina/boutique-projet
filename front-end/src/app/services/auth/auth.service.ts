@@ -21,7 +21,7 @@ interface RegisterData {
 
 interface tokenPayload {
 
-  id: number;
+  sub: number;
   email: string;
   role: string;
 }
@@ -47,7 +47,7 @@ export class AuthService {
   private usersUrl = 'http://localhost:3000/users/register';
   private loginUrl = 'http://localhost:3000/auth/login';
   private platformID = inject(PLATFORM_ID);
-  private isAuthenticated = false;
+  isAuthenticated = false;
 
   constructor(private cookieService: CookieService) {}
 
@@ -121,7 +121,23 @@ export class AuthService {
 
   isUserAuthenticated(): boolean{
 
-    return this.isAuthenticated;
+    const token = this.getToken()
+    if(!token){
+
+      return false;
+    }
+
+    const userId = this.getIdFromToken(token);
+    console.log("userId récupérer : ");
+    console.log(userId);
+    if(userId){
+
+      return true;
+    }else{
+
+      return false;
+    }
+
   }
 
   /* Récupération du token dans les cookies si on est sur le navigateur */
@@ -186,7 +202,13 @@ export class AuthService {
 
     const decodedToken: tokenPayload = jwtDecode(token);
 
-    return decodedToken.id;
+    console.log("--------TOKEN ID----------");
+    console.log(decodedToken.sub);
+    console.log(decodedToken.email);
+    console.log(decodedToken.role);
+    console.log("--------TOKEN ID----------");
+
+    return decodedToken.sub;
   }
 
 }
