@@ -24,55 +24,75 @@ export class CartService {
 
   private cartUrl = "http://localhost:3000/orders/";
   private findBasketUrl = "http://localhost:3000/orders/basket/";
-  private findBasketIdUrl = "http://localhost:3000/basket/user/"
+  private findBasketIdUrl = "http://localhost:3000/orders/basket/user/"
   private addToCartUrl = "http://localhost:3000/orders/"
   private authService = inject(AuthService);
 
   async getCartProducts(userId: number): Promise<Cart | null>{
 
-    const isUserAuthed = this.authService.isUserAuthenticated();
-    console.log("Utilisateur connecté ? : " + isUserAuthed);
-    if(isUserAuthed){
-      
-      const userOrderId: number = await this.getOrderIdbyUser(userId);
-      console.log("orderId récupérer : " + userOrderId);
-      if(typeof userOrderId !== "number"){
+    try{
+
+      const isUserAuthed = this.authService.isUserAuthenticated();
+      console.log("Utilisateur connecté ? : " + isUserAuthed);
+      if(isUserAuthed){
         
-        throw new Error("Erreur de récupération de l'ID de la commande");
-      }
-      
-      const response = await fetch(this.cartUrl + userOrderId);
-      
-      if(!response.ok){
+        const userOrderId: number = await this.getOrderIdbyUser(userId);
+        console.log("orderId récupérer : " + userOrderId);
         
-        throw new Error("Erreur HTTP: " + response.status);
-      }
-      
-      const body = await response.json();
-      
-      if(!body){
+        const response = await fetch(this.cartUrl + userOrderId);
         
-        throw new Error("Erreur de récupération du panier");
-      }
+        if (!response.ok) {
+          
+          console.error("Erreur HTTP:", response.status);
+          return {
+              id: 0,
+              products: [],
+              total: 0
+          };
+        }
+        
+        const body = await response.json();
 
-      console.log("-_-_-_-_-_-_-_-Réponse de l'API : -_-_-_-_-_-_-_-");
-      console.log(body);
-      
-      return body;
+        if (!body || !body.id || !Array.isArray(body.productsInOrder)) {
 
-    }else{
-
-      const productsCart = localStorage.getItem('token');
-      if(productsCart){
-
-        const productsArray = JSON.parse(productsCart) ?? [];
-        return productsArray;
-
+          console.error("Format de réponse invalide");
+          return null;
+        }
+        
+        console.log("-_-_-_-_-_-_-_-Réponse de l'API : -_-_-_-_-_-_-_-");
+        console.log(body);
+        
+        return {
+          id: body.id,
+          products: body.productsInOrder,
+          total: body.total,
+        };
+        
       }else{
+        
+        const productsCart = localStorage.getItem('cart-products');
+        if(!productsCart) return null;
 
-        return null;
-      }
+        try{
+
+          const parsedCart = JSON.parse(productsCart);
+          if(typeof parsedCart === 'object' && parsedCart !== null){
+            return parsedCart;
+          }
+
+          return null;
+
+        }catch(error){
+
+          console.error("Erreur récupération des produits localStorage :", error);
+          return null;
+        }
     }
+    }catch(error){
+
+      console.error("Erreur dans getCardProducts");
+      return {id: 0, products: [], total: 0};
+    };
   }
 
   async getOrderIdbyUser(userId: number): Promise<number>{
@@ -88,13 +108,13 @@ export class CartService {
       throw new Error("Erreur lors de la récupération orderId");
     }
 
-    const userOrderId = await response.json();
+    const data = await response.json();
 
-    if (typeof userOrderId !== "number") {
+    if (!data || !data.id) {
       throw new Error("Erreur : l'orderId retourné n'est pas un nombre valide");
     }
 
-    return userOrderId;
+    return data.id;
   }
 
   async addToCart(products: Product[]){

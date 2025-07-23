@@ -53,7 +53,11 @@ export class OrderService {
       },
 
       include: {
-        productsInOrder: true,
+        productsInOrder: {
+          include: {
+            product: true
+          }
+        }
       },
       
     });

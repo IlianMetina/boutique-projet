@@ -41,36 +41,52 @@ export class PanierComponent implements OnInit {
     }
 
     const token = this.authService.getToken();
-    console.log('------------------------');
-    console.log("Récupération du token onInit : ");
-    console.log(token);
-    console.log('------------------------');
+    // console.log('------------------------');
+    // console.log("Récupération du token onInit : ");
+    // console.log(token);
+    // console.log('------------------------');
 
-    console.log("IsTokenFalsy ? : ");
-    console.log(token == null);
+    // console.log("IsTokenFalsy ? : ");
+    // console.log(token == null);
 
     if(token == null){
 
-      throw new Error("Token non valide");
+      this.products.set([]);
+      return;
     }
 
     const userID = this.authService.getIdFromToken(token);
 
     if(!userID){
 
-      throw new Error("Erreur récupération ID");
+      this.products.set([]);
+      return;
     }
 
-    const cart = await this.cartService.getCartProducts(userID);
+    try{
 
-    if(!cart || !cart.products){
+      const cart = await this.cartService.getCartProducts(userID);
+      
+      if(!cart || !cart.products){
+        
+        console.log("Panier vide ou non trouvé");
+        this.products.set([]);
+        return;
+      }
+      
+      const settedProducts = cart.products ?? [];
+      console.log("Produits avant set :", settedProducts);
+      this.products.set(settedProducts);
+      console.log("Produits après set :", this.products());
+      
+      return settedProducts;
 
-      throw new Error("Erreur récupération produits panier");
+    }catch(error){
+
+      console.error("Erreur :", error);
+      this.products.set([]);
+      return;
     }
-
-    this.products.set(cart.products ?? []);
-
-    return cart.products;
   }
 
   nextStep(){
