@@ -46,11 +46,11 @@
               </div>
               
               <div class="quantity-controls">
-                <button class="quantity-btn quantity-decrease">
+                <button class="quantity-btn quantity-decrease" (click)="updateQuantity(product, -1)">
                   <i class="icon-minus">-</i>
                 </button>
                 <span class="quantity-display">{{product.quantity}}</span>
-                <button class="quantity-btn quantity-increase">
+                <button class="quantity-btn quantity-increase" (click)="updateQuantity(product, 1)">
                   <i class="icon-plus">+</i>
                 </button>
               </div>

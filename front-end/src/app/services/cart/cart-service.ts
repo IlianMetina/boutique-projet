@@ -143,7 +143,11 @@ export class CartService {
 
   removeCartItem(){
 
-    
+    const isAuthed = this.authService.isUserAuthenticated();
+    if(isAuthed){
+
+
+    }
 
   }
 
@@ -152,8 +156,50 @@ export class CartService {
 
   }
 
-  updateQuantity(productId: number){
+async modifyQuantity(productId: number, quantity: number): Promise<Cart | null> {
+    const isUserAuthed = this.authService.isUserAuthenticated();
 
+    if (isUserAuthed) {
+        try {
+            // Modification en BDD
+            const response = await this.authService.AuthenticatedRequest(
+                `${this.cartUrl}products/${productId}/quantity/${quantity}`,
+                'PATCH'
+            );
 
-  }
+            if (!response.ok) {
+                console.error('Erreur modification quantité:', response.status);
+                return null;
+            }
+
+            return await response.json();
+        } catch (error) {
+            console.error('Erreur modification quantité:', error);
+            return null;
+        }
+    } else {
+        // Modification dans le localStorage
+        try {
+            const cartStr = localStorage.getItem('cart-products');
+            if (!cartStr) return null;
+
+            const cart = JSON.parse(cartStr);
+            const productIndex = cart.products.findIndex((p: { productId: number; }) => p.productId === productId);
+
+            if (productIndex === -1) return null;
+
+            // Mise à jour de la quantité
+            cart.products[productIndex].quantity = quantity;
+            // Recalcul du total
+            cart.total = cart.products.reduce((sum: number, p: { price: number; quantity: number; }) => sum + (p.price * p.quantity), 0);
+
+            // Sauvegarde dans le localStorage
+            localStorage.setItem('cart-products', JSON.stringify(cart));
+            return cart;
+        } catch (error) {
+            console.error('Erreur modification localStorage:', error);
+            return null;
+        }
+    }
+}
 }

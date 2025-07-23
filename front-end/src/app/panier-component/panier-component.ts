@@ -9,7 +9,7 @@ interface ProductInOrder{
 
   id?: number;
   orderId?: number;
-  productId?: number;
+  productId: number;
   quantity?: number;
   price: number;
   product?: Product;
@@ -122,5 +122,16 @@ export class PanierComponent implements OnInit {
     }
 
   }
+
+async updateQuantity(product: ProductInOrder, change: number) {
+  console.log("Mise à jour de la quantité pour le produit");
+    const newQuantity = (product.quantity || 0) + change;
+    if (newQuantity >= 0) {
+        const updatedCart = await this.cartService.modifyQuantity(product.productId, newQuantity);
+        if (updatedCart) {
+            this.products.set(updatedCart.products);
+        }
+    }
+}
 
 }
