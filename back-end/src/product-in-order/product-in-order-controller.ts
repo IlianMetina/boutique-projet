@@ -36,7 +36,7 @@ export class OrderItemController {
     return this.orderItemService.update(+id, updateOrderItemDto);
   }
 
-  @Delete(':id')
+  @Delete('remove/:id')
   // @UseGuards(AuthGuard)
   remove(@Param('id') id: string) {
     return this.orderItemService.remove(+id);

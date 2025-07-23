@@ -27,6 +27,7 @@ export class CartService {
   private findBasketIdUrl = "http://localhost:3000/orders/basket/user/"
   private addToCartUrl = "http://localhost:3000/orders/"
   private authService = inject(AuthService);
+  private removeItemUrl = "http://localhost:3000/order-item/remove/"
 
   async getCartProducts(userId: number): Promise<Cart | null>{
 
@@ -141,12 +142,40 @@ export class CartService {
 
   }
 
-  removeCartItem(){
+  async removeCartItem(productId: number){
 
     const isAuthed = this.authService.isUserAuthenticated();
     if(isAuthed){
 
+      try{
 
+        const response = await this.authService.AuthenticatedRequest(this.removeItemUrl + productId, 'DELETE');
+        if(!response.ok){
+
+          console.error("Erreur lors de la suppression du produit");
+          return null;
+        }
+
+        return await response.json();
+
+      }catch(error){
+        console.error("Erreur lors de la tentative de suppression");
+        return null;
+      } 
+
+    }else{
+
+      const storedProducts = localStorage.getItem('cart-items');
+
+      if(!storedProducts){
+        return null;
+      }
+
+      const cart = JSON.parse(storedProducts);
+
+        const productIndex = cart.products.findIndex((p: { productId: number; }) => 
+          p.productId === productId
+        );
     }
 
   }
