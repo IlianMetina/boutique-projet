@@ -41,19 +41,20 @@ export class OrderController {
 
   @Get('basket/user/:userId')
   async findBasketOrderId(@Param('userId') userId: number){
-
     return this.orderService.findBasketOrderId(Number(userId));
   }
 
   @Patch(':id')
   // @UseGuards(AuthGuard)
-  update(@Param('id') id: string, @Body() updateOrderDto: UpdateOrderDto) {
+  async update(@Param('id') id: string, @Body() updateOrderDto: UpdateOrderDto) {
+    await this.orderService.calculateOrderTotal(Number(id));
     return this.orderService.update(+id, updateOrderDto);
   }
 
   @Delete('remove/:id')
   // @UseGuards(AuthGuard)
-  remove(@Param('id') id: string) {
+  async remove(@Param('id') id: string) {
+    await this.orderService.calculateOrderTotal(Number(id));
     return this.orderService.remove(+id);
   }
 }
