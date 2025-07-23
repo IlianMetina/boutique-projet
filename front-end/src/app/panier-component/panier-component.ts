@@ -11,7 +11,7 @@ interface ProductInOrder{
   orderId?: number;
   productId?: number;
   quantity?: number;
-  price?: number;
+  price: number;
   product?: Product;
 }
 
@@ -26,6 +26,7 @@ export class PanierComponent implements OnInit {
   private authService = inject(AuthService);
   private platformId = inject(PLATFORM_ID);
   private cartService = inject(CartService);
+  tax: number = 1.2;
   products: WritableSignal<ProductInOrder[]> = signal([]);
   currentStage: WritableSignal<number> = signal(0);
 
@@ -87,6 +88,23 @@ export class PanierComponent implements OnInit {
       this.products.set([]);
       return;
     }
+  }
+
+  getTotalItems(): number {
+
+    return this.products().reduce((sum, item) => sum + (item.quantity || 0), 0);
+  }
+
+  getSubTotal(): number {
+    return this.products().reduce((sum, item) => {
+        const price = item.product?.price ? Number(item.product.price) : 0;
+        const quantity = item.quantity ?? 0;
+        return sum + (price * quantity);
+    }, 0);
+  }
+
+  getTotal(): number {
+    return this.getSubTotal() * this.tax;
   }
 
   nextStep(){

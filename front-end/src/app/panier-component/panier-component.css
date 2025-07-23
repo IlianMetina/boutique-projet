@@ -161,7 +161,7 @@
 .item-image {
   width: 120px;
   height: 120px;
-  border-radius: var(--border-radius-sm);
+  border-radius: 15px;
   overflow: hidden;
   border: 2px solid var(--gray-200);
 }
@@ -399,6 +399,11 @@
   padding: 0.75rem 0;
   font-size: 1rem;
   border-top: 1px solid #ebeaea;
+}
+
+.summary-line strong {
+
+  margin-left: 1rem;
 }
 
 .summary-line span:first-child {

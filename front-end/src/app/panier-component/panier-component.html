@@ -82,8 +82,8 @@
       
       <div class="summary-details">
         <div class="summary-line">
-          <span>Sous-total (4 articles)</span>
-          <!-- <span>{{products.price}}€</span> -->
+          <span>Sous-total <strong>{{getTotalItems()}}</strong></span>
+          <span>{{getSubTotal()}}€ HT</span>
         </div>
         
         <div class="summary-line">
@@ -93,14 +93,14 @@
         
         <div class="summary-line discount-line">
           <span>Réduction</span>
-          <span class="discount-amount">-50,00 €</span>
+          <span class="discount-amount">-</span>
         </div>
         
         <div class="summary-divider"></div>
         
         <div class="summary-line total-line">
           <span>Total</span>
-          <span>1 289,97 €</span>
+          <span>{{getTotal()}}€ TTC</span>
         </div>
       </div>
       
