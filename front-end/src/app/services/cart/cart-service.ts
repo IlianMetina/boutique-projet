@@ -180,10 +180,10 @@ export class CartService {
 
   }
 
-  getTotalItems(): number {
+  // getTotalItems(): number {
 
-    return this.products().reduce((sum: any, item: { quantity: any; }) => sum + (item.quantity || 0), 0);
-  }
+  //   return this.products().reduce((sum: any, item: { quantity: any; }) => sum + (item.quantity || 0), 0);
+  // }
 
 async modifyQuantity(productId: number, quantity: number): Promise<Cart | null> {
     const isUserAuthed = this.authService.isUserAuthenticated();

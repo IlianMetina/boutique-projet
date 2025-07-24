@@ -99,3 +99,8 @@ paiement.
 Finir filtrage produits
 
 Faire responsive des vignettes produits et vérifier le reste
+
+Faire le cors et faire le httpOnly cookies
+Faire un if qui vérifie s'il y a des produits 
+dans le panier, si oui, rien faire,
+si non, afficher "Aucun produits dans votre panier".

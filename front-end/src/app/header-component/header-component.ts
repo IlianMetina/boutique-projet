@@ -13,14 +13,15 @@ import { CartService } from '../services/cart/cart-service';
 })
 export class HeaderComponent {
 
-  constructor(public authService: AuthService){}
+  constructor(public authService: AuthService, public cartService: CartService){}
 
   isUserConnected(){
 
     return this.authService.isUserAuthenticated() ? 'Mon compte' : 'Se connecter';
   }
 
-  cartCount(){
+  // cartCount(){
     
-  }
+  //   return this.cartService.getTotalItems();
+  // }
 }
