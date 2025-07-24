@@ -4,17 +4,16 @@ import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import { UserId } from 'src/decorator/user-id.decorator';
 import { AuthGuard } from 'src/auth/auth.guard';
-import { userInfo } from 'os';
 
 @Controller('orders')
 export class OrderController {
   constructor(private readonly orderService: OrderService) {}
 
   @Post('create')
-  // @UseGuards(AuthGuard)
+  @UseGuards(AuthGuard)
   create(@Body() createOrderDto: CreateOrderDto, @UserId() userId: number) {
     createOrderDto.userId = userId;
-    return this.orderService.create(createOrderDto);
+    return this.orderService.create(createOrderDto, userId);
   }
 
   @Get('all')

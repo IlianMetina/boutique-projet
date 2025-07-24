@@ -18,7 +18,7 @@ export class OrderService {
 
   constructor(private readonly prisma: PrismaService){}
 
-  async create(createOrderDto: CreateOrderDto) {
+  async create(createOrderDto: CreateOrderDto, userId: number) {
 
     console.log("UserId reçu par la méthode create : ", createOrderDto.userId);
 
@@ -29,7 +29,6 @@ export class OrderService {
     }
 
     const order = new Order();
-
     order.setUserID(createOrderDto.userId);
     order.setStatus(createOrderDto.status as OrderStatus);
     order.setTotal(createOrderDto.total);
@@ -63,7 +62,7 @@ export class OrderService {
     });
   }
 
- update(id: number, updateOrderDto: UpdateOrderDto) {
+ async update(id: number, updateOrderDto: UpdateOrderDto) {
 
   const updateData: any = {};
   
@@ -118,7 +117,7 @@ export class OrderService {
     console.log({
     userId: userId,
     // status: 'BASKET',
-  });
+    });
 
     const basket = await this.prisma.order.findFirst({
 
@@ -150,20 +149,25 @@ export class OrderService {
       },
     });
 
+    console.log("------Produits présents dans la BDD pour l'order " + orderId + "------");
+    console.log(productsInOrder);
+    console.log("------Produits présents dans la BDD pour l'order " + orderId + "------");
+
     const total = productsInOrder.reduce((sum: Decimal, item: {price: Decimal; quantity: number}) =>{
 
       return sum.add(item.price.mul(item.quantity));
 
     }, new Decimal(0));
 
-    console.log("Total prix de la commande : ")
-    console.log(total);
+    console.log("------Total prix de la commande : ------")
+    console.log(total); 
+    console.log("------Total prix de la commande : ------")
 
     const totalToInt = total.toNumber();
 
     await this.prisma.order.update({
       where: {id: orderId},
-      data: {total: total}
+      data: {total: totalToInt}
     });
 
     return totalToInt;
@@ -184,6 +188,7 @@ async getProductPrice(productId: number): Promise<number> {
 }
 
 async addProductToCart(userId: number, productId: number, quantity: number) {
+
   const basket = await this.findBasket(userId);
 
   if (!basket) {

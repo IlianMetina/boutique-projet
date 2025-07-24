@@ -10,7 +10,7 @@ export class OrderItemController {
   constructor(private readonly orderItemService: OrderItemService) {}
 
   @Post('create')
-  // @UseGuards(AuthGuard)
+  @UseGuards(AuthGuard)
   create(@Body() createOrderItemDto: CreateOrderItemDto, @UserId() userId: number) {
     console.log('---------------------------------------');
     console.log("Id de l'utilisateur concerné : ", userId);

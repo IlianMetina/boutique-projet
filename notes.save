@@ -97,3 +97,5 @@ Ajouter méthode de paiement (Stripe)
 Faire méthode qui change le statut de la commande to "PENDING" après
 paiement.
 Finir filtrage produits
+
+Faire responsive des vignettes produits et vérifier le reste

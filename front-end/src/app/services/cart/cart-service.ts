@@ -165,7 +165,7 @@ export class CartService {
 
     }else{
 
-      const storedProducts = localStorage.getItem('cart-items');
+      const storedProducts = localStorage.getItem('cart-products');
 
       if(!storedProducts){
         return null;

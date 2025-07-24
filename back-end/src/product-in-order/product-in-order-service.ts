@@ -5,6 +5,7 @@ import { PrismaService } from 'prisma/prisma.service';
 import { OrderItem } from './entities/order-item.entity';
 import { ProductInOrder } from '@prisma/client';
 import { Decimal } from '@prisma/client/runtime/library';
+import { OrderService } from 'src/order/order.service';
 
 interface Basket {
 
@@ -17,17 +18,44 @@ interface Basket {
 @Injectable()
 export class OrderItemService {
 
-  constructor(private readonly prisma: PrismaService){}
+  constructor(private readonly prisma: PrismaService, private readonly orderService: OrderService){}
 
   /* Méthode qui permet d'ajouter un produit au panier */
   async create(createOrderItemDto: CreateOrderItemDto, userId: number) {
 
-    const basket = await this.getOrCreateBasket(userId);
+    let basket;
+    
+    if(createOrderItemDto.orderId){
 
-    const isProductExist = await this.isProductExists(createOrderItemDto.orderId, createOrderItemDto.productId);
+      basket = await this.prisma.order.findUnique({where: {id: createOrderItemDto.orderId}});
+      if(!basket){
+        throw new Error("Aucune Order trouvée");
+      }
+
+      if(basket.userId !== userId){
+        throw new Error("Modification d'un utilisateur de manière non autorisée");
+      }
+
+    }else{
+
+      basket = await this.getOrCreateBasket(userId);
+    }
+
+
+    const isProductExist = await this.isProductExists(basket.id, createOrderItemDto.productId); 
     if(isProductExist){
       
-      return this.updateProductQuantity(createOrderItemDto);
+      const updateDto: UpdateOrderItemDto = {
+
+        orderId: basket.id,
+        productId: createOrderItemDto.productId,
+        quantity: createOrderItemDto.quantity,
+        price: createOrderItemDto.price,
+      };
+
+      const updated = this.updateProductQuantity(updateDto);
+      await this.orderService.calculateOrderTotal(basket.id);
+      return updated;
     }
 
     const orderItem = new OrderItem();
@@ -36,9 +64,13 @@ export class OrderItemService {
     orderItem.setProductItemID(createOrderItemDto.productId);
     orderItem.setQuantity(createOrderItemDto.quantity);
 
-    return this.prisma.productInOrder.create({
+
+    const created = await this.prisma.productInOrder.create({
       data: orderItem,
     });
+
+    await this.orderService.calculateOrderTotal(basket.id);
+    return created;
   }
 
   findAll() {
@@ -94,7 +126,8 @@ export class OrderItemService {
         }
       },
       data: {
-        quantity: {increment: 1},
+        quantity: updateOrderItemDto.quantity, // <-- remplace au lieu d'incrémenter
+        price: updateOrderItemDto.price,
       },
     });
   }
