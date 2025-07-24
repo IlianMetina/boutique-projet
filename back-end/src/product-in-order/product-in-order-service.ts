@@ -43,6 +43,17 @@ export class OrderItemService {
 
 
     const isProductExist = await this.isProductExists(basket.id, createOrderItemDto.productId); 
+
+    const product = await this.prisma.product.findUnique({
+      where: {id: createOrderItemDto.productId},
+      select: {price: true}
+    });
+
+    if(!product){
+
+      throw new Error("Produit introuvable");
+    }
+
     if(isProductExist){
       
       const updateDto: UpdateOrderItemDto = {
@@ -50,7 +61,7 @@ export class OrderItemService {
         orderId: basket.id,
         productId: createOrderItemDto.productId,
         quantity: createOrderItemDto.quantity,
-        price: createOrderItemDto.price,
+        price: product.price.toNumber(),
       };
 
       const updated = this.updateProductQuantity(updateDto);
@@ -60,7 +71,7 @@ export class OrderItemService {
 
     const orderItem = new OrderItem();
     orderItem.setOrderID(basket.id);
-    orderItem.setPrice(createOrderItemDto.price);
+    orderItem.setPrice(product.price.toNumber());
     orderItem.setProductItemID(createOrderItemDto.productId);
     orderItem.setQuantity(createOrderItemDto.quantity);
 

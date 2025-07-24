@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '../services/auth/auth.service';
+import { CartService } from '../services/cart/cart-service';
+
 
 @Component({
   selector: 'app-header-component',
@@ -10,4 +13,14 @@ import { RouterLink } from '@angular/router';
 })
 export class HeaderComponent {
 
+  constructor(public authService: AuthService){}
+
+  isUserConnected(){
+
+    return this.authService.isUserAuthenticated() ? 'Mon compte' : 'Se connecter';
+  }
+
+  cartCount(){
+    
+  }
 }

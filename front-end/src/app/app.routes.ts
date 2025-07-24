@@ -12,6 +12,7 @@ import { SiegesComponent } from './sieges-component/sieges-component';
 import { AuthGuard } from './services/auth/auth-guard';
 import { LikeComponent } from './like-component/like-component';
 import { PanierComponent } from './panier-component/panier-component';
+import { AccountComponent } from './account-component/account-component';
 
 export const routes: Routes = [
 
@@ -26,8 +27,8 @@ export const routes: Routes = [
   { path: 'tech', component: GadgetsComponent },
   { path: 'tables', component: TablesComponent },
   { path: 'panier', component: PanierComponent },
+  { path: 'mon-compte', component: AccountComponent, canActivate: [AuthGuard] },
   // { path: 'mes-envies', component: LikeComponent, canActivate: [AuthGuard] },
-  // { path: 'mon-compte', component: AccountComponent, canActivate: [AuthGuard] },
   // { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   // { path: 'mes-commandes', component: CommandesComponent, canActivate: [AuthGuard] },
   // { path: 'admin', component: AdminComponent, canActivate: [AuthGuard] },

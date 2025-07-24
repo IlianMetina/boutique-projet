@@ -76,7 +76,6 @@ model ProductInOrder {
 
   @@unique([orderId, productId]) // Ensure a product can only appear once in an order
 
-  // Il faudra peut être faire un algo pour si le produit est déjà dans la commande, on incrémente la quantité
 }
 
 model Product {

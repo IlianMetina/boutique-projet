@@ -19,16 +19,18 @@
                     <a routerLink="a-propos"><i class="fas fa-info-circle" style="font-size: 24px;color: rgb(4, 185, 4);"></i></a>
                     <p>À propos</p>
                 </div>
-                <!-- <div class="info-item">
-                    <a routerLink="mes-envies"><i class="fas fa-heart" style="font-size: 24px; color: rgb(221, 22, 22);"></i></a>
-                    <p>Mes envies</p>
-                </div> -->
                 <div class="info-item">
-                    <a routerLink="/login"><i class="fas fa-user-alt" style="font-size: 24px; color: rgb(113, 113, 255);"></i></a>
-                    <p>Se connecter</p>
+                    <a [routerLink]="isUserConnected() ? '/mon-compte' : '/login'"><i class="fas fa-user-alt" style="font-size: 24px; color: rgb(113, 113, 255);"></i></a>
+                    <p>{{isUserConnected()}}</p>
                 </div>
                  <div class="cart-icon">
-                    <a routerLink="/panier"><i class='fas fa-shopping-cart' style='font-size:24px;color:rgb(247, 60, 60);'></i></a>
+                    <a routerLink="/panier">
+                        <i class='fas fa-shopping-cart' style='font-size:24px;color:rgb(247, 60, 60);'></i>
+                        @if (cartCount() > 0) {
+                            <span class="cart-badge">{{ cartCount() }}</span>
+                        }
+                    </a>
+                    
                 </div>
             </div>
 

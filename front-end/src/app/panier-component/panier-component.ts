@@ -1,5 +1,5 @@
 import { Component, inject, OnInit, PLATFORM_ID, Signal, signal } from '@angular/core';
-import { Cart, CartService } from '../services/cart/cart-service';
+import { CartService } from '../services/cart/cart-service';
 import { AuthService } from '../services/auth/auth.service';
 import { isPlatformBrowser } from '@angular/common';
 import { WritableSignal } from '@angular/core';

@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal, WritableSignal } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { Product } from '../products/products-service';
 
@@ -23,12 +23,12 @@ export class CartService {
   constructor() { }
 
   private cartUrl = "http://localhost:3000/orders/";
-  private findBasketUrl = "http://localhost:3000/orders/basket/";
   private findBasketIdUrl = "http://localhost:3000/orders/basket/user/"
   private addToCartUrl = "http://localhost:3000/orders/"
   private authService = inject(AuthService);
   private removeItemUrl = "http://localhost:3000/order-item/remove/"
-
+  products: WritableSignal<{ quantity: number }[]> = signal([]);
+  
   async getCartProducts(userId: number): Promise<Cart | null>{
 
     try{
@@ -180,9 +180,9 @@ export class CartService {
 
   }
 
-  clearCart(){
+  getTotalItems(): number {
 
-
+    return this.products().reduce((sum: any, item: { quantity: any; }) => sum + (item.quantity || 0), 0);
   }
 
 async modifyQuantity(productId: number, quantity: number): Promise<Cart | null> {

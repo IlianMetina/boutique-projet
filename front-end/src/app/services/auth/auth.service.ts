@@ -137,7 +137,6 @@ export class AuthService {
 
       return false;
     }
-
   }
 
   /* Récupération du token dans les cookies si on est sur le navigateur */
