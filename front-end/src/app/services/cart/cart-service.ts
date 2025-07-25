@@ -24,10 +24,12 @@ export class CartService {
 
   private cartUrl = "http://localhost:3000/orders/";
   private findBasketIdUrl = "http://localhost:3000/orders/basket/user/"
-  private addToCartUrl = "http://localhost:3000/orders/"
+  private addToCartUrl = "http://localhost:3000/order-item/create/"
+  private updateProductCart = "http://localhost:3000/order-item/update-quantity/"
   private authService = inject(AuthService);
   private removeItemUrl = "http://localhost:3000/order-item/remove/"
   products: WritableSignal<{ quantity: number }[]> = signal([]);
+  private orderId!: number;
   
   async getCartProducts(userId: number): Promise<Cart | null>{
 
@@ -60,8 +62,8 @@ export class CartService {
           return null;
         }
         
-        console.log("-_-_-_-_-_-_-_-Réponse de l'API : -_-_-_-_-_-_-_-");
-        console.log(body);
+        // console.log("-_-_-_-_-_-_-_-Réponse de l'API : -_-_-_-_-_-_-_-");
+        // console.log(body);
         
         return {
           id: body.id,
@@ -100,9 +102,9 @@ export class CartService {
 
     const response = await fetch(this.findBasketIdUrl + userId);
 
-    console.log("-_-_-_-_-_-_-_-_-Réponse API getOrderIdByUser :-_-_-_-_-_-_-_-_-");
-    console.log(response);
-    console.log("-_-_-_-_-_-_-_-_-Réponse API getOrderIdByUser :-_-_-_-_-_-_-_-_-");
+    // console.log("-_-_-_-_-_-_-_-_-Réponse API getOrderIdByUser :-_-_-_-_-_-_-_-_-");
+    // console.log(response);
+    // console.log("-_-_-_-_-_-_-_-_-Réponse API getOrderIdByUser :-_-_-_-_-_-_-_-_-");
 
     if(!response.ok){
       
@@ -114,6 +116,8 @@ export class CartService {
     if (!data || !data.id) {
       throw new Error("Erreur : l'orderId retourné n'est pas un nombre valide");
     }
+
+    this.orderId = data.id;
 
     return data.id;
   }
@@ -129,14 +133,33 @@ export class CartService {
    
    if(isUserAuthed){
      
-     const response = await this.authService.AuthenticatedRequest(this.addToCartUrl, 'POST', products);
-     const body = await response.json();
-     
-     return body;
+    const token = this.authService.getToken();
+    if(!token){
+
+      throw new Error("Erreur de récupération du token");
+    }
+
+    const userId = this.authService.getIdFromToken(token);
+    const orderId = await this.getOrderIdbyUser(userId);
+
+    
+
+    const product = products[0];
+    const productDto = {
+      
+      orderId: orderId,
+      productId: product.id,
+      quantity: 1,
+      price: product.price,
+    };
+
+    const response = await this.authService.AuthenticatedRequest(this.addToCartUrl, 'POST', productDto);
+    
+    return response;
      
     }else{
       
-      const productsToString = products.toString();
+      const productsToString = JSON.stringify(products);
       localStorage.setItem('cart-products', productsToString);
     }
 
@@ -145,16 +168,32 @@ export class CartService {
   async removeCartItem(productId: number){
 
     const isAuthed = this.authService.isUserAuthenticated();
+    console.log("isAuthed ? :", isAuthed);
+    console.log("productId ? : ", productId);
+    console.log("Url removeItem ? : ", this.removeItemUrl);
     if(isAuthed){
 
       try{
 
-        const response = await this.authService.AuthenticatedRequest(this.removeItemUrl + productId, 'DELETE');
+        console.log("Url de suppression produit : ", this.removeItemUrl + productId);
+        const token = this.authService.getToken();
+        if(!token) throw new Error('Erreur récupération token');
+        const userId = this.authService.getIdFromToken(token);
+        const orderId = await this.getOrderIdbyUser(userId);
+
+        const response = await this.authService.AuthenticatedRequest(this.removeItemUrl + productId + '/' + orderId, 'DELETE');
+        
+        console.log("Réponse du backend: ", response);
+
         if(!response.ok){
 
           console.error("Erreur lors de la suppression du produit");
-          return null;
+          return;
         }
+
+        const cart = await this.getCartProducts(userId);
+
+        this.products.set(cart?.products ?? []);
 
         return await response.json();
 
@@ -180,55 +219,56 @@ export class CartService {
 
   }
 
-  // getTotalItems(): number {
+  async modifyQuantity(productId: number, quantity: number): Promise<Cart | null> {
 
-  //   return this.products().reduce((sum: any, item: { quantity: any; }) => sum + (item.quantity || 0), 0);
-  // }
-
-async modifyQuantity(productId: number, quantity: number): Promise<Cart | null> {
     const isUserAuthed = this.authService.isUserAuthenticated();
+    if(isUserAuthed) {
 
-    if (isUserAuthed) {
-        try {
-            // Modification en BDD
-            const response = await this.authService.AuthenticatedRequest(
-                `${this.cartUrl}products/${productId}/quantity/${quantity}`,
-                'PATCH'
-            );
+      const data = {
+        orderId: this.orderId,
+        productId: productId,
+        quantity: quantity,
+      }
 
-            if (!response.ok) {
-                console.error('Erreur modification quantité:', response.status);
-                return null;
-            }
+      try {
+          // Modification en BDD
+        const response = await this.authService.AuthenticatedRequest(this.updateProductCart, 'PATCH', data);
 
-            return await response.json();
-        } catch (error) {
-            console.error('Erreur modification quantité:', error);
-            return null;
+        if (response.error) {
+          console.error('Erreur modification quantité:', response.error);
+          return null;
         }
-    } else {
-        // Modification dans le localStorage
-        try {
-            const cartStr = localStorage.getItem('cart-products');
-            if (!cartStr) return null;
 
-            const cart = JSON.parse(cartStr);
-            const productIndex = cart.products.findIndex((p: { productId: number; }) => p.productId === productId);
+        return response;
 
-            if (productIndex === -1) return null;
+      } catch (error) {
+        console.error('Erreur modification quantité:', error);
+        return null;
+      }
+    }else {
+          // Modification dans le localStorage
+      try {
 
-            // Mise à jour de la quantité
-            cart.products[productIndex].quantity = quantity;
-            // Recalcul du total
-            cart.total = cart.products.reduce((sum: number, p: { price: number; quantity: number; }) => sum + (p.price * p.quantity), 0);
+        const cartStr = localStorage.getItem('cart-products');
+        if (!cartStr) return null;
 
-            // Sauvegarde dans le localStorage
-            localStorage.setItem('cart-products', JSON.stringify(cart));
-            return cart;
-        } catch (error) {
-            console.error('Erreur modification localStorage:', error);
-            return null;
-        }
+        const cart = JSON.parse(cartStr);
+        const productIndex = cart.products.findIndex((p: { productId: number; }) => p.productId === productId);
+
+        if (productIndex === -1) return null;
+
+        // Mise à jour de la quantité
+        cart.products[productIndex].quantity = quantity;
+        // Recalcul du total
+        cart.total = cart.products.reduce((sum: number, p: { price: number; quantity: number; }) => sum + (p.price * p.quantity), 0);
+
+        // Sauvegarde dans le localStorage
+        localStorage.setItem('cart-products', JSON.stringify(cart));
+        return cart;
+      } catch (error) {
+          console.error('Erreur modification localStorage:', error);
+          return null;
+      }
     }
-}
+  }
 }

@@ -23,45 +23,47 @@
     <div class="cart-items">
       
       <!-- Article 1 -->
-       @for(product of products(); track product.product?.name){
+      @for(product of products(); track product.product?.name){
 
-         <div class="cart-item">
-           <div class="item-image">
-             <img [src]="product.product?.imageUrl" alt="Bureau ergonomique">
-            </div>
-            
-            <div class="item-details">
-              <h3 class="item-name">{{product.product?.name}}</h3>
-              <p class="item-description">{{product.product?.description}}</p>
-              <div class="item-specs">
-                <span class="spec-item">120x60 cm</span>
-                <span class="spec-item">Chêne</span>
-                <span class="spec-item">Naturel</span>
-              </div>
-            </div>
-            
-            <div class="item-actions">
-              <div class="item-price">
-                <span class="price-current">{{product.product?.price}}€</span>
-              </div>
-              
-              <div class="quantity-controls">
-                <button class="quantity-btn quantity-decrease" (click)="updateQuantity(product, -1)">
-                  <i class="icon-minus">-</i>
-                </button>
-                <span class="quantity-display">{{product.quantity}}</span>
-                <button class="quantity-btn quantity-increase" (click)="updateQuantity(product, 1)">
-                  <i class="icon-plus">+</i>
-                </button>
-              </div>
-              
-              <button class="remove-btn">
-                <i class="icon-trash">🗑</i>
-                Supprimer
-              </button>
+        <div class="cart-item">
+
+          <div class="item-image">
+            <img [src]="product.product?.imageUrl" alt="Bureau ergonomique">
+          </div>
+          
+          <div class="item-details">
+            <h3 class="item-name">{{product.product?.name}}</h3>
+            <p class="item-description">{{product.product?.description}}</p>
+            <div class="item-specs">
+              <span class="spec-item">120x60 cm</span>
+              <span class="spec-item">Chêne</span>
+              <span class="spec-item">Naturel</span>
             </div>
           </div>
-        }
+          
+          <div class="item-actions">
+            <div class="item-price">
+              <span class="price-current">{{product.product?.price}}€</span>
+            </div>
+            
+            <div class="quantity-controls">
+              <button class="quantity-btn quantity-decrease" (click)="updateQuantity(product, -1)">
+                <i class="icon-minus">-</i>
+              </button>
+              <span class="quantity-display">{{product.quantity}}</span>
+              <button class="quantity-btn quantity-increase" (click)="updateQuantity(product, 1)">
+                <i class="icon-plus">+</i>
+              </button>
+            </div>
+            
+            <button class="remove-btn" (click)="removeItems(product)">
+              <i class="icon-trash">🗑</i>
+              Supprimer
+            </button>
+          </div>
+          
+        </div>
+      }
       
       <!-- Message panier vide (caché par défaut) -->
       <div class="empty-cart" style="display: none;">

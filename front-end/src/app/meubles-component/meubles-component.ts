@@ -57,10 +57,10 @@ export class MeublesComponent implements OnInit{
 
     this.cartService.addToCart([product])
     .then(response => {
-      console.log("Produit ajouté au panier !")
+      console.log("Produit ajouté au panier !", response);
     })
     .catch(error => {
-      console.error("Erreur lors de l'ajout du produit au panier")
+      console.error("Erreur lors de l'ajout du produit au panier", error);
     });
   }
 }

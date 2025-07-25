@@ -30,15 +30,17 @@ export class OrderItemController {
     return this.orderItemService.findOne(+id);
   }
 
-  @Patch(':id')
-  // @UseGuards(AuthGuard)
-  update(@Param('id') id: string, @Body() updateOrderItemDto: UpdateOrderItemDto) {
-    return this.orderItemService.update(+id, updateOrderItemDto);
+
+  @Patch('update-quantity')
+  updateProductQuantity(@Param('id') id: string, @Body() updateOrderItemDto: UpdateOrderItemDto){
+
+    return this.orderItemService.updateProductQuantity(updateOrderItemDto);
   }
 
-  @Delete('remove/:id')
+
+  @Delete('remove/:productId/:orderId')
   // @UseGuards(AuthGuard)
-  remove(@Param('id') id: string) {
-    return this.orderItemService.remove(+id);
+  remove(@Param('productId') productId: string, @Param('orderId') orderId: string) {
+    return this.orderItemService.remove(+productId, +orderId);
   }
 }

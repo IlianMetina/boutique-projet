@@ -96,8 +96,20 @@ export class OrderItemService {
     return this.prisma.productInOrder.update({where: {id}, data: updateOrderItemDto})
   }
 
-  remove(id: number) {
-    return this.prisma.productInOrder.delete({where: {id}});
+  async remove(productId: number, orderId: number) {
+    console.log("id reçu pour suppression produit", productId);
+    const productInOrder = await this.prisma.productInOrder.findFirst({
+      where: {
+        orderId: orderId,
+        productId: productId,
+      },
+    });
+
+  if (!productInOrder) {
+    console.log("Aucun produit associé à l'id ", productId);
+    throw new Error("Aucun produit associé à l'ID");
+  }
+    return await this.prisma.productInOrder.delete({where: {id: productInOrder.id}});
   }
 
   /* Méthode qui vérifie si un produit X est déjà présent dans le panier */
@@ -137,7 +149,7 @@ export class OrderItemService {
         }
       },
       data: {
-        quantity: updateOrderItemDto.quantity, // <-- remplace au lieu d'incrémenter
+        quantity: updateOrderItemDto.quantity, 
         price: updateOrderItemDto.price,
       },
     });

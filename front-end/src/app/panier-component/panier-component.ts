@@ -52,6 +52,7 @@ export class PanierComponent implements OnInit {
 
     if(token == null){
 
+      console.log("------------Produits vides------------");
       this.products.set([]);
       return;
     }
@@ -59,7 +60,7 @@ export class PanierComponent implements OnInit {
     const userID = this.authService.getIdFromToken(token);
 
     if(!userID){
-
+      console.log("------------Produits vides------------");
       this.products.set([]);
       return;
     }
@@ -92,7 +93,11 @@ export class PanierComponent implements OnInit {
 
   getTotalItems(): number {
 
-    return this.products().reduce((sum, item) => sum + (item.quantity || 0), 0);
+    const products = this.products();
+    if(!products || !Array.isArray(products)){
+      return 0
+    }
+    return products.reduce((sum, item) => sum + (item.quantity || 0), 0);
   }
 
   getSubTotal(): number {
@@ -126,15 +131,34 @@ export class PanierComponent implements OnInit {
 
   }
 
-async updateQuantity(product: ProductInOrder, change: number) {
-  console.log("Mise à jour de la quantité pour le produit");
+  async updateQuantity(product: ProductInOrder, change: number) {
+    console.log("Mise à jour de la quantité pour le produit");
     const newQuantity = (product.quantity || 0) + change;
     if (newQuantity >= 0) {
-        const updatedCart = await this.cartService.modifyQuantity(product.productId, newQuantity);
-        if (updatedCart) {
-            this.products.set(updatedCart.products);
-        }
+
+      await this.cartService.modifyQuantity(product.productId, newQuantity);
+      const token = this.authService.getToken();
+      if(!token){
+        throw new Error("Erreur récupération token");
+      }
+      const userId = this.authService.getIdFromToken(token);
+      const cart = await this.cartService.getCartProducts(userId);
+      this.products.set(cart?.products ?? []);
     }
-}
+  }
+
+  async removeItems(product: ProductInOrder){
+
+    try{
+
+      console.log("Suppression du produit : ", product);
+      await this.cartService.removeCartItem(product.productId);
+      
+    }catch(error){
+
+      console.error("Erreur lors de la suppression produit :", error);
+    }
+
+  }
 
 }

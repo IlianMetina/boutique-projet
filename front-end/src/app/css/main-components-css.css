@@ -2,7 +2,6 @@
 
   display: grid;
   grid-template-columns: auto 1fr;
-  gap: 2rem;
   align-items: start;
   width: 100%;
 }

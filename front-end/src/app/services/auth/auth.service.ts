@@ -47,6 +47,7 @@ export class AuthService {
   private usersUrl = 'http://localhost:3000/users/register';
   private loginUrl = 'http://localhost:3000/auth/login';
   private platformID = inject(PLATFORM_ID);
+  private removeProductUrl = 'http://localhost:3000/order/'
   isAuthenticated = false;
 
   constructor(private cookieService: CookieService) {}
@@ -128,8 +129,8 @@ export class AuthService {
     }
 
     const userId = this.getIdFromToken(token);
-    console.log("userId récupérer : ");
-    console.log(userId);
+    // console.log("userId récupérer : ");
+    // console.log(userId);
     if(userId){
 
       return true;
@@ -142,16 +143,16 @@ export class AuthService {
   /* Récupération du token dans les cookies si on est sur le navigateur */
   getToken(): string | null {
 
-    console.log("---------- isPlatformBrowser ? --------");
-    console.log(isPlatformBrowser(this.platformID));
+    // console.log("---------- isPlatformBrowser ? --------");
+    // console.log(isPlatformBrowser(this.platformID));
 
     if(isPlatformBrowser(this.platformID)){
 
       const token = this.cookieService.get('token');
-      console.log('------------------------');
-      console.log("Récupération du token :");
-      console.log('------------------------');
-      console.log(token);
+      // console.log('------------------------');
+      // console.log("Récupération du token :");
+      // console.log('------------------------');
+      // console.log(token);
       if(token != null){
 
         return token;
@@ -201,11 +202,11 @@ export class AuthService {
 
     const decodedToken: tokenPayload = jwtDecode(token);
 
-    console.log("--------TOKEN ID----------");
-    console.log(decodedToken.sub);
-    console.log(decodedToken.email);
-    console.log(decodedToken.role);
-    console.log("--------TOKEN ID----------");
+    // console.log("--------TOKEN ID----------");
+    // console.log(decodedToken.sub);
+    // console.log(decodedToken.email);
+    // console.log(decodedToken.role);
+    // console.log("--------TOKEN ID----------");
 
     return decodedToken.sub;
   }
