@@ -12,7 +12,6 @@ export class ProductsService {
   async create(createProductDto: CreateProductDto) {
 
     const product = new Product();
-
     product.setProductName(createProductDto.name);
     product.setProductDescription(createProductDto.description);
     product.setProductPrice(createProductDto.price);

@@ -1,12 +1,12 @@
 export class OrderItem {
 
-    id: number;
+    id?: number;
     orderId: number;
     productId: number;
     quantity: number;
     price: number;
 
-    getID(): number{
+    getID(){
 
         return this.id;
     }
@@ -14,11 +14,6 @@ export class OrderItem {
     getOrderItemID(): number{
 
         return this.orderId;
-    }
-
-    setOrderID(orderId: number){
-
-        this.orderId = orderId;
     }
 
     getProductItemID(): number{
@@ -41,13 +36,5 @@ export class OrderItem {
         this.quantity = quantity;
     }
 
-    getPrice(): number{
 
-        return this.price;
-    }
-
-    setPrice(price: number){
-
-        this.price = price;
-    }
 }

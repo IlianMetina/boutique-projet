@@ -109,7 +109,7 @@ export class OrderService {
     return basket;
   }
 
-  async findBasketOrderId(userId: number){
+  async findBasketOrderId(userId: number): Promise<number | null>{
 
     console.log("Id de l'utilisateur lié au panier que l'on souhaite trouver : ", userId);
     console.log("Type de cet ID : " + typeof userId);
@@ -136,7 +136,7 @@ export class OrderService {
     console.log("((((((( OrderId Récupérer findBasketOrderId : )))))))))");
     console.log(basket.id);
     console.log("((((((( OrderId Récupérer findBasketOrderId : )))))))))")
-    return {message: "basketId récupérer", id: basket.id};
+    return basket.id ? basket.id : null;
   }
 
   async calculateOrderTotal(orderId: number){

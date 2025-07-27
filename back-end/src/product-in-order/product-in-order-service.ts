@@ -23,27 +23,30 @@ export class OrderItemService {
   /* Méthode qui permet d'ajouter un produit au panier */
   async create(createOrderItemDto: CreateOrderItemDto, userId: number) {
 
-    let basket;
-    
-    if(createOrderItemDto.orderId){
+    const orderId = await this.orderService.findBasketOrderId(userId);
+    if(!orderId){
 
-      basket = await this.prisma.order.findUnique({where: {id: createOrderItemDto.orderId}});
-      if(!basket){
-        throw new Error("Aucune Order trouvée");
-      }
-
-      if(basket.userId !== userId){
-        throw new Error("Modification d'un utilisateur de manière non autorisée");
-      }
-
-    }else{
-
-      basket = await this.getOrCreateBasket(userId);
+      console.log("Aucun orderId trouvé pour le userId " + userId + "avec le statut 'PENDING'");
+      throw new Error("Récupération de l'orderId impossible");
     }
 
+    const basket = await this.getOrCreateBasket(userId);
 
-    const isProductExist = await this.isProductExists(basket.id, createOrderItemDto.productId); 
+    const isProductExist = await this.isProductExists(orderId, createOrderItemDto.productId); 
 
+    if(isProductExist){
+      
+      const updateDto: UpdateOrderItemDto = {
+
+        productId: createOrderItemDto.productId,
+        quantity: createOrderItemDto.quantity,
+      };
+      
+      const updated = await this.updateProductQuantity(updateDto, orderId);
+      await this.orderService.calculateOrderTotal(orderId);
+      return updated;
+    }
+      
     const product = await this.prisma.product.findUnique({
       where: {id: createOrderItemDto.productId},
       select: {price: true}
@@ -53,28 +56,13 @@ export class OrderItemService {
 
       throw new Error("Produit introuvable");
     }
-
-    if(isProductExist){
-      
-      const updateDto: UpdateOrderItemDto = {
-
-        orderId: basket.id,
-        productId: createOrderItemDto.productId,
-        quantity: createOrderItemDto.quantity,
-        price: product.price.toNumber(),
-      };
-
-      const updated = this.updateProductQuantity(updateDto);
-      await this.orderService.calculateOrderTotal(basket.id);
-      return updated;
-    }
+    
 
     const orderItem = new OrderItem();
-    orderItem.setOrderID(basket.id);
-    orderItem.setPrice(product.price.toNumber());
     orderItem.setProductItemID(createOrderItemDto.productId);
     orderItem.setQuantity(createOrderItemDto.quantity);
-
+    orderItem.price = product.price.toNumber();
+    orderItem.orderId = orderId;
 
     const created = await this.prisma.productInOrder.create({
       data: orderItem,
@@ -132,9 +120,11 @@ export class OrderItemService {
   }
 
   /* Méthode qui s'occupe d'incrémenter la quantité d'un produit s'il est déjà présent dans le panier */
-  async updateProductQuantity(updateOrderItemDto: UpdateOrderItemDto): Promise<ProductInOrder>{
+  async updateProductQuantity(updateOrderItemDto: UpdateOrderItemDto, userId: number): Promise<ProductInOrder>{
 
-    if(updateOrderItemDto.orderId == undefined || updateOrderItemDto.productId == undefined){
+    const orderId = await this.orderService.findBasketOrderId(userId);
+
+    if(orderId == undefined || updateOrderItemDto.productId == undefined){
 
       throw new Error("orderId ou productId est undefined");
     }
@@ -144,13 +134,12 @@ export class OrderItemService {
       where: {
 
         orderId_productId: {
-          orderId: updateOrderItemDto.orderId,
+          orderId: orderId,
           productId: updateOrderItemDto.productId,
         }
       },
       data: {
         quantity: updateOrderItemDto.quantity, 
-        price: updateOrderItemDto.price,
       },
     });
   }

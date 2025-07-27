@@ -1,5 +1,4 @@
 import { createParamDecorator, ExecutionContext, UnauthorizedException } from "@nestjs/common";
-import * as jwt from 'jsonwebtoken';
 
 export const UserId = createParamDecorator(
     (data: unknown, ctx: ExecutionContext) => {

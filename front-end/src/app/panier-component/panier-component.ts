@@ -26,6 +26,7 @@ export class PanierComponent implements OnInit {
   private authService = inject(AuthService);
   private platformId = inject(PLATFORM_ID);
   private cartService = inject(CartService);
+  isCartEmpty = true;
   tax: number = 1.2;
   products: WritableSignal<ProductInOrder[]> = signal([]);
   currentStage: WritableSignal<number> = signal(0);
@@ -59,6 +60,8 @@ export class PanierComponent implements OnInit {
 
     const userID = this.authService.getIdFromToken(token);
 
+    console.log("User ID récupérer :", userID);
+
     if(!userID){
       console.log("------------Produits vides------------");
       this.products.set([]);
@@ -68,6 +71,9 @@ export class PanierComponent implements OnInit {
     try{
 
       const cart = await this.cartService.getCartProducts(userID);
+      console.log("------CART--------");
+      console.log(cart);
+      console.log("------REPONSE--------");
       
       if(!cart || !cart.products){
         

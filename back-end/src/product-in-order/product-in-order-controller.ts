@@ -30,11 +30,13 @@ export class OrderItemController {
     return this.orderItemService.findOne(+id);
   }
 
-
   @Patch('update-quantity')
-  updateProductQuantity(@Param('id') id: string, @Body() updateOrderItemDto: UpdateOrderItemDto){
+  @UseGuards(AuthGuard)
+  updateProductQuantity(@UserId() userId: number, @Body() updateOrderItemDto: UpdateOrderItemDto){
+    console.log("UserId reçu updateProductQuantity : ", userId);
+    console.log("Dto reçue : ", updateOrderItemDto);
 
-    return this.orderItemService.updateProductQuantity(updateOrderItemDto);
+    return this.orderItemService.updateProductQuantity(updateOrderItemDto, userId);
   }
 
 
