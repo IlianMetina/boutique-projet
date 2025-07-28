@@ -60,8 +60,4 @@ export class ProductsService {
     return body;
   }
 
-  async updateProduct(data: Product){
-
-    
-  }
 }

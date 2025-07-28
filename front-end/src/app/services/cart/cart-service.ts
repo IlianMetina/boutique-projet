@@ -23,11 +23,11 @@ export class CartService {
   constructor() { }
 
   private cartUrl = "http://localhost:3000/orders/";
-  private findBasketIdUrl = "http://localhost:3000/orders/basket/user/"
-  private addToCartUrl = "http://localhost:3000/order-item/create/"
-  private updateProductCart = "http://localhost:3000/order-item/update-quantity/"
+  private findBasketIdUrl = "http://localhost:3000/orders/basket/user/";
+  private addToCartUrl = "http://localhost:3000/order-item/create/";
+  private updateProductCart = "http://localhost:3000/order-item/update-quantity/";
   private authService = inject(AuthService);
-  private removeItemUrl = "http://localhost:3000/order-item/remove/"
+  private removeItemUrl = "http://localhost:3000/order-item/remove/";
   products: WritableSignal<{ quantity: number }[]> = signal([]);
   private orderId!: number;
   
@@ -42,6 +42,7 @@ export class CartService {
         console.log("orderId récupérer : " + userOrderId);
         
         const response = await fetch(this.cartUrl + userOrderId);
+        console.log("Réponse fetch getCartProducts");
         console.log(response);
         
         if (!response.ok) {
@@ -55,6 +56,8 @@ export class CartService {
         }
         
         const body = await response.json();
+        console.log("Body getCartProducts :");
+        console.log(body);
 
         if (!body || !body.id || !Array.isArray(body.productsInOrder)) {
 
@@ -114,7 +117,6 @@ export class CartService {
     const data = await response.json();
     this.orderId = data;
 
-
     if (!data) {
       throw new Error("Erreur : l'orderId retourné n'est pas un nombre valide");
     }
@@ -168,6 +170,7 @@ export class CartService {
     console.log("isAuthed ? :", isAuthed);
     console.log("productId ? : ", productId);
     console.log("Url removeItem ? : ", this.removeItemUrl);
+    
     if(isAuthed){
 
       try{
@@ -181,8 +184,10 @@ export class CartService {
         const response = await this.authService.AuthenticatedRequest(this.removeItemUrl + productId + '/' + orderId, 'DELETE');
         
         console.log("Réponse du backend: ", response);
+        console.log("is response ok ?:", response.ok);
+        console.log("Statut de la response : ", response.status);
 
-        if(!response.ok){
+        if(!response || !response.id){
 
           console.error("Erreur lors de la suppression du produit");
           return;
@@ -192,10 +197,12 @@ export class CartService {
 
         this.products.set(cart?.products ?? []);
 
-        return await response.json();
+        const responseData = await response.json();
+
+        return responseData;
 
       }catch(error){
-        console.error("Erreur lors de la tentative de suppression");
+        console.error("Erreur lors de la tentative de suppression ", error);
         return null;
       } 
 
@@ -212,7 +219,7 @@ export class CartService {
       const productIndex = cart.products.findIndex((p: { productId: number; }) => 
         p.productId === productId
       );
-  }
+    }
   }
 
   async modifyQuantity(productId: number, quantity: number): Promise<Cart | null> {
@@ -226,8 +233,16 @@ export class CartService {
         quantity: quantity,
       }
 
+      console.log("-------DATA modifyQuantity--------");
+      console.log("orderId:" + data.orderId, "productId:" + data.productId, "quantity:" + data.quantity)
+      console.log("-------DATA modifyQuantity--------");
+
+      if(data.quantity < 1){
+        this.removeCartItem(data.productId);
+      }
+
       try {
-          // Modification en BDD
+        // Modification en BDD
         const response = await this.authService.AuthenticatedRequest(this.updateProductCart, 'PATCH', data);
 
         console.log("response modifyQuantity:");

@@ -1,1 +1,97 @@
-<p>account-component works!</p>
+<div class="container">
+  <!-- En-tête du compte -->
+  <header class="account-header">
+    <div class="user-welcome">
+      <div class="user-avatar">
+        <i class="fas fa-user"></i>
+      </div>
+      <div class="user-info">
+        <h1>Bonjour, {{userName()}}</h1>
+      </div>
+    </div>
+  </header>
+
+  <!-- Contenu principal -->
+  <main class="main-account-container">
+    <!-- Menu latéral -->
+    <aside class="side-menu">
+      <div class="menu-title">
+        <h2>Mon espace</h2>
+      </div>
+      
+      <nav class="account-navigation">
+        <a routerLink="/mon-compte/mes-commandes" class="nav-item">
+          <div class="nav-icon">
+            <i class="fas fa-shopping-bag"></i>
+          </div>
+          <div class="nav-content">
+            <h3>Mes commandes</h3>
+            <p>Suivez vos commandes en cours</p>
+          </div>
+          <div class="nav-arrow">
+            <i class="fas fa-chevron-right"></i>
+          </div>
+        </a>
+
+        <a routerLink="/mon-compte/mes-infos" class="nav-item">
+          <div class="nav-icon">
+            <i class="fas fa-user-cog"></i>
+          </div>
+          <div class="nav-content">
+            <h3>Mes informations</h3>
+            <p>Gérez vos données personnelles</p>
+          </div>
+          <div class="nav-arrow">
+            <i class="fas fa-chevron-right"></i>
+          </div>
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Zone de contenu principal -->
+    <section class="account-content">
+      <div class="welcome-message">
+        <h2>Bienvenue dans votre espace personnel</h2>
+        <p>Gérez facilement vos commandes et vos informations personnelles depuis cette page.</p>
+      </div>
+
+      <!-- Statistiques rapides -->
+      <div class="quick-stats">
+        <div class="stat-card">
+          <div class="stat-icon">
+            <i class="fas fa-box"></i>
+          </div>
+          <div class="stat-info">
+            <h3>{{ordersCount()}}</h3>
+            <p>Commandes</p>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon">
+            <i class="fas fa-truck"></i>
+          </div>
+          <div class="stat-info">
+            <h3>{{currentOrdersCount()}}</h3>
+            <p>En cours</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Actions rapides -->
+      <div class="quick-actions">
+        <h3>Actions rapides</h3>
+        <div class="action-buttons">
+          <button class="action-btn primary" routerLink="/mon-compte/mes-commandes">
+            <i class="fas fa-search"></i>
+            Voir mes commandes
+          </button>
+          <button class="action-btn secondary" routerLink="/mon-compte/mes-infos">
+            <i class="fas fa-edit"></i>
+            Modifier mes infos
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>

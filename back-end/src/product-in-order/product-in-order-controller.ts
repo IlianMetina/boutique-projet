@@ -7,7 +7,10 @@ import { UserId } from 'src/decorator/user-id.decorator';
 
 @Controller('order-item')
 export class OrderItemController {
-  constructor(private readonly orderItemService: OrderItemService) {}
+  constructor(private readonly orderItemService: OrderItemService) {
+
+    console.log("--------------Entrée OrderItemController-----------------");
+  }
 
   @Post('create')
   @UseGuards(AuthGuard)

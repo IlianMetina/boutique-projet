@@ -44,9 +44,9 @@ export class OrderService {
     return this.prisma.order.findMany();
   }
 
-  findOne(id: number) {
+  async findOne(id: number) {
 
-    return this.prisma.order.findUnique({
+    const basket = await this.prisma.order.findUnique({
       where: {
         id: id,
       },
@@ -60,6 +60,9 @@ export class OrderService {
       },
       
     });
+    console.log("Panier récupéré findOne : ");
+    console.log(basket);
+    return basket;
   }
 
  async update(id: number, updateOrderDto: UpdateOrderDto) {
@@ -112,11 +115,11 @@ export class OrderService {
   async findBasketOrderId(userId: number): Promise<number | null>{
 
     console.log("Id de l'utilisateur lié au panier que l'on souhaite trouver : ", userId);
-    console.log("Type de cet ID : " + typeof userId);
-    console.log("Critères de recherche Prisma :");
+    // console.log("Type de cet ID : " + typeof userId);
+    // console.log("Critères de recherche Prisma :");
     console.log({
     userId: userId,
-    // status: 'BASKET',
+    status: 'BASKET',
     });
 
     const basket = await this.prisma.order.findFirst({
@@ -129,8 +132,8 @@ export class OrderService {
 
     if(!basket){
 
-      console.log("8888888777777777 ERREUR RÉCUPÉRATION DU PANIER !! 888888888877777777");
-      return null
+      console.log(" ERREUR RÉCUPÉRATION DU PANIER findBasketOrderId");
+      return null;
     }
 
     console.log("((((((( OrderId Récupérer findBasketOrderId : )))))))))");
@@ -164,13 +167,15 @@ export class OrderService {
     console.log("------Total prix de la commande : ------")
 
     const totalToInt = total.toNumber();
+    const tax = 1.2;
+    const totalTTC = totalToInt * tax;
 
     await this.prisma.order.update({
       where: {id: orderId},
-      data: {total: totalToInt}
+      data: {total: totalTTC}
     });
 
-    return totalToInt;
+    return totalTTC;
   }
 
 async getProductPrice(productId: number): Promise<number> {
@@ -206,7 +211,7 @@ async addProductToCart(userId: number, productId: number, quantity: number) {
 
   // Recalculez le total après l'ajout
   const total = await this.calculateOrderTotal(basket.id);
-  console.log(`Total mis à jour pour la commande ${basket.id}: ${total}`);
+  console.log(`Total mis à jour pour la commande ${basket.id}: ${total}\n\n`);
 }
 
   

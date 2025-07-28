@@ -47,7 +47,7 @@ productsList: productsItemDto {
 
   price: number;
   quantity: number;
-  productId: number
+  productId: number;
 }
 
 + rajouter grâce à une requête vers la BDD avec le productId de chacun des produits :
@@ -104,3 +104,6 @@ Faire le cors et faire le httpOnly cookies
 Faire un if qui vérifie s'il y a des produits 
 dans le panier, si oui, rien faire,
 si non, afficher "Aucun produits dans votre panier".
+
+Faire en sorte que lorsqu'en grand écran, pas de bouton "Tous les produits"
+pour afficher le menu, mais seulement en format tablette/mobile

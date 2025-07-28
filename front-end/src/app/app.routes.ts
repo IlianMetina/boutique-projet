@@ -13,6 +13,8 @@ import { AuthGuard } from './services/auth/auth-guard';
 import { LikeComponent } from './like-component/like-component';
 import { PanierComponent } from './panier-component/panier-component';
 import { AccountComponent } from './account-component/account-component';
+import { OrdersComponent } from './orders-component/orders-component';
+import { AccountInfosComponent } from './account-infos-component/account-infos-component';
 
 export const routes: Routes = [
 
@@ -28,11 +30,7 @@ export const routes: Routes = [
   { path: 'tables', component: TablesComponent },
   { path: 'panier', component: PanierComponent },
   { path: 'mon-compte', component: AccountComponent, canActivate: [AuthGuard] },
-  // { path: 'mes-envies', component: LikeComponent, canActivate: [AuthGuard] },
-  // { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
-  // { path: 'mes-commandes', component: CommandesComponent, canActivate: [AuthGuard] },
+  { path: 'mon-compte/mes-commandes', component: OrdersComponent, canActivate: [AuthGuard] },
+  { path: 'mon-compte/mes-infos', component: AccountInfosComponent, canActivate: [AuthGuard] },
   // { path: 'admin', component: AdminComponent, canActivate: [AuthGuard] },
-
-  
-
 ];

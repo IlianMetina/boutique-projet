@@ -23,16 +23,19 @@ export class OrderItemService {
   /* Méthode qui permet d'ajouter un produit au panier */
   async create(createOrderItemDto: CreateOrderItemDto, userId: number) {
 
-    const orderId = await this.orderService.findBasketOrderId(userId);
-    if(!orderId){
+    console.log("OrderId méthode create OrderItemService : ");
+    let orderId = await this.orderService.findBasketOrderId(userId);
+    console.log("OrderId méthode create OrderItemService : ", orderId);
+    
+    if(orderId == null){
 
       console.log("Aucun orderId trouvé pour le userId " + userId + "avec le statut 'PENDING'");
-      throw new Error("Récupération de l'orderId impossible");
+      const basket = await this.getOrCreateBasket(userId);
+      orderId = basket.id;
     }
 
-    const basket = await this.getOrCreateBasket(userId);
 
-    const isProductExist = await this.isProductExists(orderId, createOrderItemDto.productId); 
+    const isProductExist = await this.isProductExists(userId, createOrderItemDto.productId); 
 
     if(isProductExist){
       
@@ -56,7 +59,6 @@ export class OrderItemService {
 
       throw new Error("Produit introuvable");
     }
-    
 
     const orderItem = new OrderItem();
     orderItem.setProductItemID(createOrderItemDto.productId);
@@ -68,7 +70,7 @@ export class OrderItemService {
       data: orderItem,
     });
 
-    await this.orderService.calculateOrderTotal(basket.id);
+    await this.orderService.calculateOrderTotal(orderId);
     return created;
   }
 
@@ -129,7 +131,7 @@ export class OrderItemService {
       throw new Error("orderId ou productId est undefined");
     }
 
-    return this.prisma.productInOrder.update({
+    const updatedProduct = await this.prisma.productInOrder.update({
 
       where: {
 
@@ -142,6 +144,9 @@ export class OrderItemService {
         quantity: updateOrderItemDto.quantity, 
       },
     });
+
+    await this.orderService.calculateOrderTotal(orderId);
+    return updatedProduct;
   }
 
 /* Méthode qui vérifie si un panier avec le statut "BASKET" pour un utilisateur X existe, sinon on en crée un */
@@ -154,6 +159,9 @@ async getOrCreateBasket(userId: number): Promise<Basket>{
     },
   });
 
+  console.log("Panier trouvé : ");
+  console.log(basket);
+
   if (!basket) {
     basket = await this.prisma.order.create({
       data: {
@@ -163,6 +171,9 @@ async getOrCreateBasket(userId: number): Promise<Basket>{
       },
     });
   }
+
+  console.log("Panier trouvé : ");
+  console.log(basket);
 
   return basket;
 }

@@ -53,9 +53,15 @@ export class PanierComponent implements OnInit {
 
     if(token == null){
 
-      console.log("------------Produits vides------------");
-      this.products.set([]);
-      return;
+      const products = localStorage.getItem("cart-products");
+      if(!products){
+
+        this.products.set([]);
+        return;
+      }
+      
+      const productsArray = JSON.parse(products);
+      return productsArray;
     }
 
     const userID = this.authService.getIdFromToken(token);
@@ -74,6 +80,13 @@ export class PanierComponent implements OnInit {
       console.log("------CART--------");
       console.log(cart);
       console.log("------REPONSE--------");
+
+      console.log("------CART.PRODUCTS-------");
+      if(cart){
+
+        console.log("------CART.PRODUCTS-------");
+        console.log(cart.products)
+      }
       
       if(!cart || !cart.products){
         
@@ -139,6 +152,7 @@ export class PanierComponent implements OnInit {
 
   async updateQuantity(product: ProductInOrder, change: number) {
     console.log("Mise à jour de la quantité pour le produit");
+    console.log(product, change);
     const newQuantity = (product.quantity || 0) + change;
     if (newQuantity >= 0) {
 
