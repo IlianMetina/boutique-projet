@@ -113,3 +113,12 @@ commandes avec statut "DELIVERED".
 
 Faire une méthode pour encapsuler la logique de récupération du userId
 (getToken => getUserIdByToken => userid)
+
+findPendingOrders ne renvoie pas de number, à check
+
+En gros à faire:
+
+  - Page d'accueil (quelques produits bestseller etc)
+  - Filtre produits
+  - Composant Mes commandes & Mes informations
+  - Composant panel admin
