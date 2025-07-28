@@ -110,3 +110,6 @@ pour afficher le menu, mais seulement en format tablette/mobile
 
 Faire méthode pour récupérer commandes avec statut "PENDING" et une autre pour
 commandes avec statut "DELIVERED".
+
+Faire une méthode pour encapsuler la logique de récupération du userId
+(getToken => getUserIdByToken => userid)

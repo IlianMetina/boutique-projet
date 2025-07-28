@@ -97,7 +97,10 @@ export class OrderService {
         status: { in: ['DELIVERED', 'PENDING', 'PROCESSING', 'SHIPPED']}
     }});
 
-    return 1;
+    const ordersCount = orders.length;
+    console.log("Nombre de commandes de l'utilisateur ", userId);
+    console.log(ordersCount);
+    return ordersCount;
   }
 
   async findBasket(userId: number): Promise<Basket | null>{
