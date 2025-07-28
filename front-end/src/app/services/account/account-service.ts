@@ -7,7 +7,7 @@ import { AuthService } from '../auth/auth.service';
 export class AccountService {
 
   private ordersPlacedUrl = "http://localhost:3000/orders/basket/all/";
-  private pendingOrdersUrl = "http://localhost:3000/orders/";
+  private pendingOrdersUrl = "http://localhost:3000/orders/basket/current/";
   private getNameUrl = "http://localhost:3000/users/";
   private authService = inject(AuthService);
 
@@ -29,16 +29,16 @@ export class AccountService {
     const response = await fetch(this.ordersPlacedUrl + userId);
     if(!response){
 
-      // console.log("!response de getAllUserOrders :");
-      // console.log(response);
+      console.log("!response de getAllUserOrders :");
+      console.log(response);
       throw new Error("Erreur lors de la récupération des commandes");
     }
 
-    // console.log("Response de getAllUserOrders :");
+    console.log("Response de getAllUserOrders :");
     console.log(response);
 
     const body = await response.json();
-    // console.log("Body récupérer getAllUserOrders accountService :");
+    console.log("Body récupérer getAllUserOrders accountService :");
     console.log(body);
 
     return body;
@@ -66,7 +66,7 @@ export class AccountService {
     }
 
     console.log("Response de getPendingOrders :");
-    console.log(response.body);
+    console.log(response);
   }
 
   async getUserName(){

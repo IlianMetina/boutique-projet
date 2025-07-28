@@ -127,6 +127,28 @@ export class OrderService {
     return basket;
   }
 
+  async findPendingOrders(userId: number): Promise<number>{
+
+    let order = await this.prisma.order.findMany({
+      where: {
+        userId: userId,
+        status: 'PENDING',
+      },
+    });
+
+    if(!order || order.length < 1){
+
+      console.log("Aucune order trouvé avec le statut 'PENDING'");
+      return 0;
+    }
+
+    const pendingOrdersCount = order.length;
+    console.log("Nombre de commandes pour le statut pending :");
+    console.log(pendingOrdersCount);
+
+    return pendingOrdersCount;
+  }
+
   async findBasketOrderId(userId: number): Promise<number | null>{
 
     console.log("Id de l'utilisateur lié au panier que l'on souhaite trouver : ", userId);

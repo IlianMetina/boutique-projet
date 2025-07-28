@@ -43,7 +43,12 @@ export class OrderController {
     return this.orderService.findBasketOrderId(Number(userId));
   }
 
-   @Get('basket/all/:userId')
+  @Get('basket/current/:userId')
+  async findPendingOrders(@Param('userId') userId: number){
+    return this.orderService.findPendingOrders(Number(userId));
+  }
+
+  @Get('basket/all/:userId')
   async findAllBasketsByUser(@Param('userId') userId: number){
     return this.orderService.findAllBasketsByUser(Number(userId));
   }

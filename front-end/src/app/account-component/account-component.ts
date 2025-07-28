@@ -21,7 +21,8 @@ export class AccountComponent implements OnInit {
     // console.log(allOrders);
     this.ordersCount.set(allOrders);
     const allPendingOrders = this.accountService.getPendingOrders();
-    // console.log(allPendingOrders);
+    console.log("allPendingORders : ")
+    console.log(allPendingOrders);
     const getUserName = await this.accountService.getUserName();
     this.userName.set(getUserName);
   }
