@@ -7,6 +7,9 @@
   background: #f8faff;
   min-height: 100vh;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 /* En-tête du compte */
