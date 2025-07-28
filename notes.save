@@ -122,3 +122,5 @@ En gros à faire:
   - Filtre produits
   - Composant Mes commandes & Mes informations
   - Composant panel admin
+  - Bouton filtre au niveau du footer lorsque l'écran est en mode tablette (pas en pc ni en mobile)
+  - Faire le bouton menu déroulant pour tablette/mobile & vérifier responsive

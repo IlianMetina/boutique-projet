@@ -391,6 +391,12 @@
 }
 
 /* CORRECTION: Bouton menu principal - Taille réduite et repositionnement */
+
+.responsive-menu-button{
+
+    display: none !important;
+}
+
 .button-menu {
     display: inline-flex;
     align-items: center;
@@ -569,6 +575,15 @@
         height: auto;
     }
     
+    .responsive-menu-button{
+
+        display: inline-block !important;
+        display: flex;
+        justify-content: center;
+        padding-bottom: 10px;
+    }
+    
+
     .menu-infos {
         gap: 1.5rem;
 
@@ -719,6 +734,11 @@
         width: 100%;
         justify-content: center;
         height: 42px;
+    }
+
+    .responsive-menu-button{
+
+        display: inline-block !important;
     }
     
     .nav-menu {
