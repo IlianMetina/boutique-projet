@@ -43,6 +43,11 @@ export class OrderController {
     return this.orderService.findBasketOrderId(Number(userId));
   }
 
+   @Get('basket/all/:userId')
+  async findAllBasketsByUser(@Param('userId') userId: number){
+    return this.orderService.findAllBasketsByUser(Number(userId));
+  }
+
   @Patch(':id')
   // @UseGuards(AuthGuard)
   async update(@Param('id') id: string, @Body() updateOrderDto: UpdateOrderDto) {

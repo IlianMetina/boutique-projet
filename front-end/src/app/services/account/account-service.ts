@@ -6,7 +6,7 @@ import { AuthService } from '../auth/auth.service';
 })
 export class AccountService {
 
-  private ordersPlacedUrl = "http://localhost:3000/orders/";
+  private ordersPlacedUrl = "http://localhost:3000/orders/basket/all/";
   private pendingOrdersUrl = "http://localhost:3000/orders/";
   private getNameUrl = "http://localhost:3000/users/";
   private authService = inject(AuthService);
@@ -29,15 +29,15 @@ export class AccountService {
     const response = await fetch(this.ordersPlacedUrl + userId);
     if(!response){
 
-      console.log("!response de getAllOrders :");
+      console.log("!response de getAllUserOrders :");
       console.log(response);
     }
 
-    console.log("Response de getAllOrders :");
+    console.log("Response de getAllUserOrders :");
     console.log(response);
 
     const body = await response.json();
-    console.log("Body récupérer getAllORders accountService :");
+    console.log("Body récupérer getAllUserOrders accountService :");
     console.log(body);
 
     return body;

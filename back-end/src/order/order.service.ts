@@ -88,6 +88,18 @@ export class OrderService {
     return this.prisma.order.delete({where: {id}});
   }
 
+  async findAllBasketsByUser(userId: number): Promise<number | null>{
+
+    console.log("Entrée méthode findAllBasketsByUser");
+    const orders = await this.prisma.order.findMany({
+      where: {
+        userId: userId,
+        status: { in: ['DELIVERED', 'PENDING', 'PROCESSING', 'SHIPPED']}
+    }});
+
+    return 1;
+  }
+
   async findBasket(userId: number): Promise<Basket | null>{
 
     console.log("UserID du joueur : ", userId);
