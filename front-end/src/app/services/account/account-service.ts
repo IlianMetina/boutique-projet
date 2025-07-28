@@ -6,16 +6,27 @@ import { AuthService } from '../auth/auth.service';
 })
 export class AccountService {
 
-  private allOrdersUrl = "http://localhost:3000/orders/all/";
+  private ordersPlacedUrl = "http://localhost:3000/orders/";
   private pendingOrdersUrl = "http://localhost:3000/orders/";
   private getNameUrl = "http://localhost:3000/users/";
   private authService = inject(AuthService);
 
   constructor() {}
 
-  async getAllOrders(){
+  async getAllUserOrders(){
 
-    const response = await fetch(this.allOrdersUrl);
+    const token = this.authService.getToken();
+    if(!token){
+
+      throw new Error("Impossible de récupérer le token utilisateur");
+    }
+    const userId = this.authService.getIdFromToken(token);
+    if(!userId){
+
+      throw new Error("Erreur lors de la récupération de l'userId");
+    }
+
+    const response = await fetch(this.ordersPlacedUrl + userId);
     if(!response){
 
       console.log("!response de getAllOrders :");
@@ -24,6 +35,12 @@ export class AccountService {
 
     console.log("Response de getAllOrders :");
     console.log(response);
+
+    const body = await response.json();
+    console.log("Body récupérer getAllORders accountService :");
+    console.log(body);
+
+    return body;
   }
 
   async getPendingOrders(){ // A modifier pour que ça fetch seulement les paniers avec statut "pending"
@@ -54,10 +71,9 @@ export class AccountService {
     }
 
     const response = await fetch(this.getNameUrl + userId);
+    const body = await response.json();
 
-    console.log("Réponse getUserName AccountService : ");
-    console.log(response);
-
+    return body.firstName;
   }
 
 

@@ -107,3 +107,6 @@ si non, afficher "Aucun produits dans votre panier".
 
 Faire en sorte que lorsqu'en grand écran, pas de bouton "Tous les produits"
 pour afficher le menu, mais seulement en format tablette/mobile
+
+Faire méthode pour récupérer commandes avec statut "PENDING" et une autre pour
+commandes avec statut "DELIVERED".

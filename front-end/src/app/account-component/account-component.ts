@@ -15,13 +15,13 @@ export class AccountComponent implements OnInit {
   currentOrdersCount: WritableSignal<number> = signal(0);
   userName: WritableSignal<string> = signal('Patoulet');
 
-  async ngOnInit(): Promise<void> {
+  async ngOnInit(){
     
-    const allOrders = this.accountService.getAllOrders();
+    const allOrders = await this.accountService.getAllUserOrders();
     // console.log(allOrders);
     const allPendingOrders = this.accountService.getPendingOrders();
     // console.log(allPendingOrders);
-    const getUserName = this.accountService.getUserName();
-    // console.log(getUserName);
+    const getUserName = await this.accountService.getUserName();
+    this.userName.set(getUserName);
   }
 }
