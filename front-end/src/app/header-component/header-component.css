@@ -457,6 +457,7 @@
 /* Navigation principale */
 .nav-menu {
     display: flex;
+    justify-content: center;
     gap: 2rem;
     align-items: center;
     flex: 1;    
