@@ -29,7 +29,7 @@ interface Order {
   total: string;
   createdAt: string;
   updatedAt: string;
-  productInOrder: ProductInOrder[]
+  productsInOrder: ProductInOrder[]
 }
 
 @Component({

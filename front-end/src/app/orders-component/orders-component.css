@@ -43,20 +43,6 @@
   border-color: #007bff;
 }
 
-.search-input {
-  padding: 10px 15px;
-  border: 2px solid #e9ecef;
-  border-radius: 8px;
-  width: 300px;
-  font-size: 14px;
-  transition: border-color 0.3s ease;
-}
-
-.search-input:focus {
-  outline: none;
-  border-color: #007bff;
-}
-
 /* Liste des commandes */
 .commandes-list {
   display: flex;
@@ -306,10 +292,6 @@
   .filters {
     flex-direction: column;
     gap: 10px;
-  }
-  
-  .search-input {
-    width: 100%;
   }
   
   .commande-card {

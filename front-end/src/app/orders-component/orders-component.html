@@ -8,7 +8,6 @@
         <option value="livree">Livrée</option>
         <option value="annulee">Annulée</option>
       </select>
-      <input type="text" placeholder="Rechercher une commande..." class="search-input">
     </div>
   </div>
 
@@ -29,23 +28,24 @@
             </div>
             
             <div class="commande-items">
-                @if(order.productInOrder && order.productInOrder.length > 0){
-                    @for(productInOrder of order.productInOrder; track productInOrder.id){
+
+                @if(order.productsInOrder && order.productsInOrder.length > 0){
+                    @for(item of order.productsInOrder; track item.id){
                         
                         <div class="item">
-                            <img src="{{productInOrder.product.imageUrl}}" alt="Produit" class="item-image">
+                            <img src="{{item.product.imageUrl}}" alt="Produit" class="item-image">
                             <div class="item-details">
-                                <h4>{{productInOrder.product.name}}</h4>
-                                <p>{{productInOrder.product.description}}</p>
-                                <span class="quantity">Quantité: {{productInOrder.quantity}}</span>
+                                <h4>{{item.product.name}}</h4>
+                                <p>{{item.product.description}}</p>
+                                <span class="quantity">Quantité: {{item.quantity}}</span>
                             </div>
-                            <div class="item-price">{{productInOrder.price}}</div>
+                            <div class="item-price">{{item.price}}</div>
                         </div>
                     }
 
                 }@else{
                     <div class="empty-items">
-                        <p>Aucun produit(s) dans cette commande</p>
+                        <p>Aucun produit dans cette commande</p>
                     </div>
                 }
                 </div>
