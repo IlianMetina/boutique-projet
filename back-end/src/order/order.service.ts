@@ -39,9 +39,20 @@ export class OrderService {
     });
   }
 
-  findAll() {
+  findAll(userId: number) {
 
-    return this.prisma.order.findMany();
+    return this.prisma.order.findMany({where: {
+      userId: userId,
+      
+    },
+    include: {
+      productsInOrder: {
+        include: {
+          product: true,
+        },
+      },
+    },
+  });
   }
 
   async findOne(id: number) {
@@ -127,22 +138,95 @@ export class OrderService {
     return basket;
   }
 
-  async findPendingOrders(userId: number): Promise<number>{
+  async findShippedOrders(userId: number){
 
-    let order = await this.prisma.order.findMany({
+    let orders = await this.prisma.order.findMany({
+      where: {
+        userId: userId,
+        status: 'SHIPPED',
+      },
+      include: {
+
+        productsInOrder: true,
+      }
+    });
+
+    if(!orders){
+
+      console.log("Aucune order trouvée avec le statut 'SHIPPED'");
+      return null;
+    }
+
+    return orders;
+  }
+
+  async findCancelledOrders(userId: number){
+
+    let orders = await this.prisma.order.findMany({
+      where: {
+        userId: userId,
+        status: 'CANCELLED',
+      },
+      include: {
+        productsInOrder: true,
+      }
+    });
+
+    console.log("Commande(s) récupérée(s) :");
+    console.log(orders);
+
+    if(!orders || orders.length < 1){
+
+      console.log("Aucune order trouvée avec le statut 'CANCELLED'");
+      return null;
+    }
+
+    return orders;
+  }
+
+  async findPendingOrders(userId: number){
+
+    let orders = await this.prisma.order.findMany({
+      where: {
+        userId: userId,
+        status: 'PENDING',
+      },
+      include: {
+        productsInOrder: true,
+      },
+    });
+
+    console.log("Commande(s) récupérée(s) :");
+    console.log(orders);
+
+    if(!orders || orders.length < 1){
+
+      console.log("Aucune order trouvée avec le statut 'PENDING'");
+      return null;
+    }
+
+    return orders;
+  }
+
+  async countPendingOrders(userId: number): Promise<number>{
+
+    let orders = await this.prisma.order.findMany({
       where: {
         userId: userId,
         status: 'PENDING',
       },
     });
 
-    if(!order || order.length < 1){
+    console.log("Commande(s) récupérée(s) :");
+    console.log(orders);
+
+    if(!orders || orders.length < 1){
 
       console.log("Aucune order trouvé avec le statut 'PENDING'");
       return 0;
     }
 
-    const pendingOrdersCount = order.length;
+    const pendingOrdersCount = orders.length;
     console.log("Nombre de commandes pour le statut pending :");
     console.log(pendingOrdersCount);
 
@@ -214,42 +298,42 @@ export class OrderService {
 
     return totalTTC;
   }
-
-async getProductPrice(productId: number): Promise<number> {
-
-  const product = await this.prisma.product.findUnique({
-    where: { id: productId },
-    select: { price: true },
-  });
-
-  if (!product) {
-    throw new Error(`Product with ID ${productId} not found`);
-  }
-
-  return product.price.toNumber(); // Convert Decimal to number
-}
-
-async addProductToCart(userId: number, productId: number, quantity: number) {
-
-  const basket = await this.findBasket(userId);
-
-  if (!basket) {
-    throw new Error('No basket found for this user.');
-  }
-
-  await this.prisma.productInOrder.create({
-    data: {
-      orderId: basket.id,
-      productId,
-      quantity,
-      price: await this.getProductPrice(productId), // Récupérer le prix du produit
-    },
-  });
-
-  // Recalculez le total après l'ajout
-  const total = await this.calculateOrderTotal(basket.id);
-  console.log(`Total mis à jour pour la commande ${basket.id}: ${total}\n\n`);
-}
-
   
+  /* Vérifier utilité de cette méthode */
+  async getProductPrice(productId: number): Promise<number> {
+
+    const product = await this.prisma.product.findUnique({
+      where: { id: productId },
+      select: { price: true },
+    });
+
+    if (!product) {
+      throw new Error(`Product with ID ${productId} not found`);
+    }
+
+    return product.price.toNumber(); // Convert Decimal to number
+  }
+
+  /* Vérifier utilité de cette méthode */
+  async addProductToCart(userId: number, productId: number, quantity: number) {
+
+    const basket = await this.findBasket(userId);
+
+    if (!basket) {
+      throw new Error('No basket found for this user.');
+    }
+
+    await this.prisma.productInOrder.create({
+      data: {
+        orderId: basket.id,
+        productId,
+        quantity,
+        price: await this.getProductPrice(productId), // Récupérer le prix du produit
+      },
+    });
+
+    // Recalculez le total après l'ajout
+    const total = await this.calculateOrderTotal(basket.id);
+    console.log(`Total mis à jour pour la commande ${basket.id}: ${total}\n\n`);
+  } 
 }

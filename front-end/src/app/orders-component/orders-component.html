@@ -1,1 +1,75 @@
-<p>orders-component works!</p>
+<div class="mes-commandes">
+  <div class="header">
+    <h1>Mes commandes</h1>
+    <div class="filters">
+      <select class="filter-select" (change)="onOptionChange($event)">
+        <option value="all">Toutes les commandes</option>
+        <option value="en-cours">En cours</option>
+        <option value="livree">Livrée</option>
+        <option value="annulee">Annulée</option>
+      </select>
+      <input type="text" placeholder="Rechercher une commande..." class="search-input">
+    </div>
+  </div>
+
+  <div class="commandes-list">
+    <!-- Exemple de commande 1 -->
+    @for(order of orders; track order.id){
+
+        <div class="commande-card">
+            <div class="commande-header">
+                <div class="commande-info">
+                    <h3>Commande {{order.id}}</h3>
+                    <span class="date">{{order.createdAt}}</span>
+                </div>
+                <div class="commande-status">
+                    <span class="status status-livree">{{order.status}}</span>
+                    <span class="total">{{order.total}}€</span>
+                </div>
+            </div>
+            
+            <div class="commande-items">
+                @if(order.productInOrder && order.productInOrder.length > 0){
+                    @for(productInOrder of order.productInOrder; track productInOrder.id){
+                        
+                        <div class="item">
+                            <img src="{{productInOrder.product.imageUrl}}" alt="Produit" class="item-image">
+                            <div class="item-details">
+                                <h4>{{productInOrder.product.name}}</h4>
+                                <p>{{productInOrder.product.description}}</p>
+                                <span class="quantity">Quantité: {{productInOrder.quantity}}</span>
+                            </div>
+                            <div class="item-price">{{productInOrder.price}}</div>
+                        </div>
+                    }
+
+                }@else{
+                    <div class="empty-items">
+                        <p>Aucun produit(s) dans cette commande</p>
+                    </div>
+                }
+                </div>
+            
+            <div class="commande-footer">
+                <div class="delivery-info">
+                    <span class="delivery-status">Livré le 18 mars 2024</span>
+                    <span class="delivery-address">123 Rue de la Paix, 75001 Paris</span>
+                </div>
+                <div class="actions">
+                    <button class="btn btn-secondary">Voir détails</button>
+                    <button class="btn btn-primary">Racheter</button>
+                </div>
+            </div>
+        </div>
+    }
+
+  <!-- Message si aucune commande -->
+   @if(orders.length === 0){
+        <div class="empty-state" style="display: none;">
+           <div class="empty-icon">📦</div>
+           <h3>Aucune commande trouvée</h3>
+           <p>Vous n'avez pas encore passé de commande ou aucune commande ne correspond à vos critères de recherche.</p>
+           <button class="btn btn-primary">Découvrir nos produits</button>
+        </div>
+    }
+</div>

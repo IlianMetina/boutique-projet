@@ -7,7 +7,7 @@ import { AuthService } from '../auth/auth.service';
 export class AccountService {
 
   private ordersPlacedUrl = "http://localhost:3000/orders/basket/all/";
-  private pendingOrdersUrl = "http://localhost:3000/orders/basket/current/";
+  private pendingOrdersUrl = "http://localhost:3000/orders/current/";
   private getNameUrl = "http://localhost:3000/users/";
   private authService = inject(AuthService);
 

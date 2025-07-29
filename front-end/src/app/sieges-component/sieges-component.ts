@@ -3,6 +3,7 @@ import { FilterProductsComponent } from '../filter-products-component/filter-pro
 import { isPlatformBrowser } from '@angular/common';
 import { ProductsService, Product } from '../services/products/products-service';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { CartService } from '../services/cart/cart-service';
 
 @Component({
   selector: 'app-sieges-component',
@@ -15,6 +16,7 @@ export class SiegesComponent implements OnInit{
 
   private productService = inject(ProductsService);
   private platformID = inject(PLATFORM_ID);
+  private cartService = inject(CartService);
   pageSize: WritableSignal<number> = signal(6);
   pageIndex: WritableSignal<number> = signal(0);
   products: WritableSignal<Product[]> = signal([]);
@@ -24,7 +26,7 @@ export class SiegesComponent implements OnInit{
   async ngOnInit(){
 
     if(isPlatformBrowser(this.platformID)){
-      const products = await this.productService.getAllProductsByCategory(7);
+      const products = await this.productService.getAllProductsByCategory(6);
 
       console.log("Produits récupérés : " + products);
       console.log(products);
@@ -46,6 +48,17 @@ export class SiegesComponent implements OnInit{
     console.log("Entrée fonction onPageChange");
     this.pageIndex.set(event.pageIndex);
     this.pageSize.set(event.pageSize);
+  }
+  
+  addProduct(product: Product){
+
+    this.cartService.addToCart([product])
+    .then(response => {
+      console.log("Produit ajouté au panier !", response);
+    })
+    .catch(error => {
+      console.error("Erreur lors de l'ajout du produit au panier", error);
+    });
   }
 
 }

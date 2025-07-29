@@ -17,9 +17,9 @@ export class OrderController {
   }
 
   @Get('all')
-  // @UseGuards(AuthGuard)
-  findAll() {
-    return this.orderService.findAll();
+  @UseGuards(AuthGuard)
+  findAll(@UserId() userId: number) {
+    return this.orderService.findAll(userId);
   }
 
   @Get(':id')
@@ -38,14 +38,33 @@ export class OrderController {
     return basket;
   }
 
+  /* ----- Récupération des commandes en fonction d'un statut ----- */
+
+ @Get('cancelled/:userId')
+  async findCancelledOrders(@Param('userId') userId: number){
+    return this.orderService.findCancelledOrders(Number(userId));
+  }
+
+  @Get('shipped/:userId')
+    async findShippedOrders(@Param('userId') userId: number){
+    return this.orderService.findShippedOrders(Number(userId));
+  }
+
+  @Get('pending/:userId')
+    async findPendingOrders(@Param('userId') userId: number){
+    return this.orderService.findPendingOrders(Number(userId));
+  }
+
+  /* ----- Récupération des commandes en fonction d'un statut ----- */
+
+  @Get('current/:userId')
+  async countPendingOrders(@Param('userId') userId: number){
+    return this.orderService.countPendingOrders(Number(userId));
+  }
+
   @Get('basket/user/:userId')
   async findBasketOrderId(@Param('userId') userId: number){
     return this.orderService.findBasketOrderId(Number(userId));
-  }
-
-  @Get('basket/current/:userId')
-  async findPendingOrders(@Param('userId') userId: number){
-    return this.orderService.findPendingOrders(Number(userId));
   }
 
   @Get('basket/all/:userId')

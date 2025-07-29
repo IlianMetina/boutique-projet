@@ -130,28 +130,18 @@ export class CartService {
       Logique : Si l'utilisateur est authentifié, on stocke directement les produits mis au panier dans la BDD.
       Si l'utilisateur n'est pas authentifié, on stocke les produits mis dans le panier dans le localStorage.
     */
+    console.log("Entrée méthode addtoCart cartService");
+    const isUserAuthed = this.authService.isUserAuthenticated();
    
-   const isUserAuthed = this.authService.isUserAuthenticated();
-   
-   if(isUserAuthed){
-     
-    const token = this.authService.getToken();
-    if(!token){
-
-      throw new Error("Erreur de récupération du token");
-    }
-
-    const userId = this.authService.getIdFromToken(token);
-    const orderId = await this.getOrderIdbyUser(userId);
+    if(isUserAuthed){
 
     const product = products[0];
     const productDto = {
       
-      orderId: orderId,
       productId: product.id,
       quantity: 1,
-      price: product.price,
     };
+
 
     const response = await this.authService.AuthenticatedRequest(this.addToCartUrl, 'POST', productDto);
     
