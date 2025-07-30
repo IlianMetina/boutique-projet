@@ -18,7 +18,7 @@
                         @for(product of filteredProducts(); track product.id){
                             
                             <li>
-                                <a [routerLink]="['/produit', product.id]">{{product.name}}</a>
+                                <a [routerLink]="['/produits', product.id]">{{product.name}}</a>
                             </li>
                         }
                     </ul>

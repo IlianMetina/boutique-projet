@@ -18,7 +18,7 @@ export class ProductsService {
   constructor() {}
 
   private allProductsURL = "http://localhost:3000/products/all";
-  private singleProductURL = "http://localhost:3000/products";
+  private singleProductURL = "http://localhost:3000/products/";
   private createProductURL = "http://localhost:3000/products";
   private categoriesUrl = "http://localhost:3000/products/category/";
   private authService = inject(AuthService);
@@ -43,10 +43,10 @@ export class ProductsService {
     return data ?? undefined;
   }
 
-  async getSingleProduct(): Promise<Product>{
+  async getSingleProduct(productId: number): Promise<Product>{
 
     console.log("Entrée méthode getSingleProduct products-service Angular");
-    const body = await this.authService.AuthenticatedRequest(this.singleProductURL, 'GET');
+    const body = await this.authService.AuthenticatedRequest(this.singleProductURL + productId, 'GET');
 
     return body;
   }
