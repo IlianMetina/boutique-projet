@@ -288,8 +288,6 @@ export class OrderService {
     console.log("------Total prix de la commande : ------")
 
     const totalToInt = total.toNumber();
-    // const tax = 1.2;
-    // const totalTTC = totalToInt * tax;
 
     await this.prisma.order.update({
       where: {id: orderId},
@@ -334,6 +332,6 @@ export class OrderService {
 
     // Recalculez le total après l'ajout
     const total = await this.calculateOrderTotal(basket.id);
-    console.log(`Total mis à jour pour la commande ${basket.id}: ${total}\n\n`);
+    console.log(`Total mis à jour pour la commande ${basket.id}: ${total}`);
   } 
 }

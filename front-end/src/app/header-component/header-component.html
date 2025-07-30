@@ -10,7 +10,21 @@
 
             <!-- Barre de recherche -->
             <div class="search-bar">
-                <input type="text" placeholder="Rechercher un produit..." />
+                <input type="text" placeholder="Rechercher un produit..." (input)="search.set($any($event.target).value)" class="search-input"/>
+                
+                @if(search() && filteredProducts().length > 0){
+                    
+                    <ul class="search-results">
+                        @for(product of filteredProducts(); track product.id){
+                            
+                            <li>
+                                <a [routerLink]="['/produit', product.id]">{{product.name}}</a>
+                            </li>
+                        }
+                    </ul>
+                }@else if(search()){
+                    <p class="no-results">Aucun produit trouvé</p>
+                }
             </div>
 
             <!-- Infos rapides -->
