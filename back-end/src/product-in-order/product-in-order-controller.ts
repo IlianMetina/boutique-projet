@@ -16,7 +16,7 @@ export class OrderItemController {
   @UseGuards(AuthGuard)
   create(@Body() createOrderItemDto: CreateOrderItemDto, @UserId() userId: number) {
     console.log('---------------------------------------');
-    console.log("Id de l'utilisateur concerné : ", userId);
+    console.log("-_-_-_-_-_-_-_-Id de l'utilisateur concerné : ", userId + " -_-_-_-_-_-_-_-_-");
     console.log('---------------------------------------');
     return this.orderItemService.create(createOrderItemDto, userId);
   }

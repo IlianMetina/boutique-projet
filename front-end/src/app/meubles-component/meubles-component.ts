@@ -5,7 +5,6 @@ import { isPlatformBrowser } from '@angular/common';
 import { FilterProductsComponent } from '../filter-products-component/filter-products-component';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { CartService } from '../services/cart/cart-service';
-import { response } from 'express';
 
 @Component({
   selector: 'app-meubles-component',

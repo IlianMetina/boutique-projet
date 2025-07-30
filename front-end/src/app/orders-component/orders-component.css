@@ -131,7 +131,7 @@
   align-items: center;
   gap: 15px;
   padding: 15px 0;
-  border-bottom: 1px solid #f8f9fa;
+  border-bottom: 1px solid #ece5e5;
 }
 
 .item:last-child {
@@ -188,8 +188,8 @@
 
 .delivery-info {
   display: flex;
-  flex-direction: column;
-  gap: 5px;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .delivery-status {

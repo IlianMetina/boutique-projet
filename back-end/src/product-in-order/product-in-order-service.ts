@@ -23,27 +23,44 @@ export class OrderItemService {
   /* Méthode qui permet d'ajouter un produit au panier */
   async create(createOrderItemDto: CreateOrderItemDto, userId: number) {
 
+    console.log("UserId reçu méthode create OrderItemService :", userId);
+
     console.log("OrderId méthode create OrderItemService : ");
     let orderId = await this.orderService.findBasketOrderId(userId);
     console.log("OrderId méthode create OrderItemService : ", orderId);
     
-    if(orderId == null){
+    if(orderId == null || !orderId){
 
       console.log("Aucun orderId trouvé pour le userId " + userId + "avec le statut 'PENDING'");
       const basket = await this.getOrCreateBasket(userId);
       orderId = basket.id;
+      console.log("-_-_-_-_- [ orderId récupérer lors de création panier :", orderId + " ] -_-_-_-_-");
+      
     }
-
-
-    const isProductExist = await this.isProductExists(userId, createOrderItemDto.productId); 
-
+    
+    const isProductExist = await this.isProductExists(orderId, createOrderItemDto.productId); 
+    console.log("IsProduct Existing ? : ", isProductExist);
+    
     if(isProductExist){
+
+      const existingProduct = await this.prisma.productInOrder.findFirst({
+        where: {
+          orderId: orderId,
+          productId: createOrderItemDto.productId,
+        }
+      });
+
+      
+
+      console.log("-_-_-_-_- [ Quantité DTO récupérée lors de création panier :", createOrderItemDto.quantity + " ] -_-_-_-_-");
       
       const updateDto: UpdateOrderItemDto = {
 
         productId: createOrderItemDto.productId,
-        quantity: createOrderItemDto.quantity,
+        quantity: existingProduct!.quantity + 1,
       };
+
+      console.log("-_-_-_-_- [ Quantité existingproduct récupérée lors de création panier :", existingProduct!.quantity + " ] -_-_-_-_-");
       
       const updated = await this.updateProductQuantity(updateDto, orderId);
       await this.orderService.calculateOrderTotal(orderId);
@@ -124,9 +141,14 @@ export class OrderItemService {
   /* Méthode qui s'occupe d'incrémenter la quantité d'un produit s'il est déjà présent dans le panier */
   async updateProductQuantity(updateOrderItemDto: UpdateOrderItemDto, userId: number): Promise<ProductInOrder>{
 
-    const orderId = await this.orderService.findBasketOrderId(userId);
+    console.log("Dto reçue updateOrderItemDto: ", updateOrderItemDto);
+    console.log("UserId reçu méthode updateProductQuantity OrderItemService:", userId);
 
-    if(orderId == undefined || updateOrderItemDto.productId == undefined){
+    let orderId = await this.orderService.findBasketOrderId(userId);
+
+    console.log("OrderId", orderId, "retrouvé correspondant à l'userId updateProductQuantity", userId);
+
+    if(!orderId || !updateOrderItemDto.productId){
 
       throw new Error("orderId ou productId est undefined");
     }

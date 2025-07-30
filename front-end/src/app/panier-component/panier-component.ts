@@ -121,9 +121,9 @@ export class PanierComponent implements OnInit {
 
   getSubTotal(): number {
     const subTotal = this.products().reduce((sum, item) => {
-        const price = item.product?.price ? Number(item.product.price) : 0;
-        const quantity = item.quantity ?? 0;
-        return sum + (price * quantity);
+      const price = item.product?.price ? Number(item.product.price) : 0;
+      const quantity = item.quantity ?? 0;
+      return sum + (price * quantity);
     }, 0);
 
     return Number(subTotal.toFixed(2));

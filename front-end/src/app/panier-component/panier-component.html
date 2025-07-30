@@ -43,7 +43,7 @@
           
           <div class="item-actions">
             <div class="item-price">
-              <span class="price-current">{{product.product?.price}}€ HT</span>
+              <span class="price-current">{{product.product?.price}}€</span>
             </div>
             
             <div class="quantity-controls">
@@ -85,7 +85,7 @@
       <div class="summary-details">
         <div class="summary-line">
           <span>Sous-total <strong>{{getTotalItems()}}</strong></span>
-          <span>{{getSubTotal()}}€ HT</span>
+          <span>{{getSubTotal()}}€</span>
         </div>
         
         <div class="summary-line">
@@ -102,7 +102,7 @@
         
         <div class="summary-line total-line">
           <span>Total</span>
-          <span>{{getTotal()}}€ TTC</span>
+          <span>{{getSubTotal()}}€ TTC</span>
         </div>
       </div>
       

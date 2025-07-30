@@ -130,3 +130,7 @@ En gros à faire:
   - Enlever la tva des calculs ? 
   - Faire page livraison
   - Faire page récapitulatif commande
+
+Vérifier getSubTotal et getTotal (ajouter taxe ? front-end & back-end)
+Quand je supprime un produit en réduisant sa quantité jusqu'à 0, il reste toujours un résidu 
+dans le total de la commande dans la BDD.
