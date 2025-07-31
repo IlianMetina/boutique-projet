@@ -140,3 +140,5 @@ de certaines pages comme le panel admin & user
 
 Faire en sorte dans Panier/Livraison/Paiement le même affichage que dans la page livraison, truc statique
 avec l'étape en background:blue;
+
+Lorsque paiement validé, passer statut order à "PENDING"

@@ -33,7 +33,14 @@ export class OrderController {
   @UseGuards(AuthGuard)
   findOne(@Param('id') id: string) {
     console.log("Entrée Order controller findOne pour l'id :", id);
-    return this.orderService.findOne(+id);
+    return this.orderService.findUserBasket(+id);
+  }
+
+  @Get('recap/:id')
+  @UseGuards(AuthGuard)
+  findOneByOrderId(@Param('id') id: string) {
+    console.log("Entrée Order controller findOne pour l'id :", id);
+    return this.orderService.findOneByOrderId(+id);
   }
 
   @Get('basket/:userId')

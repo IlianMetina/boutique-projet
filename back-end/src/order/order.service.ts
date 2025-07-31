@@ -63,7 +63,7 @@ export class OrderService {
   });
   }
 
-  async findOne(id: number) {
+  async findUserBasket(id: number) {
 
     const basket = await this.prisma.order.findUnique({
       where: {
@@ -84,7 +84,31 @@ export class OrderService {
     return basket;
   }
 
- async update(id: number, updateOrderDto: UpdateOrderDto) {
+  async findOneByOrderId(userId: number){
+
+    const orderId = await this.findBasketOrderId(userId);
+    if(!orderId) throw new Error("Erreur de récupération de l'orderId");
+
+     const basket = await this.prisma.order.findUnique({
+      where: {
+        id: orderId,
+      },
+
+      include: {
+        productsInOrder: {
+          include: {
+            product: true
+          }
+        }
+      },
+      
+    });
+    console.log("Panier récupéré findOne : ");
+    console.log(basket);
+    return basket;
+  }
+
+  async update(id: number, updateOrderDto: UpdateOrderDto) {
 
   const updateData: any = {};
   

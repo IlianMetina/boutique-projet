@@ -28,7 +28,7 @@ export class LivraisonComponent implements OnInit{
   private authService = inject(AuthService);
   private userUrl = 'http://localhost:3000/users/';
   private postOrderAdressUrl = 'http://localhost:3000/orders/delivery';
-  private getOrderUrl = 'http://localhost:3000/orders/';
+  private getOrderUrl = 'http://localhost:3000/orders/recap/';
   user = signal<User | null>(null);
   order = signal<Order | null>(null);
   street: string = '';
@@ -122,6 +122,8 @@ export class LivraisonComponent implements OnInit{
   getSubTotal(): number {
 
     const order = this.order();
+    console.log('------ ORDER RÉCUPÉREE getSubTotal-----------');
+    console.log(order);
     if(!order) throw new Error("Erreur lors du calcul subTotal");
 
     const subTotal = order.productsInOrder.reduce((sum: number, item: { product: { price: any; }; quantity: number; }) => {
