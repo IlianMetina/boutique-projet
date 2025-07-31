@@ -50,19 +50,24 @@ export class LivraisonComponent implements OnInit{
     }
   }
 
-  async getOrderInfos(){
+  get productsInOrder() {
+    return this.order()?.productsInOrder ?? [];
+  }
 
+  async getOrderInfos(){
+    
     const token = this.authService.getToken();
     if(!token) throw new Error("Erreur récupération token");
     const userId = this.authService.getIdFromToken(token);
     if(!userId) throw new Error("Erreur récupération userId");
-
+    
     try{
       console.log("URL fetch order :", this.getOrderUrl + userId);
       const order = await this.authService.AuthenticatedRequest(this.getOrderUrl + userId, 'GET');
       this.order.set(order);
       console.log("Commande récupérée : ", order);
       
+      console.log("(!)(!)(!)(!) getOrderInfos TEST (!)(!)(!)(!)");
       return order;
 
     }catch(error){
@@ -112,6 +117,20 @@ export class LivraisonComponent implements OnInit{
 
     this.router.navigate(['panier/paiement']);
     return response;
+  }
+
+  getSubTotal(): number {
+
+    const order = this.order();
+    if(!order) throw new Error("Erreur lors du calcul subTotal");
+
+    const subTotal = order.productsInOrder.reduce((sum: number, item: { product: { price: any; }; quantity: number; }) => {
+      const price = item.product?.price ? Number(item.product.price) : 0;
+      const quantity = item.quantity ?? 0;
+      return sum + (price * quantity);
+    }, 0);
+
+    return Number(subTotal.toFixed(2));
   }
 
 }

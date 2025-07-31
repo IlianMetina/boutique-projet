@@ -65,9 +65,12 @@ export class OrderService {
 
   async findOne(id: number) {
 
+    const orderId = await this.findBasketOrderId(id);
+    if(!orderId) throw new Error("Erreur lors de la récupération de l'orderId");
+
     const basket = await this.prisma.order.findUnique({
       where: {
-        id: id,
+        id: orderId,
       },
 
       include: {

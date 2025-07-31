@@ -117,29 +117,23 @@
         <h3 class="summary-title">Récapitulatif de commande</h3>
         
         <div class="summary-items">
-          <div class="summary-item">
-            <div class="item-info">
-              <div class="item-name">T-shirt Classic Blanc</div>
-              <div class="item-details">Taille: M • Qté: 2</div>
-            </div>
-            <div class="item-price">39,98 €</div>
-          </div>
-          
-          <div class="summary-item">
-            <div class="item-info">
-              <div class="item-name">Jean Slim Noir</div>
-              <div class="item-details">Taille: 32 • Qté: 1</div>
-            </div>
-            <div class="item-price">79,90 €</div>
-          </div>
-        </div>
+            @for(product of productsInOrder; track product.id){
+
+                <div class="summary-item">
+                    <div class="item-info">
+                        <div class="item-name">{{product.product.name}}</div>
+                        <div class="item-details">Qté: {{product.quantity}}</div>
+                    </div>
+                    <div class="item-price">{{product.product.price * product.quantity}}€</div>
+                </div>
+            }
         
         <div class="summary-divider"></div>
         
         <div class="summary-totals">
           <div class="total-line">
             <span>Sous-total</span>
-            <span>119,88 €</span>
+            <span>{{getSubTotal()}} €</span>
           </div>
           <div class="total-line">
             <span>Livraison</span>
@@ -147,7 +141,7 @@
           </div>
           <div class="total-line total-final">
             <span>Total</span>
-            <span>119,88 €</span>
+            <span>{{getSubTotal()}} €</span>
           </div>
         </div>
         
