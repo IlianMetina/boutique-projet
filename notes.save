@@ -137,3 +137,6 @@ dans le total de la commande dans la BDD.
 
 Faire un robot.txt pour empêcher le scrapping et éviter l'indexation
 de certaines pages comme le panel admin & user
+
+Faire en sorte dans Panier/Livraison/Paiement le même affichage que dans la page livraison, truc statique
+avec l'étape en background:blue;

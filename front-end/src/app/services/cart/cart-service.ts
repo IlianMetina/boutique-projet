@@ -38,7 +38,7 @@ export class CartService {
       const isUserAuthed = this.authService.isUserAuthenticated();
       if(isUserAuthed){
 
-        
+        console.log("userid envoyé à getOrderIdByUser :", userId);
         const userOrderId: number = await this.getOrderIdbyUser(userId);
         console.log("------------- Entrée getCardProducts ---------------");
         console.log("orderId récupérer : " + userOrderId);
@@ -95,7 +95,6 @@ export class CartService {
 
   async getOrderIdbyUser(userId: number): Promise<number>{
 
-    
     const orderId = await this.authService.AuthenticatedRequest(this.findBasketIdUrl + userId, 'GET');
     console.log("-_-_-_-_-_-_-_-_-Réponse API getOrderIdByUser :-_-_-_-_-_-_-_-_-");
     console.log(orderId);
