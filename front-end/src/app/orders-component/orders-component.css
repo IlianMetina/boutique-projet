@@ -188,14 +188,8 @@
 
 .delivery-info {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   width: 100%;
-}
-
-.delivery-status {
-  color: #495057;
-  font-weight: 500;
-  font-size: 14px;
 }
 
 .delivery-address {

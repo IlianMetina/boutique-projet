@@ -27,8 +27,6 @@ export class ProductsService {
 
     const data = await this.authService.AuthenticatedRequest(this.allProductsURL, 'GET');
 
-    console.log("Data reçue getProducts() : " + data);
-
     return data ?? undefined;
   }
 

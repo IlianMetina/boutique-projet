@@ -4,6 +4,7 @@ import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import { UserId } from 'src/decorator/user-id.decorator';
 import { AuthGuard } from 'src/auth/auth.guard';
+import { setDeliveryAddressDto } from './dto/set-delivery-address.dto';
 
 @Controller('orders')
 export class OrderController {
@@ -14,6 +15,12 @@ export class OrderController {
   create(@Body() createOrderDto: CreateOrderDto, @UserId() userId: number) {
     createOrderDto.userId = userId;
     return this.orderService.create(createOrderDto, userId);
+  }
+
+  @Post('delivery')
+  @UseGuards(AuthGuard)
+  saveAddress(@Body() setAddressDto: setDeliveryAddressDto, @UserId() userId: number) {
+    return this.orderService.saveDeliveryAddress(setAddressDto, userId);
   }
 
   @Get('all')
@@ -51,15 +58,15 @@ export class OrderController {
   }
 
   @Get('pending/:userId')
-    async findPendingOrders(@Param('userId') userId: number){
-    return this.orderService.findPendingOrders(Number(userId));
+    async findCurrentOrders(@Param('userId') userId: number){
+    return this.orderService.findCurrentOrders(Number(userId));
   }
 
   /* ----- Récupération des commandes en fonction d'un statut ----- */
 
   @Get('current/:userId')
-  async countPendingOrders(@Param('userId') userId: number){
-    return this.orderService.countPendingOrders(Number(userId));
+  async countCurrentOrders(@Param('userId') userId: number){
+    return this.orderService.countCurrentOrders(Number(userId));
   }
 
   @Get('basket/user/:userId')

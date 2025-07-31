@@ -13,6 +13,13 @@ export interface Basket {
   total: Decimal;
 }
 
+interface deliveryAddress {
+
+  street: string;
+  city: string;
+  zipCode: string;
+}
+
 @Injectable()
 export class OrderService {
 
@@ -51,6 +58,13 @@ export class OrderService {
           product: true,
         },
       },
+      user: {
+        select: {
+          city: true,
+          street: true,
+          zipCode: true,
+        }
+      }
     },
   });
   }
@@ -184,12 +198,14 @@ export class OrderService {
     return orders;
   }
 
-  async findPendingOrders(userId: number){
+  async findCurrentOrders(userId: number){
 
     let orders = await this.prisma.order.findMany({
       where: {
         userId: userId,
-        status: 'PENDING',
+        status: {
+          in: ['PENDING', 'PROCESSING'],
+        }
       },
       include: {
         productsInOrder: true,
@@ -208,7 +224,7 @@ export class OrderService {
     return orders;
   }
 
-  async countPendingOrders(userId: number): Promise<number>{
+  async countCurrentOrders(userId: number): Promise<number>{
 
     let orders = await this.prisma.order.findMany({
       where: {
@@ -334,4 +350,20 @@ export class OrderService {
     const total = await this.calculateOrderTotal(basket.id);
     console.log(`Total mis à jour pour la commande ${basket.id}: ${total}`);
   } 
+
+  async saveDeliveryAddress(address: deliveryAddress, userId: number){
+
+    console.log("Addresse reçue : ");
+    console.log(address);
+    const orderId = await this.findBasketOrderId(userId);
+    if(!orderId){
+      throw new Error("Erreur récupération OrderID");
+    }
+    const updatedAddress = await this.prisma.order.update({
+      where: {id: orderId},
+      data: address,
+    });
+
+    return updatedAddress;
+  }
 }

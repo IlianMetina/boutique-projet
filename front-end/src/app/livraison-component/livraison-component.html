@@ -1,0 +1,211 @@
+<div class="delivery-container">
+  <!-- En-tête de la page -->
+  <div class="delivery-header">
+    <h1 class="delivery-title">Informations de livraison</h1>
+    <div class="breadcrumb">
+      <span class="breadcrumb-item">Panier</span>
+      <span class="breadcrumb-separator">></span>
+      <span class="breadcrumb-item active">Livraison</span>
+      <span class="breadcrumb-separator">></span>
+      <span class="breadcrumb-item">Paiement</span>
+    </div>
+  </div>
+
+  <div class="delivery-content">
+    <!-- Colonne principale - Formulaire -->
+    <div class="delivery-form-section">
+      <!-- Adresse de livraison -->
+      <div class="form-card">
+        <h2 class="section-title">
+          <span class="section-icon">📍</span>
+          Adresse de livraison
+        </h2>
+        
+        <form class="delivery-form" (ngSubmit)="onSubmit()">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="firstName" class="form-label">Prénom *</label>
+              <input type="text" id="firstName" class="form-input" [placeholder]="user()?.firstName" disabled>
+            </div>
+            <div class="form-group">
+              <label for="lastName" class="form-label">Nom *</label>
+              <input type="text" id="lastName" class="form-input" [placeholder]="user()?.lastName" disabled>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email" class="form-label">Email *</label>
+            <input type="email" id="email" class="form-input" [placeholder]="user()?.email" disabled>
+          </div>
+
+          <div class="form-group">
+            <label for="phone" class="form-label">Téléphone *</label>
+            <input type="tel" id="phone" class="form-input" [placeholder]="user()?.phoneNumber" disabled>
+          </div>
+
+          <div class="form-group">
+            <label for="address" class="form-label">Adresse *</label>
+            <input type="text" id="address" class="form-input" name="street" placeholder="Numéro et nom de rue" [(ngModel)]="street" required>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="postalCode" class="form-label">Code postal *</label>
+              <input type="text" id="postalCode" class="form-input" name="zipCode" [(ngModel)]="zipCode" required>
+            </div>
+            <div class="form-group">
+              <label for="city" class="form-label">Ville *</label>
+              <input type="text" id="city" class="form-input" name="city" [(ngModel)]="city" required>
+            </div>
+          </div>
+
+        <div class="action-buttons">
+            <button class="btn-secondary">Retour au panier</button>
+            <button class="btn-primary" type="submit">Continuer vers le paiement</button>
+        </div>
+         
+        </form>
+      </div>
+
+      <!-- Options de livraison -->
+      <div class="form-card">
+        <h2 class="section-title">
+          <span class="section-icon">🚚</span>
+          Mode de livraison
+        </h2>
+        
+        <div class="delivery-options">
+          <div class="delivery-option">
+            <input type="radio" id="standard" name="delivery" value="standard" class="delivery-radio" checked>
+            <label for="standard" class="delivery-label">
+              <div class="delivery-info">
+                <div class="delivery-name">Livraison standard</div>
+                <div class="delivery-desc">3-5 jours ouvrés</div>
+              </div>
+              <div class="delivery-price">Gratuit</div>
+            </label>
+          </div>
+
+          <div class="delivery-option">
+            <input type="radio" id="express" name="delivery" value="express" class="delivery-radio">
+            <label for="express" class="delivery-label">
+              <div class="delivery-info">
+                <div class="delivery-name">Livraison express</div>
+                <div class="delivery-desc">1-2 jours ouvrés</div>
+              </div>
+              <div class="delivery-price">9,90 €</div>
+            </label>
+          </div>
+
+          <div class="delivery-option">
+            <input type="radio" id="same-day" name="delivery" value="same-day" class="delivery-radio">
+            <label for="same-day" class="delivery-label">
+              <div class="delivery-info">
+                <div class="delivery-name">Livraison le jour même</div>
+                <div class="delivery-desc">Avant 18h (Paris uniquement)</div>
+              </div>
+              <div class="delivery-price">19,90 €</div>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Options supplémentaires -->
+      <div class="form-card">
+        <h2 class="section-title">
+          <span class="section-icon">⚙️</span>
+          Options supplémentaires
+        </h2>
+        
+        <div class="checkbox-group">
+          <label class="checkbox-label">
+            <input type="checkbox" class="checkbox-input">
+            <span class="checkbox-custom"></span>
+            Livraison en point relais
+          </label>
+          
+          <label class="checkbox-label">
+            <input type="checkbox" class="checkbox-input">
+            <span class="checkbox-custom"></span>
+            Emballer comme cadeau (+2,90 €)
+          </label>
+          
+          <label class="checkbox-label">
+            <input type="checkbox" class="checkbox-input">
+            <span class="checkbox-custom"></span>
+            Assurance colis (+1,50 €)
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Colonne droite - Récapitulatif -->
+    <div class="order-summary">
+      <div class="summary-card">
+        <h3 class="summary-title">Récapitulatif de commande</h3>
+        
+        <div class="summary-items">
+          <div class="summary-item">
+            <div class="item-info">
+              <div class="item-name">T-shirt Classic Blanc</div>
+              <div class="item-details">Taille: M • Qté: 2</div>
+            </div>
+            <div class="item-price">39,98 €</div>
+          </div>
+          
+          <div class="summary-item">
+            <div class="item-info">
+              <div class="item-name">Jean Slim Noir</div>
+              <div class="item-details">Taille: 32 • Qté: 1</div>
+            </div>
+            <div class="item-price">79,90 €</div>
+          </div>
+        </div>
+        
+        <div class="summary-divider"></div>
+        
+        <div class="summary-totals">
+          <div class="total-line">
+            <span>Sous-total</span>
+            <span>119,88 €</span>
+          </div>
+          <div class="total-line">
+            <span>Livraison</span>
+            <span>Gratuit</span>
+          </div>
+          <div class="total-line total-final">
+            <span>Total</span>
+            <span>119,88 €</span>
+          </div>
+        </div>
+        
+        <div class="promo-code">
+          <input type="text" class="promo-input" placeholder="Code promotionnel">
+          <button class="promo-btn">Appliquer</button>
+        </div>
+      </div>
+      
+      <!-- Boutons d'action -->
+      <!-- <div class="action-buttons">
+        <button class="btn-secondary">Retour au panier</button>
+        <button class="btn-primary" type="submit">Continuer vers le paiement</button>
+      </div> -->
+      
+      <!-- Informations de sécurité -->
+      <div class="security-info">
+        <div class="security-item">
+          <span class="security-icon">🔒</span>
+          <span>Paiement 100% sécurisé</span>
+        </div>
+        <div class="security-item">
+          <span class="security-icon">↩️</span>
+          <span>Retours gratuits sous 30 jours</span>
+        </div>
+        <div class="security-item">
+          <span class="security-icon">📞</span>
+          <span>Support client 7j/7</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

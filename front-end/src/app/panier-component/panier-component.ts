@@ -4,6 +4,7 @@ import { AuthService } from '../services/auth/auth.service';
 import { isPlatformBrowser } from '@angular/common';
 import { WritableSignal } from '@angular/core';
 import { Product } from '../services/products/products-service';
+import { Router } from '@angular/router';
 
 interface ProductInOrder{
 
@@ -26,6 +27,7 @@ export class PanierComponent implements OnInit {
   private authService = inject(AuthService);
   private platformId = inject(PLATFORM_ID);
   private cartService = inject(CartService);
+  private router = inject(Router);
   isCartEmpty = true;
   tax: number = 1.2;
   products: WritableSignal<ProductInOrder[]> = signal([]);
@@ -179,6 +181,19 @@ export class PanierComponent implements OnInit {
       console.error("Erreur lors de la suppression produit :", error);
     }
 
+  }
+
+  nextOrderStage(){
+
+    console.log("Taille tableau produits :" + this.products().length)
+
+    if(this.products().length < 1){
+
+      alert("Vous n'avez aucun produit dans votre panier");
+      return;
+    }
+
+    this.router.navigate(['panier/livraison']);
   }
 
 }

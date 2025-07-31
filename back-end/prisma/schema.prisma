@@ -59,7 +59,10 @@ model Order {
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @default(now())
   user        User        @relation(fields: [userId], references: [id])
-  productsInOrder  ProductInOrder[] 
+  productsInOrder  ProductInOrder[]
+  street      String?
+  city        String?
+  zipCode     String?
 
   @@index([userId]) // Index for faster lookups by user
 }                              

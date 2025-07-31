@@ -18,7 +18,7 @@
         <div class="commande-card">
             <div class="commande-header">
                 <div class="commande-info">
-                    <h3>Commande {{order.id}}</h3>
+                    <h3>Commande n°{{order.id}}</h3>
                     <span class="date">{{order.createdAt}}</span>
                 </div>
                 <div class="commande-status">
@@ -52,8 +52,7 @@
             
             <div class="commande-footer">
                 <div class="delivery-info">
-                    <span class="delivery-status">Livré le 18 mars 2024</span>
-                    <span class="delivery-address">123 Rue de la Paix, 75001 Paris</span>
+                    <span class="delivery-address">{{order.user.street}} {{order.user.zipCode}} {{order.user.city}}</span>
                 </div>
                 <!-- <div class="actions">
                     <button class="btn btn-secondary">Voir détails</button>

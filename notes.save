@@ -134,3 +134,6 @@ En gros à faire:
 Vérifier getSubTotal et getTotal (ajouter taxe ? front-end & back-end)
 Quand je supprime un produit en réduisant sa quantité jusqu'à 0, il reste toujours un résidu 
 dans le total de la commande dans la BDD.
+
+Faire un robot.txt pour empêcher le scrapping et éviter l'indexation
+de certaines pages comme le panel admin & user

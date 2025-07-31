@@ -21,6 +21,7 @@
     "@angular/platform-server": "^20.0.0",
     "@angular/router": "^20.0.0",
     "@angular/ssr": "^20.0.2",
+    "@stripe/stripe-js": "^7.7.0",
     "express": "^5.1.0",
     "jwt-decode": "^4.0.0",
     "ngx-cookie-service": "^20.0.1",

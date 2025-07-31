@@ -1,6 +1,16 @@
 import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
 import { AuthService } from '../services/auth/auth.service';
 
+interface User {
+
+  firstName?: string;
+  lastName?: string;
+  street: string;
+  city: string;
+  zipCode: string;
+  country?: string;
+}
+
 interface Product {
 
   id: number;
@@ -30,6 +40,7 @@ interface Order {
   createdAt: string;
   updatedAt: string;
   productsInOrder: ProductInOrder[]
+  user: User;
 }
 
 @Component({
@@ -42,10 +53,11 @@ export class OrdersComponent implements OnInit {
 
   private authService = inject(AuthService);
   private allOrdersUrl = 'http://localhost:3000/orders/all';
-  private pendingOrdersUrl = 'http://localhost:3000/orders/pending/';
+  private currentOrdersUrl = 'http://localhost:3000/orders/pending/';
   private shippedOrdersUrl = 'http://localhost:3000/orders/shipped/';
   private cancelledOrdersUrl = 'http://localhost:3000/orders/cancelled/';
   orders: Order[] = [];
+  orderDate = signal<string>('');
 
   async ngOnInit() {  
     
@@ -66,9 +78,6 @@ export class OrdersComponent implements OnInit {
 
       throw new Error("Erreur lors de la récupération des commandes");
     }
-
-    console.log("Réponse reçue du backend ngOnInit orders component :");
-    console.log(allResponse);
 
     this.orders = allResponse;
   } 
@@ -101,22 +110,25 @@ export class OrdersComponent implements OnInit {
 
         console.log("Réponse reçue commandes 'all' :");
         console.log(allResponse);
+        if(allResponse && !Array.isArray(allResponse)){
+          console.log("All Response n'est pas un tableau")
+        }
         this.orders = allResponse;
 
         return allResponse;
 
       case "en-cours":
         console.log("En cours");
-        const pendingResponse = await this.authService.AuthenticatedRequest(this.pendingOrdersUrl + userId, 'GET');
-        if(!pendingResponse){
+        const currentResponse = await this.authService.AuthenticatedRequest(this.currentOrdersUrl + userId, 'GET');
+        if(!currentResponse){
 
           throw new Error("Erreur récupération commande 'PENDING'");
         }
         console.log("Réponse reçue commande 'en cours' :");
-        console.log(pendingResponse);
-        this.orders = pendingResponse;
+        console.log(currentResponse);
+        this.orders = currentResponse;
 
-        return pendingResponse;
+        return currentResponse;
 
       case "livree":
         console.log("livree");
@@ -135,7 +147,7 @@ export class OrdersComponent implements OnInit {
       case "annulee":
         console.log("annulee");
         const cancelledResponse = await this.authService.AuthenticatedRequest(this.cancelledOrdersUrl + userId, 'GET');
-        if(!pendingResponse){
+        if(!cancelledResponse){
           
           throw new Error("Erreur récupération commande 'PENDING'");
         }

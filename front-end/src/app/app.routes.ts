@@ -16,6 +16,7 @@ import { AccountComponent } from './account-component/account-component';
 import { OrdersComponent } from './orders-component/orders-component';
 import { AccountInfosComponent } from './account-infos-component/account-infos-component';
 import { ProductComponent } from './product-component/product-component';
+import { LivraisonComponent } from './livraison-component/livraison-component';
 
 export const routes: Routes = [
 
@@ -34,5 +35,6 @@ export const routes: Routes = [
   { path: 'mon-compte', component: AccountComponent, canActivate: [AuthGuard] },
   { path: 'mon-compte/mes-commandes', component: OrdersComponent, canActivate: [AuthGuard] },
   { path: 'mon-compte/mes-infos', component: AccountInfosComponent, canActivate: [AuthGuard] },
+  { path: 'panier/livraison', component: LivraisonComponent, canActivate: [AuthGuard] },
   // { path: 'admin', component: AdminComponent, canActivate: [AuthGuard] },
 ];

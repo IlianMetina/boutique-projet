@@ -1,1 +1,144 @@
-<p>product-component works!</p>
+<div class="product-container">
+  <!-- Fil d'Ariane -->
+  <nav class="breadcrumb">
+    <a routerLink="/" class="breadcrumb-link">Accueil</a>
+    <i class="fas fa-chevron-right"></i>
+    <a routerLink="/categorie/smartphones" class="breadcrumb-link">Smartphones</a>
+    <i class="fas fa-chevron-right"></i>
+    <span class="breadcrumb-current">iPhone 15 Pro</span>
+  </nav>
+
+  <!-- Contenu principal du produit -->
+  <main class="product-main">
+    <!-- Galerie d'images -->
+    <section class="product-gallery">
+      <div class="main-image">
+        <img src="https://via.placeholder.com/500x500/4682ff/ffffff?text=iPhone+15+Pro" alt="iPhone 15 Pro" class="product-image">
+        <div class="image-badges">
+          <span class="badge new">Nouveau</span>
+          <span class="badge discount">-15%</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Informations produit -->
+    <section class="product-info">
+      <div class="product-header">
+        <h1 class="product-title">{{product().name}}</h1>
+        <div class="product-rating">
+          <div class="stars">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star-half-alt"></i>
+          </div>
+          <span class="rating-text">4.5/5 (124 avis)</span>
+        </div>
+      </div>
+
+      <div class="product-pricing">
+        <span class="current-price">{{product().price}}€</span>
+        <span class="savings">Économisez 200€</span>
+      </div>
+
+      <div class="product-description">
+        <p>{{product().description}}</p>
+      </div>
+
+      <!-- Options de produit -->
+      <div class="product-options">
+        <div class="option-group">
+        </div>
+
+        <div class="option-group">
+          <label class="option-label">Quantité :</label>
+          <div class="quantity-selector">
+            <button class="quantity-btn">-</button>
+            <input type="number" value="1" min="1" class="quantity-input">
+            <button class="quantity-btn">+</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Actions d'achat -->
+      <div class="purchase-actions">
+        <button class="btn-primary add-to-cart">
+          <i class="fas fa-shopping-cart"></i>
+          Ajouter au panier
+        </button>
+      </div>
+
+      <!-- Informations de livraison -->
+      <div class="delivery-info">
+        <div class="delivery-item">
+          <i class="fas fa-truck"></i>
+          <div class="delivery-text">
+            <span class="delivery-title">Livraison gratuite</span>
+            <span class="delivery-subtitle">Dès 50€ d'achat</span>
+          </div>
+        </div>
+        <div class="delivery-item">
+          <i class="fas fa-undo"></i>
+          <div class="delivery-text">
+            <span class="delivery-title">Retour gratuit</span>
+            <span class="delivery-subtitle">30 jours pour changer d'avis</span>
+          </div>
+        </div>
+        <div class="delivery-item">
+          <i class="fas fa-shield-alt"></i>
+          <div class="delivery-text">
+            <span class="delivery-title">Garantie 2 ans</span>
+            <span class="delivery-subtitle">Protection complète</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Onglets de détails -->
+  <section class="product-details">
+    <div class="tabs-header">
+      <button class="tab-btn active">Description</button>
+    </div>
+
+    <div class="tab-content">
+      <div class="tab-panel active">
+        <h3>Description détaillée</h3>
+        <p>L'iPhone 15 Pro marque une nouvelle ère dans l'innovation mobile. Équipé de la puce A17 Pro gravée en 3 nanomètres, il offre des performances exceptionnelles tout en optimisant l'efficacité énergétique.</p>
+        <ul>
+          <li>Écran Super Retina XDR de 6,1 pouces avec ProMotion</li>
+          <li>Système de caméra Pro avec téléobjectif 3x</li>
+          <li>Design en titane de qualité aérospatiale</li>
+          <li>Bouton Action personnalisable</li>
+          <li>Connecteur USB-C avec USB 3</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Produits recommandés -->
+  <section class="recommended-products">
+    <h2>Produits recommandés</h2>
+    <div class="products-grid">
+      <div class="product-card">
+        <img src="https://via.placeholder.com/200x200/4682ff/ffffff?text=AirPods" alt="AirPods Pro">
+        <h4>AirPods Pro (2ème génération)</h4>
+        <span class="price">279€</span>
+        <button class="btn-small">Voir le produit</button>
+      </div>
+      <div class="product-card">
+        <img src="https://via.placeholder.com/200x200/6a9aff/ffffff?text=Coque" alt="Coque iPhone">
+        <h4>Coque iPhone 15 Pro</h4>
+        <span class="price">49€</span>
+        <button class="btn-small">Voir le produit</button>
+      </div>
+      <div class="product-card">
+        <img src="https://via.placeholder.com/200x200/8bb3ff/ffffff?text=Chargeur" alt="Chargeur">
+        <h4>Chargeur MagSafe</h4>
+        <span class="price">45€</span>
+        <button class="btn-small">Voir le produit</button>
+      </div>
+    </div>
+  </section>
+</div>
