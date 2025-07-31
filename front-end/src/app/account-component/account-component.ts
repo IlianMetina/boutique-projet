@@ -18,7 +18,14 @@ export class AccountComponent implements OnInit {
   async ngOnInit(){
     
     const allOrders = await this.accountService.getAllUserOrders();
-    // console.log(allOrders);
+    
+    console.log("AllOrders:");
+    console.log(allOrders);
+    console.log(allOrders.error);
+    if(allOrders.error == "Unauthorized"){
+      this.ordersCount.set(0);
+      throw new Error("Aucune(s) commande(s) trouvée");
+    }
     this.ordersCount.set(allOrders);
     const allPendingOrders = this.accountService.getPendingOrders();
     console.log("allPendingORders : ")

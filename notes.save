@@ -142,3 +142,5 @@ Faire en sorte dans Panier/Livraison/Paiement le même affichage que dans la pag
 avec l'étape en background:blue;
 
 Lorsque paiement validé, passer statut order à "PENDING"
+
+Faire fil d'ariane

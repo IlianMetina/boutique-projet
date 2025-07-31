@@ -111,6 +111,8 @@
   margin-bottom: 3rem;
 }
 
+
+
 /* Section des articles */
 .cart-items {
   background: var(--white);
@@ -121,6 +123,10 @@
   overflow-y: scroll;
   max-height: 70vh;
   border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
 }
 
 .cart-item {
@@ -325,28 +331,104 @@
   font-size: 20px;
 }
 
-/* Panier vide */
 .empty-cart {
+  display: flex;
+  height: 80%;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
-  padding: 4rem 2rem;
-  color: var(--gray-500);
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  border-radius: 12px;
+  border: 2px dashed #cbd5e1;
 }
 
-.empty-icon {
-  font-size: 4rem;
-  margin-bottom: 1rem;
-  color: var(--accent-purple);
+.empty-cart-icon {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 1.5rem;
+  color: #94a3b8;
+  animation: float 3s ease-in-out infinite;
 }
 
-.empty-cart h3 {
+.empty-cart-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.empty-cart-title {
   font-size: 1.5rem;
-  margin-bottom: 0.5rem;
-  color: var(--gray-600);
+  font-weight: 600;
+  color: #334155;
+  margin: 0 0 1rem 0;
 }
 
-.empty-cart p {
-  margin-bottom: 2rem;
-  font-size: 1.1rem;
+.empty-cart-message {
+  font-size: 1rem;
+  color: #64748b;
+  line-height: 1.6;
+  max-width: 400px;
+  margin: 0 0 2rem 0;
+}
+
+.empty-cart-button {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: white;
+  border: none;
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.empty-cart-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+}
+
+.empty-cart-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+}
+
+/* Animation de flottement pour l'icône */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .empty-cart {
+    padding: 2rem 1rem;
+    min-height: 250px;
+  }
+  
+  .empty-cart-icon {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .empty-cart-title {
+    font-size: 1.25rem;
+  }
+  
+  .empty-cart-message {
+    font-size: 0.875rem;
+  }
+  
+  .empty-cart-button {
+    padding: 0.625rem 1.5rem;
+    font-size: 0.875rem;
+  }
 }
 
 .continue-shopping-btn {

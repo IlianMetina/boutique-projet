@@ -5,6 +5,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { WritableSignal } from '@angular/core';
 import { Product } from '../services/products/products-service';
 import { Router } from '@angular/router';
+import { RouterLink } from '@angular/router';
 
 interface ProductInOrder{
 
@@ -18,7 +19,7 @@ interface ProductInOrder{
 
 @Component({
   selector: 'app-panier-component',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './panier-component.html',
   styleUrl: './panier-component.css'
 })

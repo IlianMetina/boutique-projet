@@ -1,100 +1,209 @@
-<div class="product-container">
-  <!-- Contenu principal du produit -->
-  <main class="product-main">
-    <!-- Informations produit -->
-    <section class="product-info">
-      <div class="product-header">
-        <h1 class="product-title">{{product().name}}</h1>
-        <div class="product-rating">
-          <div class="stars">
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star-half-alt"></i>
+<!-- Breadcrumb -->
+<nav class="breadcrumb">
+  <div class="container">
+    <a href="#" class="breadcrumb-link">Accueil</a>
+    <span class="breadcrumb-separator">/</span>
+    <a href="#" class="breadcrumb-link">Bureaux</a>
+    <span class="breadcrumb-separator">/</span>
+    <span class="breadcrumb-current">Bureau Ergonomique Pro</span>
+  </div>
+</nav>
+
+<!-- Product Detail -->
+<section class="product-detail">
+  <div class="container">
+    <div class="product-layout">
+      
+      <!-- Images Section -->
+      <div class="product-images">
+        <div class="main-image">
+          <img class="image-placeholder" [src]="product().imageUrl">
+         
+          <div class="image-badges">
+            <span class="badge badge-new">Nouveau</span>
           </div>
-          <span class="rating-text">4.5/5 (124 avis)</span>
         </div>
       </div>
 
-      <div class="product-pricing">
-        <span class="current-price">{{product().price}}€</span>
-        <span class="savings">Économisez 200€</span>
-      </div>
-
-      <div class="product-description">
-        <p>{{product().description}}</p>
-      </div>
-
-      <!-- Options de produit -->
-      <div class="product-options">
-        <div class="option-group">
+      <!-- Product Info Section -->
+      <div class="product-info">
+        <div class="product-header">
+          <h1 class="product-title">{{product().name}}</h1>
+          <div class="product-rating">
+            <div class="stars">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star-half-alt"></i>
+            </div>
+            <span class="rating-text">(4.5/5 - 127 avis)</span>
+          </div>
         </div>
 
-        <div class="option-group">
-          <label class="option-label">Quantité :</label>
+        <div class="product-price">
+          <span class="current-price">{{product().price}} €</span>
+        </div>
+
+        <div class="product-description">
+          <p>Bureau ergonomique hauteur réglable électriquement avec plateau en bambou écologique. Parfait pour le télétravail, il combine design moderne et fonctionnalité optimale.</p>
+        </div>
+
+        <!-- Quantity and Actions -->
+        <div class="product-actions">
           <div class="quantity-selector">
-            <button class="quantity-btn">-</button>
+            <button class="quantity-btn minus">-</button>
             <input type="number" value="1" min="1" class="quantity-input">
-            <button class="quantity-btn">+</button>
+            <button class="quantity-btn plus">+</button>
+          </div>
+          
+          <div class="action-buttons">
+            <button class="btn btn-primary add-to-cart">
+              <i class="fas fa-shopping-cart"></i>
+              Ajouter au panier
+            </button>
+          </div>
+        </div>
+
+        <!-- Product Features -->
+        <div class="product-features">
+          <div class="feature">
+            <i class="fas fa-truck"></i>
+            <div>
+              <span class="feature-title">Livraison gratuite</span>
+              <span class="feature-desc">Sous 48h en France métropolitaine</span>
+            </div>
+          </div>
+          <div class="feature">
+            <i class="fas fa-undo"></i>
+            <div>
+              <span class="feature-title">Retour gratuit</span>
+              <span class="feature-desc">30 jours pour changer d'avis</span>
+            </div>
+          </div>
+          <div class="feature">
+            <i class="fas fa-shield-alt"></i>
+            <div>
+              <span class="feature-title">Garantie 5 ans</span>
+              <span class="feature-desc">Service après-vente inclus</span>
+            </div>
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
 
-      <!-- Actions d'achat -->
-      <div class="purchase-actions">
-        <button class="btn-primary add-to-cart">
-          <i class="fas fa-shopping-cart"></i>
-          Ajouter au panier
-        </button>
-      </div>
-
-      <!-- Informations de livraison -->
-      <div class="delivery-info">
-        <div class="delivery-item">
-          <i class="fas fa-truck"></i>
-          <div class="delivery-text">
-            <span class="delivery-title">Livraison gratuite</span>
-            <span class="delivery-subtitle">Dès 50€ d'achat</span>
-          </div>
-        </div>
-        <div class="delivery-item">
-          <i class="fas fa-undo"></i>
-          <div class="delivery-text">
-            <span class="delivery-title">Retour gratuit</span>
-            <span class="delivery-subtitle">30 jours pour changer d'avis</span>
-          </div>
-        </div>
-        <div class="delivery-item">
-          <i class="fas fa-shield-alt"></i>
-          <div class="delivery-text">
-            <span class="delivery-title">Garantie 2 ans</span>
-            <span class="delivery-subtitle">Protection complète</span>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- Onglets de détails -->
-  <section class="product-details">
-    <div class="tabs-header">
+<!-- Product Details Tabs -->
+<section class="product-tabs">
+  <div class="container">
+    <div class="tabs-nav">
       <button class="tab-btn active">Description</button>
+      <button class="tab-btn">Livraison</button>
     </div>
 
-    <div class="tab-content">
+      <!-- Description Tab -->
       <div class="tab-panel active">
         <h3>Description détaillée</h3>
-        <p>L'iPhone 15 Pro marque une nouvelle ère dans l'innovation mobile. Équipé de la puce A17 Pro gravée en 3 nanomètres, il offre des performances exceptionnelles tout en optimisant l'efficacité énergétique.</p>
-        <ul>
-          <li>Écran Super Retina XDR de 6,1 pouces avec ProMotion</li>
-          <li>Système de caméra Pro avec téléobjectif 3x</li>
-          <li>Design en titane de qualité aérospatiale</li>
-          <li>Bouton Action personnalisable</li>
-          <li>Connecteur USB-C avec USB 3</li>
-        </ul>
+        <p>Ce bureau ergonomique Pro représente l'excellence en matière de mobilier de télétravail. Conçu avec un plateau en bambou certifié FSC, il allie durabilité environnementale et esthétique moderne.</p>
       </div>
-    </div>
-  </section>
 
-</div>
+
+      <!-- Reviews Tab -->
+      <div class="tab-panel">
+        <h3>Avis clients (127)</h3>
+        <div class="reviews-summary">
+          <div class="rating-breakdown">
+            <div class="rating-bar">
+              <span>5 étoiles</span>
+              <div class="bar"><div class="fill" style="width: 70%"></div></div>
+              <span>89</span>
+            </div>
+            <div class="rating-bar">
+              <span>4 étoiles</span>
+              <div class="bar"><div class="fill" style="width: 20%"></div></div>
+              <span>25</span>
+            </div>
+            <div class="rating-bar">
+              <span>3 étoiles</span>
+              <div class="bar"><div class="fill" style="width: 8%"></div></div>
+              <span>10</span>
+            </div>
+            <div class="rating-bar">
+              <span>2 étoiles</span>
+              <div class="bar"><div class="fill" style="width: 2%"></div></div>
+              <span>3</span>
+            </div>
+            <div class="rating-bar">
+              <span>1 étoile</span>
+              <div class="bar"><div class="fill" style="width: 0%"></div></div>
+              <span>0</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="reviews-list">
+          <div class="review-item">
+            <div class="review-header">
+              <div class="reviewer-info">
+                <span class="reviewer-name">Marie L.</span>
+                <div class="review-stars">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                </div>
+              </div>
+              <span class="review-date">Il y a 2 semaines</span>
+            </div>
+            <p class="review-text">Excellent bureau ! La qualité du bambou est remarquable et le système électrique fonctionne parfaitement. Je recommande vivement pour le télétravail.</p>
+          </div>
+
+          <div class="review-item">
+            <div class="review-header">
+              <div class="reviewer-info">
+                <span class="reviewer-name">Thomas R.</span>
+                <div class="review-stars">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="far fa-star"></i>
+                </div>
+              </div>
+              <span class="review-date">Il y a 1 mois</span>
+            </div>
+            <p class="review-text">Très bon produit, livraison rapide. Le montage était simple grâce aux instructions claires. Seul bémol : le moteur fait un léger bruit.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Shipping Tab -->
+      <div class="tab-panel">
+        <h3>Informations de livraison</h3>
+        <div class="shipping-info">
+          <div class="shipping-option">
+            <h4><i class="fas fa-truck"></i> Livraison standard gratuite</h4>
+            <p>Délai : 2-3 jours ouvrés en France métropolitaine</p>
+            <p>Transporteur : Chronopost ou équivalent</p>
+            <p>Suivi de colis inclus</p>
+          </div>
+          
+          <div class="shipping-option">
+            <h4><i class="fas fa-shipping-fast"></i> Livraison express (19,99 €)</h4>
+            <p>Délai : 24-48h en France métropolitaine</p>
+            <p>Livraison le samedi possible</p>
+            <p>Créneau de livraison au choix</p>
+          </div>
+
+          <div class="shipping-option">
+            <h4><i class="fas fa-tools"></i> Livraison avec montage (89,99 €)</h4>
+            <p>Délai : 3-5 jours ouvrés</p>
+            <p>Montage professionnel inclus</p>
+            <p>Emballage recyclé sur place</p>
+          </div>
+        </div>
+      </div>
+  </div>
+</section>
