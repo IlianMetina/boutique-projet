@@ -34,44 +34,35 @@ export class CartService {
   async getCartProducts(userId: number): Promise<Cart | null>{
 
     try{
-
+      
       const isUserAuthed = this.authService.isUserAuthenticated();
       if(isUserAuthed){
+
         
         const userOrderId: number = await this.getOrderIdbyUser(userId);
+        console.log("------------- Entrée getCardProducts ---------------");
         console.log("orderId récupérer : " + userOrderId);
         
-        const response = await fetch(this.cartUrl + userOrderId);
+        const response = await this.authService.AuthenticatedRequest(this.cartUrl + userOrderId, 'GET');
         console.log("Réponse fetch getCartProducts");
         console.log(response);
         
-        if (!response.ok) {
-          
+        if (!response || response.error) {
+
           console.error("Erreur HTTP:", response.status);
           return {
-              id: 0,
-              products: [],
-              total: 0
+            id: 0,
+            products: [],
+            total: 0
           };
         }
         
-        const body = await response.json();
-        console.log("Body getCartProducts :");
-        console.log(body);
+        console.log("(!)(!)(!)(!)Entrée getOrderIdByUser service getCartProducts (cart-service.ts)(!)(!)(!)(!)");
 
-        if (!body || !body.id || !Array.isArray(body.productsInOrder)) {
-
-          console.error("Format de réponse invalide");
-          return null;
-        }
-        
-        console.log("-_-_-_-_-_-_-_-Réponse de l'API : -_-_-_-_-_-_-_-");
-        console.log(body);
-        
         return {
-          id: body.id,
-          products: body.productsInOrder,
-          total: body.total,
+          id: response.id,
+          products: response.productsInOrder,
+          total: response.total,
         };
         
       }else{
@@ -97,31 +88,27 @@ export class CartService {
       }
     }catch(error){
 
-      console.error("Erreur dans getCardProducts");
+      console.error("Erreur dans getCartProducts");
       return {id: 0, products: [], total: 0};
     };
   }
 
   async getOrderIdbyUser(userId: number): Promise<number>{
 
-    const response = await fetch(this.findBasketIdUrl + userId);
-    // console.log("-_-_-_-_-_-_-_-_-Réponse API getOrderIdByUser :-_-_-_-_-_-_-_-_-");
-    // console.log(response);
-    // console.log("-_-_-_-_-_-_-_-_-Réponse API getOrderIdByUser :-_-_-_-_-_-_-_-_-");
-
-    if(!response.ok){
+    
+    const orderId = await this.authService.AuthenticatedRequest(this.findBasketIdUrl + userId, 'GET');
+    console.log("-_-_-_-_-_-_-_-_-Réponse API getOrderIdByUser :-_-_-_-_-_-_-_-_-");
+    console.log(orderId);
+    console.log("-_-_-_-_-_-_-_-_-Réponse API getOrderIdByUser :-_-_-_-_-_-_-_-_-");
+    
+    if(!orderId){
       
       throw new Error("Erreur lors de la récupération orderId");
     }
 
-    const data = await response.json();
-    this.orderId = data;
-
-    if (!data) {
-      throw new Error("Erreur : l'orderId retourné n'est pas un nombre valide");
-    }
+    this.orderId = orderId;
     
-    return data;
+    return orderId;
   }
 
   async addToCart(products: Product[]){

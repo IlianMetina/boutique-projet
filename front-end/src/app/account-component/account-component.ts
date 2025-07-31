@@ -24,6 +24,7 @@ export class AccountComponent implements OnInit {
     console.log("allPendingORders : ")
     console.log(allPendingOrders);
     const getUserName = await this.accountService.getUserName();
+    console.log("Prénom récupérer :", getUserName);
     this.userName.set(getUserName);
   }
 }

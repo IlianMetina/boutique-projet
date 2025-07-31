@@ -31,7 +31,7 @@ interface ProductInOrder {
   product: Product;
 }
 
-interface Order {
+export interface Order {
 
   id: number;
   userId: number;

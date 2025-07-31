@@ -47,7 +47,6 @@ export class AuthService {
   private usersUrl = 'http://localhost:3000/users/register';
   private loginUrl = 'http://localhost:3000/auth/login';
   private platformID = inject(PLATFORM_ID);
-  private removeProductUrl = 'http://localhost:3000/order/'
   isAuthenticated = false;
 
   constructor(private cookieService: CookieService) {}

@@ -1,6 +1,8 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { AuthService } from '../services/auth/auth.service';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Order } from '../orders-component/orders-component';
 
 interface User {
 
@@ -22,10 +24,13 @@ interface User {
 })
 export class LivraisonComponent implements OnInit{
 
+  private router = inject(Router);
   private authService = inject(AuthService);
   private userUrl = 'http://localhost:3000/users/';
   private postOrderAdressUrl = 'http://localhost:3000/orders/delivery';
+  private getOrderUrl = 'http://localhost:3000/orders/';
   user = signal<User | null>(null);
+  order = signal<Order | null>(null);
   street: string = '';
   zipCode: string = '';
   city: string = '';
@@ -37,8 +42,33 @@ export class LivraisonComponent implements OnInit{
       this.user.set(userInfos);
       console.log("User set infos :", this.user());
 
+      const orderInfos = await this.getOrderInfos();
+      this.order.set(orderInfos);
+
     }catch(error){
 
+    }
+  }
+
+  async getOrderInfos(){
+
+    const token = this.authService.getToken();
+    if(!token) throw new Error("Erreur récupération token");
+    const userId = this.authService.getIdFromToken(token);
+    if(!userId) throw new Error("Erreur récupération userId");
+
+    try{
+      console.log("URL fetch order :", this.getOrderUrl + userId);
+      const order = await this.authService.AuthenticatedRequest(this.getOrderUrl + userId, 'GET');
+      this.order.set(order);
+      console.log("Commande récupérée : ", order);
+      
+      return order;
+
+    }catch(error){
+
+      console.log("Erreur récupération commande", error);
+      return null;
     }
   }
 
@@ -70,11 +100,17 @@ export class LivraisonComponent implements OnInit{
       city: this.city,
     }
 
+    if(!this.street || !this.zipCode || !this.city){
+
+      throw new Error("Champs invalides");
+    }
+
     console.log("---------Payload récupérer livraison :--------");
     console.log(payload);
 
     const response = this.authService.AuthenticatedRequest(this.postOrderAdressUrl, 'POST', payload);
 
+    this.router.navigate(['panier/paiement']);
     return response;
   }
 

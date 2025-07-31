@@ -26,7 +26,7 @@ export class AccountService {
       throw new Error("Erreur lors de la récupération de l'userId");
     }
 
-    const response = await fetch(this.ordersPlacedUrl + userId);
+    const response = await this.authService.AuthenticatedRequest(this.ordersPlacedUrl + userId, 'GET');
     if(!response){
 
       console.log("!response de getAllUserOrders :");
@@ -37,11 +37,9 @@ export class AccountService {
     console.log("Response de getAllUserOrders :");
     console.log(response);
 
-    const body = await response.json();
     console.log("Body récupérer getAllUserOrders accountService :");
-    console.log(body);
 
-    return body;
+    return response;
   }
 
   async getPendingOrders(){ // A modifier pour que ça fetch seulement les paniers avec statut "pending"
@@ -57,7 +55,7 @@ export class AccountService {
       throw new Error("Erreur lors de la récupération de l'userId");
     }
 
-    const response = await fetch(this.pendingOrdersUrl + userId);
+    const response = await this.authService.AuthenticatedRequest(this.pendingOrdersUrl + userId, 'GET');
 
     if(!response){
 
@@ -82,10 +80,9 @@ export class AccountService {
       throw new Error("Erreur lors de la récupération de l'userId");
     }
 
-    const response = await fetch(this.getNameUrl + userId);
-    const body = await response.json();
+    const response = await this.authService.AuthenticatedRequest(this.getNameUrl + userId, 'GET');
 
-    return body.firstName;
+    return response.firstName;
   }
 
 

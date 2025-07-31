@@ -22,13 +22,13 @@ export class OrderItemController {
   }
 
   @Get('all')
-  // @UseGuards(AuthGuard)
+  @UseGuards(AuthGuard)
   findAll() {
     return this.orderItemService.findAll();
   }
   
   @Get(':id')
-  // @UseGuards(AuthGuard)
+  @UseGuards(AuthGuard)
   findOne(@Param('id') id: string) {
     return this.orderItemService.findOne(+id);
   }
@@ -44,7 +44,7 @@ export class OrderItemController {
 
 
   @Delete('remove/:productId/:orderId')
-  // @UseGuards(AuthGuard)
+  @UseGuards(AuthGuard)
   remove(@Param('productId') productId: string, @Param('orderId') orderId: string) {
     return this.orderItemService.remove(+productId, +orderId);
   }

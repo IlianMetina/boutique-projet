@@ -5,19 +5,13 @@ import { PrismaService } from '../../prisma/prisma.service'
 import { Order } from './entities/order.entity';
 import { OrderStatus } from '@prisma/client';
 import { Decimal } from '@prisma/client/runtime/library';
+import { setDeliveryAddressDto } from './dto/set-delivery-address.dto';
 
 export interface Basket {
 
   id: number;
   status: string;
   total: Decimal;
-}
-
-interface deliveryAddress {
-
-  street: string;
-  city: string;
-  zipCode: string;
 }
 
 @Injectable()
@@ -351,7 +345,7 @@ export class OrderService {
     console.log(`Total mis à jour pour la commande ${basket.id}: ${total}`);
   } 
 
-  async saveDeliveryAddress(address: deliveryAddress, userId: number){
+  async saveDeliveryAddress(address: setDeliveryAddressDto, userId: number){
 
     console.log("Addresse reçue : ");
     console.log(address);

@@ -30,13 +30,14 @@ export class OrderController {
   }
 
   @Get(':id')
-  // @UseGuards(AuthGuard)
+  @UseGuards(AuthGuard)
   findOne(@Param('id') id: string) {
+    console.log("Entrée Order controller findOne pour l'id :", id);
     return this.orderService.findOne(+id);
   }
 
   @Get('basket/:userId')
-  // @UseGuards(AuthGuard)
+  @UseGuards(AuthGuard)
   async getBasket(@Param('userId') userId: number) {
     const basket = await this.orderService.findBasket(userId);
     if (!basket) {
@@ -47,47 +48,52 @@ export class OrderController {
 
   /* ----- Récupération des commandes en fonction d'un statut ----- */
 
- @Get('cancelled/:userId')
+  @UseGuards(AuthGuard)
+  @Get('cancelled/:userId')
   async findCancelledOrders(@Param('userId') userId: number){
     return this.orderService.findCancelledOrders(Number(userId));
   }
 
+  @UseGuards(AuthGuard)
   @Get('shipped/:userId')
     async findShippedOrders(@Param('userId') userId: number){
     return this.orderService.findShippedOrders(Number(userId));
   }
 
+  @UseGuards(AuthGuard)
   @Get('pending/:userId')
     async findCurrentOrders(@Param('userId') userId: number){
     return this.orderService.findCurrentOrders(Number(userId));
   }
 
   /* ----- Récupération des commandes en fonction d'un statut ----- */
-
+  @UseGuards(AuthGuard)
   @Get('current/:userId')
   async countCurrentOrders(@Param('userId') userId: number){
     return this.orderService.countCurrentOrders(Number(userId));
   }
 
+  @UseGuards(AuthGuard)
   @Get('basket/user/:userId')
   async findBasketOrderId(@Param('userId') userId: number){
     return this.orderService.findBasketOrderId(Number(userId));
   }
 
+  @UseGuards(AuthGuard)
   @Get('basket/all/:userId')
   async findAllBasketsByUser(@Param('userId') userId: number){
     return this.orderService.findAllBasketsByUser(Number(userId));
   }
 
   @Patch(':id')
-  // @UseGuards(AuthGuard)
+  @UseGuards(AuthGuard)
   async update(@Param('id') id: string, @Body() updateOrderDto: UpdateOrderDto) {
     await this.orderService.calculateOrderTotal(Number(id));
     return this.orderService.update(+id, updateOrderDto);
   }
 
   @Delete('remove/:id')
-  // @UseGuards(AuthGuard)
+  @UseGuards(AuthGuard)
   async remove(@Param('id') id: string) {
     await this.orderService.calculateOrderTotal(Number(id));
     return this.orderService.remove(+id);
