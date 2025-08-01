@@ -22,8 +22,8 @@
   <div class="cart-content">
     <div class="cart-items">
       
-      <!-- Articles du panier -->
-      @if(isLocalStorage) {
+            <!-- Articles du panier -->
+      @if(products().length > 0) {
         @for(item of products(); track item.product?.name) {
           <div class="cart-item">
             <div class="item-image">

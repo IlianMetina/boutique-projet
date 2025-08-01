@@ -130,7 +130,8 @@ export class PanierComponent implements OnInit {
       this.products.set(settedProducts);
       this.isCartEmpty = false;
       console.log("Produits après set :", this.products());
-      
+      console.log("isLocalStorage & isCartEmpty ? :", this.isCartEmpty, this.isLocalStorage);
+
       return settedProducts;
 
     }catch(error){
@@ -228,17 +229,37 @@ export class PanierComponent implements OnInit {
   }
 
   async removeItems(product: ProductInOrder){
-
-    try{
-
-      console.log("Suppression du produit : ", product);
-      await this.cartService.removeCartItem(product.productId);
-      
-    }catch(error){
-
+    try {
+      if (this.isLocalStorage) {
+        // Supprimer du localStorage
+        const cartProducts = localStorage.getItem('cart-products');
+        if (cartProducts) {
+          const products = JSON.parse(cartProducts);
+          const filteredProducts = products.filter((p: any) => p.id !== product.product?.id);
+          localStorage.setItem('cart-products', JSON.stringify(filteredProducts));
+          
+          // Mettre à jour l'état local
+          const updatedProducts = this.products().filter(p => p.product?.id !== product.product?.id);
+          this.products.set(updatedProducts);
+          
+          if (updatedProducts.length === 0) {
+            this.isCartEmpty = true;
+          }
+        }
+      } else {
+        // Supprimer de la BDD
+        console.log("Suppression du produit : ", product);
+        await this.cartService.removeCartItem(product.productId);
+        const token = this.authService.getToken();
+        if (token) {
+          const userId = this.authService.getIdFromToken(token);
+          const cart = await this.cartService.getCartProducts(userId);
+          this.products.set(cart?.products ?? []);
+        }
+      }
+    } catch(error) {
       console.error("Erreur lors de la suppression produit :", error);
     }
-
   }
 
   nextOrderStage(){
