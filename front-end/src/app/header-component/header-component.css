@@ -70,10 +70,8 @@
 .search-bar {
   flex: 1;
   max-width: 650px;
-  min-width: 280px;
+  min-width: 300px;
   position: relative;
-  position: relative;
-  max-width: 400px;
 }
 
 .search-input {
@@ -84,12 +82,15 @@
 
 .search-results {
   position: absolute;
+  top: 60px;
+  left: 0;
   width: 100%;
   background: white;
   list-style: none;
   margin: 0;
-  padding: 0;
-  z-index: 10;
+  padding: 0.5rem 0;
+  max-height: 320px;
+  z-index: 100;
   color: #1e3a8a;
   border: 1px solid #ccc;
 }

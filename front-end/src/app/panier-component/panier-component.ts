@@ -101,6 +101,7 @@ export class PanierComponent implements OnInit {
       const settedProducts = cart.products ?? [];
       console.log("Produits avant set :", settedProducts);
       this.products.set(settedProducts);
+      this.isCartEmpty = false;
       console.log("Produits après set :", this.products());
       
       return settedProducts;

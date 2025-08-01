@@ -17,7 +17,8 @@ import { OrdersComponent } from './orders-component/orders-component';
 import { AccountInfosComponent } from './account-infos-component/account-infos-component';
 import { ProductComponent } from './product-component/product-component';
 import { LivraisonComponent } from './livraison-component/livraison-component';
-import { CheckOutComponent } from './check-out-component/check-out-component';
+import { SuccessComponent } from './success-component/success-component';
+import { CancelComponent } from './cancel-component/cancel-component';
 
 export const routes: Routes = [
 
@@ -37,6 +38,8 @@ export const routes: Routes = [
   { path: 'mon-compte/mes-commandes', component: OrdersComponent, canActivate: [AuthGuard] },
   { path: 'mon-compte/mes-infos', component: AccountInfosComponent, canActivate: [AuthGuard] },
   { path: 'panier/livraison', component: LivraisonComponent, canActivate: [AuthGuard] },
-  { path: 'panier/paiement', component: CheckOutComponent, canActivate: [AuthGuard] },
+  { path: 'success', component: SuccessComponent, canActivate: [AuthGuard] },
+  { path: 'cancel', component: CancelComponent, canActivate: [AuthGuard] },
+
   // { path: 'admin', component: AdminComponent, canActivate: [AuthGuard] },
 ];

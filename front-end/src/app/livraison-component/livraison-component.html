@@ -61,7 +61,7 @@
 
         <div class="action-buttons">
             <button class="btn-secondary">Retour au panier</button>
-            <button class="btn-primary" type="submit">Continuer vers le paiement</button>
+            <button class="btn-primary" type="submit" (click)="checkOut()">Continuer vers le paiement</button>
         </div>
          
         </form>
@@ -79,7 +79,7 @@
             <input type="radio" id="standard" name="delivery" value="standard" class="delivery-radio" checked>
             <label for="standard" class="delivery-label">
               <div class="delivery-info">
-                <div class="delivery-name">Livraison standard</div>
+                <div class="delivery-name">Livraison point relais</div>
                 <div class="delivery-desc">3-5 jours ouvrés</div>
               </div>
               <div class="delivery-price">Gratuit</div>
@@ -90,21 +90,10 @@
             <input type="radio" id="express" name="delivery" value="express" class="delivery-radio">
             <label for="express" class="delivery-label">
               <div class="delivery-info">
-                <div class="delivery-name">Livraison express</div>
-                <div class="delivery-desc">1-2 jours ouvrés</div>
+                <div class="delivery-name">Livraison à domicile</div>
+                <div class="delivery-desc">3-5 jours ouvrés</div>
               </div>
-              <div class="delivery-price">9,90 €</div>
-            </label>
-          </div>
-
-          <div class="delivery-option">
-            <input type="radio" id="same-day" name="delivery" value="same-day" class="delivery-radio">
-            <label for="same-day" class="delivery-label">
-              <div class="delivery-info">
-                <div class="delivery-name">Livraison le jour même</div>
-                <div class="delivery-desc">Avant 18h (Paris uniquement)</div>
-              </div>
-              <div class="delivery-price">19,90 €</div>
+              <div class="delivery-price">Gratuit</div>
             </label>
           </div>
         </div>
@@ -150,13 +139,7 @@
           <button class="promo-btn">Appliquer</button>
         </div>
       </div>
-      
-      <!-- Boutons d'action -->
-      <!-- <div class="action-buttons">
-        <button class="btn-secondary">Retour au panier</button>
-        <button class="btn-primary" type="submit">Continuer vers le paiement</button>
-      </div> -->
-      
+    
       <!-- Informations de sécurité -->
       <div class="security-info">
         <div class="security-item">

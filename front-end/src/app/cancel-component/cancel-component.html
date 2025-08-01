@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paiement Annulé</title>
+    <link rel="stylesheet" href="cancel-component.css">
+</head>
+<body>
+    <div class="container">
+        <div class="cancel-card">
+            <div class="icon-container">
+                <svg class="cancel-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="12" fill="#EF4444"/>
+                    <path d="M8 8l8 8M16 8l-8 8" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            
+            <h1>Paiement Annulé</h1>
+            <p class="message">Votre transaction a été annulée. Aucun montant n'a été débité de votre compte.</p>
+            
+            <div class="info-box">
+                <div class="info-item">
+                    <span class="label">Référence :</span>
+                    <span class="value">#REF-2024-001234</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Statut :</span>
+                    <span class="value status-cancelled">Annulé</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Date :</span>
+                    <span class="value">01 Août 2025</span>
+                </div>
+            </div>
+            
+            <div class="reasons">
+                <h3>Raisons possibles :</h3>
+                <ul>
+                    <li>Annulation volontaire</li>
+                    <li>Problème de connexion</li>
+                    <li>Session expirée</li>
+                    <li>Informations de paiement incorrectes</li>
+                </ul>
+            </div>
+            
+            <div class="actions">
+                <button class="btn-primary">Réessayer le paiement</button>
+                <button class="btn-secondary">Retourner à l'accueil</button>
+            </div>
+            
+            <div class="help-section">
+                <p>Besoin d'aide ? <a href="#" class="contact-link">Contactez notre support</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

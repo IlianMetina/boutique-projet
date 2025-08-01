@@ -1,9 +1,8 @@
 import { Component, computed, inject, signal, WritableSignal } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../services/auth/auth.service';
 import { Product, ProductsService } from '../services/products/products-service';
-
 
 @Component({
   selector: 'app-header-component',
@@ -25,9 +24,14 @@ export class HeaderComponent {
 
   private authService = inject(AuthService);
   private productService = inject(ProductsService);
+  private router = inject(Router);
 
   constructor(){
     this.loadProducts();
+  }
+
+  isUserAuthed(){
+    return this.authService.isUserAuthenticated();
   }
 
   isUserConnected(){
@@ -42,8 +46,11 @@ export class HeaderComponent {
     }
   }
 
-  // cartCount(){
-    
-  //   return this.cartService.getTotalItems();
-  // }
+  logOut(event: Event){
+
+    event.preventDefault();
+    console.log("Entrée méthode logOut header-component");
+    this.authService.logOut();
+    this.router.navigate(['login']);
+  }
 }

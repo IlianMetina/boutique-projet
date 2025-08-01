@@ -134,7 +134,7 @@
   grid-template-columns: 120px 1fr auto;
   gap: 1.5rem;
   margin-top: 10px;
-  padding: 1.5rem;
+  padding: 1rem;
   border: 1px solid #ccdffd;
   box-shadow: 0 4px 12px rgba(100, 149, 237, 0.3);
   transition: all 0.3s ease;

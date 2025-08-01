@@ -110,11 +110,10 @@ export class AuthService {
   }
 
   logOut(){
-
-    this.isAuthenticated = false;
+    console.log("Entrée méthode logOut authService");
 
     if(isPlatformBrowser(this.platformID)){
-
+      this.isAuthenticated = false;
       this.cookieService.delete('token', '/');
     }
   }

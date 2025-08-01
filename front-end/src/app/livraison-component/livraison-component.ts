@@ -3,6 +3,7 @@ import { AuthService } from '../services/auth/auth.service';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Order } from '../orders-component/orders-component';
+import { CartService } from '../services/cart/cart-service';
 
 interface User {
 
@@ -29,6 +30,8 @@ export class LivraisonComponent implements OnInit{
   private userUrl = 'http://localhost:3000/users/';
   private postOrderAdressUrl = 'http://localhost:3000/orders/delivery';
   private getOrderUrl = 'http://localhost:3000/orders/recap/';
+  private checkOutUrl = 'http://localhost:3000/stripe/checkout/';
+  private cartService = inject(CartService);
   user = signal<User | null>(null);
   order = signal<Order | null>(null);
   street: string = '';
@@ -134,5 +137,22 @@ export class LivraisonComponent implements OnInit{
 
     return Number(subTotal.toFixed(2));
   }
+
+  async checkOut(){
+
+    const token = this.authService.getToken();
+    if(!token) throw new Error("Erreur lors de la récupération du token");
+    const userId = this.authService.getIdFromToken(token);
+    if(!userId) throw new Error("Erreur lors de la récupération de l'userId");
+    const orderId = await this.cartService.getOrderIdbyUser(userId);
+    if(!orderId) throw new Error("Erreur lors de la récupération de l'orderId");
+
+    const response = await this.authService.AuthenticatedRequest(this.checkOutUrl, 'POST', {orderId});
+    if(!response) throw new Error("Erreur requête CheckOut");
+    console.log(response);
+    if(response && response.url){
+      window.location.href = response.url;
+    }
+  } 
 
 }

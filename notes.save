@@ -144,3 +144,5 @@ avec l'étape en background:blue;
 Lorsque paiement validé, passer statut order à "PENDING"
 
 Faire fil d'ariane
+
+Finir modifications infos personnelles utilisateur

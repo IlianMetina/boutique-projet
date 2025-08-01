@@ -37,14 +37,19 @@
                     <a [routerLink]="isUserConnected() ? '/mon-compte' : '/login'"><i class="fas fa-user-alt" style="font-size: 24px; color: rgb(113, 113, 255);"></i></a>
                     <p>{{isUserConnected()}}</p>
                 </div>
-                 <div class="cart-icon">
+                @if(isUserAuthed()){
+                    <div class="info-item">
+                        <a href="#" (click)="logOut($event)">
+                        <i class="fa fa-sign-out" aria-hidden="true" style="font-size: 24px;color: red;"></i>
+                            <p>Se déconnecter</p>
+                        </a>
+                    </div>
+                }
+                <div class="cart-icon">
                     <a routerLink="/panier">
                         <i class='fas fa-shopping-cart' style='font-size:24px;color:rgb(247, 60, 60);'></i>
-                        <!-- @if (cartCount() > 0) { -->
-                            <span class="cart-badge"></span>
-                        <!-- } -->
+                        <span class="cart-badge"></span>
                     </a>
-                    
                 </div>
             </div>
 
