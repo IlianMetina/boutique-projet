@@ -149,3 +149,4 @@ Finir modifications infos personnelles utilisateur
 
 Faire le cors et faire le httpOnly cookies (Il faut que le cookie soit créer back-end)
 Mettre la date du passage du titre pour la page success paiement
+Faire dans la page produit l'ajout quantité (+/-);
