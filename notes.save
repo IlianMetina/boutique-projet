@@ -152,3 +152,7 @@ Mettre la date du passage du titre pour la page success paiement
 Faire dans la page produit l'ajout quantité (+/-);
 Faire le fonctionnement du localStorage pour l'invité!! ou modifier pour que seulement les utilisateurs connectés
 puissent ajouter des produits au panier
+
+Lorsque personne non connectée, si il souhaite finaliser la commande il doit être connecté, mais lorsqu'il se
+connecte, son panier n'apparait plus, il faudrait donc lors de la connexion, vérifier si des produits sont dans le localStorage
+et les POST dans la BDD pour l'Order adéquat
