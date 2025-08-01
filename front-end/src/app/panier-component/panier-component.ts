@@ -29,7 +29,9 @@ export class PanierComponent implements OnInit {
   private platformId = inject(PLATFORM_ID);
   private cartService = inject(CartService);
   private router = inject(Router);
+  localStorageProducts: WritableSignal<ProductInOrder[]> = signal([]);
   isCartEmpty = true;
+  isLocalStorage = false;
   tax: number = 1.2;
   products: WritableSignal<ProductInOrder[]> = signal([]);
   currentStage: WritableSignal<number> = signal(0);
@@ -54,17 +56,40 @@ export class PanierComponent implements OnInit {
     // console.log("IsTokenFalsy ? : ");
     // console.log(token == null);
 
-    if(token == null){
-
+    if(!token){
+      
       const products = localStorage.getItem("cart-products");
       if(!products){
-
         this.products.set([]);
+        this.isCartEmpty = true;
         return;
       }
       
       const productsArray = JSON.parse(products);
-      return productsArray;
+      console.log("Produits récupérés localStorage :", productsArray);
+      
+      // Convertir le format du localStorage en ProductInOrder
+      const formattedProducts: ProductInOrder[] = productsArray.map((item: any) => ({
+        productId: item.id,
+        quantity: 1,
+        price: parseFloat(item.price),
+        product: {
+          id: item.id,
+          name: item.name,
+          description: item.description,
+          price: item.price,
+          imageUrl: item.imageUrl,
+          stock: item.stock,
+          categoryId: item.categoryId
+        }
+      }));
+
+      this.localStorageProducts.set(formattedProducts);
+      this.products.set(formattedProducts); // Mettre à jour aussi products
+      this.isCartEmpty = false;
+      this.isLocalStorage = true;
+      console.log("Products formatés :", formattedProducts);
+      return formattedProducts;
     }
 
     const userID = this.authService.getIdFromToken(token);
@@ -74,6 +99,7 @@ export class PanierComponent implements OnInit {
     if(!userID){
       console.log("------------Produits vides------------");
       this.products.set([]);
+      this.isCartEmpty = true;
       return;
     }
 
@@ -95,6 +121,7 @@ export class PanierComponent implements OnInit {
         
         console.log("Panier vide ou non trouvé");
         this.products.set([]);
+        this.isCartEmpty = true;
         return;
       }
       
@@ -110,6 +137,7 @@ export class PanierComponent implements OnInit {
 
       console.error("Erreur :", error);
       this.products.set([]);
+      this.isCartEmpty = true;
       return;
     }
   }
@@ -159,15 +187,43 @@ export class PanierComponent implements OnInit {
     console.log(product, change);
     const newQuantity = (product.quantity || 0) + change;
     if (newQuantity >= 0) {
-
-      await this.cartService.modifyQuantity(product.productId, newQuantity);
-      const token = this.authService.getToken();
-      if(!token){
-        throw new Error("Erreur récupération token");
+      if (this.isLocalStorage) {
+        // Mise à jour du localStorage
+        const cartProducts = localStorage.getItem('cart-products');
+        if (cartProducts) {
+          const products = JSON.parse(cartProducts);
+          const productIndex = products.findIndex((p: any) => p.id === product.product?.id);
+          if (productIndex !== -1) {
+            products[productIndex] = {
+              ...products[productIndex],
+              quantity: newQuantity
+            };
+            localStorage.setItem('cart-products', JSON.stringify(products));
+            
+            // Mettre à jour l'état local
+            const currentProducts = this.products();
+            const updatedProducts = [...currentProducts];
+            const index = updatedProducts.findIndex(p => p.product?.id === product.product?.id);
+            if (index !== -1) {
+              updatedProducts[index] = {
+                ...updatedProducts[index],
+                quantity: newQuantity
+              };
+              this.products.set(updatedProducts);
+            }
+          }
+        }
+      } else {
+        // Mise à jour pour utilisateur connecté
+        await this.cartService.modifyQuantity(product.productId, newQuantity);
+        const token = this.authService.getToken();
+        if(!token){
+          throw new Error("Erreur récupération token");
+        }
+        const userId = this.authService.getIdFromToken(token);
+        const cart = await this.cartService.getCartProducts(userId);
+        this.products.set(cart?.products ?? []);
       }
-      const userId = this.authService.getIdFromToken(token);
-      const cart = await this.cartService.getCartProducts(userId);
-      this.products.set(cart?.products ?? []);
     }
   }
 
