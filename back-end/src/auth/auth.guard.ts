@@ -11,8 +11,10 @@ export class AuthGuard implements CanActivate {
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
 
+    console.log("Entrée AuthGuard ! ! ! ");
     const request = context.switchToHttp().getRequest();
     const token = request.headers.authorization?.split(' ')[1];
+    console.log("Méthode AuthGuard");
 
     if(!token){
 
@@ -23,7 +25,8 @@ export class AuthGuard implements CanActivate {
 
       const payload = this.jwtService.verify(token);
       if(payload){
-
+        console.log("Token dans payload :");
+        console.log(payload);
         request.user = payload;
         return true;
       }

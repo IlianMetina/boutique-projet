@@ -5,15 +5,15 @@
   </div>
 
   <div class="progress-tracker">
-    <div class="step" [class.active]="currentStage() >= 0">
-      <i class="material-icons" style="font-size:36px">shopping_basket</i>
+    <div class="first-step">
+      <i class="material-icons" style="font-size:36px;">shopping_basket</i>
     </div>
     <div class="bar"></div>
-    <div class="step" [class.active]="currentStage() >= 1">
+    <div class="step">
       <i class='fas fa-shipping-fast' style='font-size:36px'></i>
     </div>
     <div class="bar"></div>
-    <div class="step" [class.active]="currentStage() >= 2">
+    <div class="step">
       <i class='fas fa-money-check-alt' style='font-size:36px'></i>
     </div>
   </div>

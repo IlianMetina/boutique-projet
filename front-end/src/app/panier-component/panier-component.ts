@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, PLATFORM_ID, Signal, signal } from '@angular/core';
+import { Component, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { CartService } from '../services/cart/cart-service';
 import { AuthService } from '../services/auth/auth.service';
 import { isPlatformBrowser } from '@angular/common';
@@ -34,7 +34,6 @@ export class PanierComponent implements OnInit {
   isLocalStorage = false;
   tax: number = 1.2;
   products: WritableSignal<ProductInOrder[]> = signal([]);
-  currentStage: WritableSignal<number> = signal(0);
 
   constructor(){}
 
@@ -165,22 +164,6 @@ export class PanierComponent implements OnInit {
   getTotal(): number {
     const total = this.getSubTotal() * this.tax;
     return Number(total.toFixed(2));
-  }
-
-  nextStep(){
-
-    if(this.currentStage() < 2){
-      this.currentStage.set(this.currentStage() + 1);
-    }
-  }
-
-  previousStep(){
-
-    if(this.currentStage() > 0){
-
-      this.currentStage.set(this.currentStage() - 1);
-    }
-
   }
 
   async updateQuantity(product: ProductInOrder, change: number) {

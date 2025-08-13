@@ -5,6 +5,7 @@ import { UpdateOrderDto } from './dto/update-order.dto';
 import { UserId } from 'src/decorator/user-id.decorator';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { setDeliveryAddressDto } from './dto/set-delivery-address.dto';
+import { AdminGuard } from 'src/admin/admin-guard';
 
 @Controller('orders')
 export class OrderController {
@@ -16,11 +17,18 @@ export class OrderController {
     createOrderDto.userId = userId;
     return this.orderService.create(createOrderDto, userId);
   }
-
+  
   @Post('delivery')
   @UseGuards(AuthGuard)
   saveAddress(@Body() setAddressDto: setDeliveryAddressDto, @UserId() userId: number) {
     return this.orderService.saveDeliveryAddress(setAddressDto, userId);
+  }
+
+  @UseGuards(AuthGuard, AdminGuard)
+  @Get('total')
+  async adminOrdersDisplay(){
+    console.log("Entrée méthode countTotalOrders");
+    return this.orderService.adminOrdersDisplay();
   }
 
   @Get('all')
@@ -74,11 +82,13 @@ export class OrderController {
   }
 
   /* ----- Récupération des commandes en fonction d'un statut ----- */
+
   @UseGuards(AuthGuard)
   @Get('current/:userId')
   async countCurrentOrders(@Param('userId') userId: number){
     return this.orderService.countCurrentOrders(Number(userId));
   }
+
 
   @UseGuards(AuthGuard)
   @Get('basket/user/:userId')

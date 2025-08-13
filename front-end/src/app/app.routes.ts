@@ -10,7 +10,6 @@ import { GadgetsComponent } from './gadgets-component/gadgets-component';
 import { TablesComponent } from './tables-component/tables-component';
 import { SiegesComponent } from './sieges-component/sieges-component';
 import { AuthGuard } from './services/auth/auth-guard';
-import { LikeComponent } from './like-component/like-component';
 import { PanierComponent } from './panier-component/panier-component';
 import { AccountComponent } from './account-component/account-component';
 import { OrdersComponent } from './orders-component/orders-component';
@@ -19,6 +18,8 @@ import { ProductComponent } from './product-component/product-component';
 import { LivraisonComponent } from './livraison-component/livraison-component';
 import { SuccessComponent } from './success-component/success-component';
 import { CancelComponent } from './cancel-component/cancel-component';
+import { AdminComponent } from './admin-component/admin-component';
+import { AdminGuard } from './services/admin/admin-guard';
 
 export const routes: Routes = [
 
@@ -40,6 +41,5 @@ export const routes: Routes = [
   { path: 'panier/livraison', component: LivraisonComponent, canActivate: [AuthGuard] },
   { path: 'success', component: SuccessComponent, canActivate: [AuthGuard] },
   { path: 'cancel', component: CancelComponent, canActivate: [AuthGuard] },
-
-  // { path: 'admin', component: AdminComponent, canActivate: [AuthGuard] },
+  { path: 'admin', component: AdminComponent, canActivate: [AdminGuard] },
 ];

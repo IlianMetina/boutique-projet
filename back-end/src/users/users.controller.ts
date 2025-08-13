@@ -15,6 +15,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from '@prisma/client';
 import { UserDto } from './dto/user-response.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
+import { AdminGuard } from 'src/admin/admin-guard';
 
 @Controller('users')
 export class UsersController {
@@ -55,11 +56,18 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
+  @Get('total')
+  @UseGuards(AuthGuard, AdminGuard)
+  async getUsersCount(): Promise<number> {
+    return this.usersService.getUsersCount();
+  }
+  
   @Get(':id')
   @UseGuards(AuthGuard)
   async findOne(@Param('id') id: string): Promise<UserDto | null> {
     return this.usersService.findOne(+id);
   }
+
 
   @Patch(':id')
   @UseGuards(AuthGuard)

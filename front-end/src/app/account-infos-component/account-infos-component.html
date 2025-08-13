@@ -22,7 +22,7 @@
           <div class="info-item">
             <label>Prénom</label>
             <div class="value-container">
-              <span class="value">Jean</span>
+              <span class="value">{{userInfos().firstName}}</span>
               <input type="text" class="edit-input" value="Jean" style="display: none;">
             </div>
           </div>
@@ -30,25 +30,18 @@
           <div class="info-item">
             <label>Nom</label>
             <div class="value-container">
-              <span class="value">Dupont</span>
+              <span class="value">{{userInfos().lastName}}</span>
               <input type="text" class="edit-input" value="Dupont" style="display: none;">
             </div>
           </div>
         </div>
         
         <div class="info-group">
-          <div class="info-item">
-            <label>Date de naissance</label>
-            <div class="value-container">
-              <span class="value">15/08/1985</span>
-              <input type="date" class="edit-input" value="1985-08-15" style="display: none;">
-            </div>
-          </div>
           
           <div class="info-item">
             <label>Téléphone</label>
             <div class="value-container">
-              <span class="value">+33 6 12 34 56 78</span>
+              <span class="value">{{userInfos().phoneNumber}}</span>
               <input type="tel" class="edit-input" value="+33 6 12 34 56 78" style="display: none;">
             </div>
           </div>
@@ -57,7 +50,7 @@
         <div class="info-item full-width">
           <label>Email</label>
           <div class="value-container">
-            <span class="value">jean.dupontemail.com</span>
+            <span class="value">{{userInfos().email}}</span>
             <input type="email" class="edit-input" value="jean.dupont@email.com" style="display: none;">
           </div>
         </div>
@@ -82,24 +75,16 @@
         <div class="info-item full-width">
           <label>Adresse</label>
           <div class="value-container">
-            <span class="value">123 Rue de la Paix</span>
+            <span class="value">{{userInfos().street}}</span>
             <input type="text" class="edit-input" value="123 Rue de la Paix" style="display: none;">
           </div>
         </div>
-        
-        <div class="info-item full-width">
-          <label>Complément d'adresse</label>
-          <div class="value-container">
-            <span class="value">Appartement 4B</span>
-            <input type="text" class="edit-input" value="Appartement 4B" style="display: none;">
-          </div>
-        </div>
-        
+            
         <div class="info-group">
           <div class="info-item">
             <label>Code postal</label>
             <div class="value-container">
-              <span class="value">75001</span>
+              <span class="value">{{userInfos().zipCode}}</span>
               <input type="text" class="edit-input" value="75001" style="display: none;">
             </div>
           </div>
@@ -107,7 +92,7 @@
           <div class="info-item">
             <label>Ville</label>
             <div class="value-container">
-              <span class="value">Paris</span>
+              <span class="value">{{userInfos().city}}</span>
               <input type="text" class="edit-input" value="Paris" style="display: none;">
             </div>
           </div>
@@ -116,7 +101,7 @@
         <div class="info-item full-width">
           <label>Pays</label>
           <div class="value-container">
-            <span class="value">France</span>
+            <span class="value">{{userInfos().country}}</span>
             <select class="edit-input" style="display: none;">
               <option value="France" selected>France</option>
               <option value="Belgique">Belgique</option>
@@ -155,7 +140,7 @@
           <div class="info-item full-width">
             <label>Adresse</label>
             <div class="value-container">
-              <span class="value">123 Rue de la Paix</span>
+              <span class="value">{{userInfos().street}}</span>
               <input type="text" class="edit-input" value="123 Rue de la Paix" style="display: none;">
             </div>
           </div>
@@ -164,7 +149,7 @@
             <div class="info-item">
               <label>Code postal</label>
               <div class="value-container">
-                <span class="value">75001</span>
+                <span class="value">{{userInfos().zipCode}}</span>
                 <input type="text" class="edit-input" value="75001" style="display: none;">
               </div>
             </div>
@@ -172,7 +157,7 @@
             <div class="info-item">
               <label>Ville</label>
               <div class="value-container">
-                <span class="value">Paris</span>
+                <span class="value">{{userInfos().city}}</span>
                 <input type="text" class="edit-input" value="Paris" style="display: none;">
               </div>
             </div>
@@ -199,94 +184,10 @@
             <p>Dernière modification : 15 janvier 2024</p>
           </div>
           <button class="btn btn-outline">Modifier</button>
-        </div>
-        
-        <div class="security-item">
-          <div class="security-info">
-            <h3>Authentification à deux facteurs</h3>
-            <p>Sécurisez votre compte avec la double authentification</p>
-          </div>
-          <div class="toggle-switch">
-            <input type="checkbox" id="2fa-toggle">
-            <label for="2fa-toggle" class="toggle-label">
-              <span class="toggle-slider"></span>
-            </label>
-          </div>
-        </div>
-        
-        <div class="security-item">
-          <div class="security-info">
-            <h3>Sessions actives</h3>
-            <p>Gérez vos connexions actives</p>
-          </div>
-          <button class="btn btn-outline">Voir les sessions</button>
-        </div>
+        </div>           
       </div>
     </div>
 
-    <!-- Section Préférences -->
-    <div class="info-card">
-      <div class="card-header">
-        <h2>Préférences</h2>
-      </div>
-      
-      <div class="card-content">
-        <div class="preference-item">
-          <div class="preference-info">
-            <h3>Notifications par email</h3>
-            <p>Recevoir les offres et actualités</p>
-          </div>
-          <div class="toggle-switch">
-            <input type="checkbox" id="email-notif" checked>
-            <label for="email-notif" class="toggle-label">
-              <span class="toggle-slider"></span>
-            </label>
-          </div>
-        </div>
-        
-        <div class="preference-item">
-          <div class="preference-info">
-            <h3>Notifications SMS</h3>
-            <p>Recevoir les confirmations de commande</p>
-          </div>
-          <div class="toggle-switch">
-            <input type="checkbox" id="sms-notif" checked>
-            <label for="sms-notif" class="toggle-label">
-              <span class="toggle-slider"></span>
-            </label>
-          </div>
-        </div>
-        
-        <div class="preference-item">
-          <div class="preference-info">
-            <h3>Langue</h3>
-            <p>Langue d'affichage du site</p>
-          </div>
-          <select class="preference-select">
-            <option value="fr" selected>Français</option>
-            <option value="en">English</option>
-            <option value="es">Español</option>
-          </select>
-        </div>
-      </div>
-    </div>
-
-    <!-- Section Danger Zone -->
-    <div class="info-card danger-card">
-      <div class="card-header">
-        <h2>Zone de danger</h2>
-      </div>
-      
-      <div class="card-content">
-        <div class="danger-item">
-          <div class="danger-info">
-            <h3>Supprimer mon compte</h3>
-            <p>Cette action est irréversible. Toutes vos données seront supprimées définitivement.</p>
-          </div>
-          <button class="btn btn-danger">Supprimer le compte</button>
-        </div>
-      </div>
-    </div>
   </div>
 
   <!-- Message de confirmation -->

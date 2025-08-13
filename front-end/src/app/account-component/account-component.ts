@@ -13,15 +13,19 @@ export class AccountComponent implements OnInit {
   private accountService = inject(AccountService);
   ordersCount: WritableSignal<number> = signal(0);
   currentOrdersCount: WritableSignal<number> = signal(0);
-  userName: WritableSignal<string> = signal('Patoulet');
+  userName: WritableSignal<string> = signal('Invité');
 
   async ngOnInit(){
     
+    const getUserName = await this.accountService.getUserName();
+    console.log("Prénom récupérer :", getUserName);
+    this.userName.set(getUserName);
+
     const allOrders = await this.accountService.getAllUserOrders();
-    
     console.log("AllOrders:");
     console.log(allOrders);
     console.log(allOrders.error);
+    
     if(allOrders.error == "Unauthorized"){
       this.ordersCount.set(0);
       throw new Error("Aucune(s) commande(s) trouvée");
@@ -30,8 +34,5 @@ export class AccountComponent implements OnInit {
     const allPendingOrders = this.accountService.getPendingOrders();
     console.log("allPendingORders : ")
     console.log(allPendingOrders);
-    const getUserName = await this.accountService.getUserName();
-    console.log("Prénom récupérer :", getUserName);
-    this.userName.set(getUserName);
   }
 }

@@ -137,8 +137,10 @@ dans le total de la commande dans la BDD.
 Faire un robot.txt pour empêcher le scrapping et éviter l'indexation
 de certaines pages comme le panel admin & user
 
+---------- FAIT ----------
 Faire en sorte dans Panier/Livraison/Paiement le même affichage que dans la page livraison, truc statique
 avec l'étape en background:blue;
+---------- FAIT ----------
 
 Lorsque paiement validé, passer statut order à "PENDING"
 
@@ -146,13 +148,16 @@ Faire fil d'ariane
 
 Finir modifications infos personnelles utilisateur
 
-
 Faire le cors et faire le httpOnly cookies (Il faut que le cookie soit créer back-end)
 Mettre la date du passage du titre pour la page success paiement
 Faire dans la page produit l'ajout quantité (+/-);
 Faire le fonctionnement du localStorage pour l'invité!! ou modifier pour que seulement les utilisateurs connectés
 puissent ajouter des produits au panier
 
+---------- FAIT ? ----------
 Lorsque personne non connectée, si il souhaite finaliser la commande il doit être connecté, mais lorsqu'il se
 connecte, son panier n'apparait plus, il faudrait donc lors de la connexion, vérifier si des produits sont dans le localStorage
 et les POST dans la BDD pour l'Order adéquat
+---------- FAIT ? ----------
+
+Faire toutes les fonctions (click) angular (mon-compte/mes-infos etc)

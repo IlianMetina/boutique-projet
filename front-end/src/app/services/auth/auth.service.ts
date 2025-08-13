@@ -138,19 +138,33 @@ export class AuthService {
     }
   }
 
+  isAdmin(): boolean{
+
+    const token = this.getToken();
+    if(!token){
+      console.log("Erreur récupération token isAdmin()");
+      return false;
+
+    } 
+
+    const decodedToken: tokenPayload = jwtDecode(token);
+    if(decodedToken.role == 'ADMIN'){
+      return true;
+
+    }else{
+
+      return false;
+    }
+    
+  }
+
   /* Récupération du token dans les cookies si on est sur le navigateur */
   getToken(): string | null {
 
-    // console.log("---------- isPlatformBrowser ? --------");
-    // console.log(isPlatformBrowser(this.platformID));
 
     if(isPlatformBrowser(this.platformID)){
 
       const token = this.cookieService.get('token');
-      // console.log('------------------------');
-      // console.log("Récupération du token :");
-      // console.log('------------------------');
-      // console.log(token);
       if(token != null){
 
         return token;
@@ -188,10 +202,13 @@ export class AuthService {
       method: method,
       headers: this.getAuthHeaders(),
       body: data ? JSON.stringify(data) : undefined,
+      credentials: 'include',
     });
-
+    console.log("All GOOD");
+    
+    // console.log("Response reçu AuthRequest :", response);
     const body = await response.json();
-
+    console.log("Body reçu AuthRequest :", body);
     return body;
   }
 

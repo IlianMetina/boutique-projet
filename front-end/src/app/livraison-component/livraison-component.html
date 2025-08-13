@@ -2,13 +2,19 @@
   <!-- En-tête de la page -->
   <div class="delivery-header">
     <h1 class="delivery-title">Informations de livraison</h1>
-    <div class="breadcrumb">
-      <span class="breadcrumb-item">Panier</span>
-      <span class="breadcrumb-separator">></span>
-      <span class="breadcrumb-item active">Livraison</span>
-      <span class="breadcrumb-separator">></span>
-      <span class="breadcrumb-item">Paiement</span>
-    </div>
+    <div class="progress-tracker">
+      <div class="step">
+        <i class="material-icons" style="font-size:36px;">shopping_basket</i>
+      </div>
+      <div class="bar"></div>
+      <div class="second-step">
+        <i class='fas fa-shipping-fast' style='font-size:36px'></i>
+      </div>
+      <div class="bar"></div>
+      <div class="step">
+        <i class='fas fa-money-check-alt' style='font-size:36px'></i>
+      </div>
+  </div>
   </div>
 
   <div class="delivery-content">
@@ -108,13 +114,13 @@
         <div class="summary-items">
             @for(product of productsInOrder; track product.id){
 
-                <div class="summary-item">
-                    <div class="item-info">
-                        <div class="item-name">{{product.product.name}}</div>
-                        <div class="item-details">Qté: {{product.quantity}}</div>
-                    </div>
-                    <div class="item-price">{{product.product.price * product.quantity}}€</div>
-                </div>
+              <div class="summary-item">
+                  <div class="item-info">
+                      <div class="item-name">{{product.product.name}}</div>
+                      <div class="item-details">Qté: {{product.quantity}}</div>
+                  </div>
+                  <div class="item-price">{{product.product.price * product.quantity}}€</div>
+              </div>
             }
         
         <div class="summary-divider"></div>

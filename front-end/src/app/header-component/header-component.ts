@@ -40,6 +40,7 @@ export class HeaderComponent {
 
   async loadProducts(){
 
+    console.log("Loading Header Products");
     const allProducts = await this.productService.getProducts();
     if(allProducts){
       this.allProducts.set(allProducts);

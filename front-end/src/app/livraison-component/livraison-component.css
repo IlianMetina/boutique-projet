@@ -33,30 +33,6 @@ body {
   margin-bottom: 1rem;
 }
 
-.breadcrumb {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
-  font-size: 0.875rem;
-  color: #64748b;
-}
-
-.breadcrumb-item {
-  padding: 0.5rem 0.75rem;
-  border-radius: 8px;
-  transition: all 0.2s ease;
-}
-
-.breadcrumb-item.active {
-  background-color: #2563eb;
-  color: white;
-  font-weight: 500;
-}
-
-.breadcrumb-separator {
-  color: #94a3b8;
-}
 
 /* Contenu principal */
 .delivery-content {
@@ -252,6 +228,34 @@ body {
   color: white;
   font-size: 12px;
   font-weight: bold;
+}
+
+.progress-tracker {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin: 2rem 0;
+}
+
+.step {
+  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
+  background-color: #e5e7eb; /* gris clair */
+  color: #374151; /* gris foncé */
+  font-weight: 600;
+  position: relative;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.second-step{
+
+  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
+  background-color: rgb(185, 185, 255); /* gris clair */
+  color: #374151; /* gris foncé */
+  font-weight: 600;
+  position: relative;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 /* Récapitulatif de commande */
@@ -457,11 +461,6 @@ body {
     grid-template-columns: 1fr;
   }
   
-  .breadcrumb {
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  
   .delivery-label {
     flex-direction: column;
     align-items: flex-start;
@@ -487,8 +486,4 @@ body {
     font-size: 1.5rem;
   }
   
-  .breadcrumb-item {
-    padding: 0.375rem 0.5rem;
-    font-size: 0.75rem;
-  }
 }

@@ -9,9 +9,10 @@ import { CategoriesModule } from './categories/categories.module';
 import { OrderModule } from './order/order.module';
 import { OrderItemModule } from './product-in-order/product-in-order.module';
 import { StripeModule } from './stripe/stripe.module';
+import { AdminModule } from './admin/admin.module';
 
 @Module({
-  imports: [DatabaseModule, ProductsModule, UsersModule, AuthModule, CategoriesModule, OrderModule, OrderItemModule, StripeModule],
+  imports: [DatabaseModule, ProductsModule, UsersModule, AuthModule, CategoriesModule, OrderModule, OrderItemModule, StripeModule, AdminModule],
   controllers: [AppController],
   providers: [AppService],
 })

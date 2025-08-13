@@ -71,6 +71,17 @@ export class UsersService {
     } });
   }
 
+  async getUsersCount(): Promise<number> {
+
+    const users = await this.prisma.user.findMany();
+    if(!users){
+      console.log("Aucun utilisateur trouvé");
+      return 0;
+    }
+
+    return users.length;
+  }
+
   async findOne(id: number) {
     return this.prisma.user.findUnique({ where: { id }, select: {
       id: true,

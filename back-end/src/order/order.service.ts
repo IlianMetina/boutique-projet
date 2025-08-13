@@ -14,6 +14,13 @@ export interface Basket {
   total: Decimal;
 }
 
+export interface AdminOrder {
+
+  id: number;
+  total: string;
+  status: string;
+}
+
 @Injectable()
 export class OrderService {
 
@@ -60,7 +67,7 @@ export class OrderService {
         }
       }
     },
-  });
+    });
   }
 
   async findUserBasket(id: number) {
@@ -265,6 +272,28 @@ export class OrderService {
     console.log(pendingOrdersCount);
 
     return pendingOrdersCount;
+  }
+
+  async adminOrdersDisplay(): Promise<AdminOrder>{
+
+    let orders = await this.prisma.order.findMany();
+
+    console.log("Commande(s) récupérée(s) :");
+    console.log(orders);
+
+    if(!orders || orders.length < 1){
+
+      console.log("Aucunes commandes trouvées");
+      throw new Error("Erreur récupération commandes");
+    }
+
+    // const ordersDisplayFormat = {
+
+    //   id: orders.id
+    // }
+
+    throw new Error("Erreur récupération commandes");
+
   }
 
   async findBasketOrderId(userId: number): Promise<number | null>{

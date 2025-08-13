@@ -84,7 +84,5 @@ export class AccountService {
 
     return response.firstName;
   }
-
-
 }
 

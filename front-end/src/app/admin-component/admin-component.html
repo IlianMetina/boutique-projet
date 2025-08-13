@@ -1,0 +1,116 @@
+<div class="admin-container">
+
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Top Bar -->
+    <header class="topbar">
+      <h1>Panel Admin - Workhaus</h1>
+    </header>
+
+    <!-- Dashboard Content -->
+    <div class="dashboard-content">
+      <!-- Stats Cards -->
+      <section class="stats-section">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-header">
+              <div class="stat-icon">📋</div>
+            </div>
+            <div class="stat-content">
+              <h3>{{ordersCount()}}</h3>
+              <p>Commandes</p>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-header">
+              <div class="stat-icon">👥</div>
+            </div>
+            <div class="stat-content">
+              <h3>{{clientsCount()}}</h3>
+              <p>Clients</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Content Grid -->
+      <section class="content-grid">
+        <div class="orders-container">
+          <div class="card">
+            <div class="card-header">
+              <h3>Commandes récentes</h3>
+              <a href="#">Voir tout</a>
+            </div>
+            <div class="orders-list">
+              <div class="order-item">
+                <div class="order-info">
+                  <div class="order-id">#CMD-2024-001</div>
+                  <div class="customer-name">Marie Dubois</div>
+                </div>
+                <div class="order-amount">€1,299</div>
+                <div class="order-status status-pending">En attente</div>
+              </div>
+              <div class="order-item">
+                <div class="order-info">
+                  <div class="order-id">#CMD-2024-002</div>
+                  <div class="customer-name">Pierre Martin</div>
+                </div>
+                <div class="order-amount">€849</div>
+                <div class="order-status status-processing">En cours</div>
+              </div>
+              <div class="order-item">
+                <div class="order-info">
+                  <div class="order-id">#CMD-2024-003</div>
+                  <div class="customer-name">Sophie Bernard</div>
+                </div>
+                <div class="order-amount">€2,150</div>
+                <div class="order-status status-completed">Livrée</div>
+              </div>
+              <div class="order-item">
+                <div class="order-info">
+                  <div class="order-id">#CMD-2024-004</div>
+                  <div class="customer-name">Lucas Petit</div>
+                </div>
+                <div class="order-amount">€695</div>
+                <div class="order-status status-cancelled">Annulée</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="activity-container">
+          <div class="card">
+            <div class="card-header">
+              <h3>Activité récente</h3>
+            </div>
+            <div class="activity-list">
+              <div class="activity-item">
+                <div class="activity-icon">📋</div>
+                <div class="activity-content">
+                  <div class="activity-text">Nouvelle commande reçue</div>
+                  <div class="activity-time">Il y a 2 minutes</div>
+                </div>
+              </div>
+              <div class="activity-item">
+                <div class="activity-icon">👤</div>
+                <div class="activity-content">
+                  <div class="activity-text">Nouveau client inscrit</div>
+                  <div class="activity-time">Il y a 15 minutes</div>
+                </div>
+              </div>
+              <div class="activity-item">
+                <div class="activity-icon">⚠️</div>
+                <div class="activity-content">
+                  <div class="activity-text">Stock faible: Bureau Oak</div>
+                  <div class="activity-time">Il y a 1 heure</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>

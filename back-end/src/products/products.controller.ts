@@ -27,6 +27,7 @@ export class ProductsController {
 
   @Get('all')
   async findAll() {
+    console.log("Entrée products/all");
     return this.productsService.findAll(); 
   }
 
