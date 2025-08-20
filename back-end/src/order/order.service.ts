@@ -274,25 +274,42 @@ export class OrderService {
     return pendingOrdersCount;
   }
 
-  async adminOrdersDisplay(): Promise<AdminOrder>{
+  async adminOrdersDisplay(): Promise<AdminOrder[]>{
 
-    let orders = await this.prisma.order.findMany();
+    console.log("!!! Entrée adminOrdersDisplay !!!");
+
+    let orders = await this.prisma.order.findMany({
+      where: {
+        status: {
+          not: 'BASKET'
+        }
+      }
+    });
 
     console.log("Commande(s) récupérée(s) :");
     console.log(orders);
 
     if(!orders || orders.length < 1){
 
-      console.log("Aucunes commandes trouvées");
+      console.error("Aucunes commandes trouvées");
       throw new Error("Erreur récupération commandes");
     }
 
-    // const ordersDisplayFormat = {
+    const ordersDisplayFormat : AdminOrder[] = [];
 
-    //   id: orders.id
-    // }
+    for (let i = 0; i < orders.length; i++) {
+      
+      ordersDisplayFormat[i] = {
+        id: orders[i].id,
+        total: orders[i].total.toString(),
+        status: orders[i].status
+      }
+      console.log("||||| Enregistrement ||||||");
+      console.log(ordersDisplayFormat[i]);
+      
+    }
 
-    throw new Error("Erreur récupération commandes");
+    return ordersDisplayFormat;
 
   }
 

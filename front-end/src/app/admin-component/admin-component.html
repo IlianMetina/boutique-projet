@@ -41,71 +41,153 @@
           <div class="card">
             <div class="card-header">
               <h3>Commandes récentes</h3>
-              <a href="#">Voir tout</a>
             </div>
             <div class="orders-list">
+            @if(ordersCount() > 0){
+
+              @for (order of orders(); track $index) {
+                
               <div class="order-item">
                 <div class="order-info">
-                  <div class="order-id">#CMD-2024-001</div>
-                  <div class="customer-name">Marie Dubois</div>
+                  <div class="order-id">#CMD-{{order.id}}</div>
                 </div>
-                <div class="order-amount">€1,299</div>
-                <div class="order-status status-pending">En attente</div>
+                <div class="order-amount">{{order.total}}€</div>
+                <div class="order-status status-pending">{{order.status}}</div>
               </div>
+            }
+          }@else {
+
               <div class="order-item">
                 <div class="order-info">
-                  <div class="order-id">#CMD-2024-002</div>
-                  <div class="customer-name">Pierre Martin</div>
+                  <p>Aucune commande trouvée</p>
                 </div>
-                <div class="order-amount">€849</div>
-                <div class="order-status status-processing">En cours</div>
               </div>
-              <div class="order-item">
-                <div class="order-info">
-                  <div class="order-id">#CMD-2024-003</div>
-                  <div class="customer-name">Sophie Bernard</div>
-                </div>
-                <div class="order-amount">€2,150</div>
-                <div class="order-status status-completed">Livrée</div>
-              </div>
-              <div class="order-item">
-                <div class="order-info">
-                  <div class="order-id">#CMD-2024-004</div>
-                  <div class="customer-name">Lucas Petit</div>
-                </div>
-                <div class="order-amount">€695</div>
-                <div class="order-status status-cancelled">Annulée</div>
-              </div>
+
+          }
             </div>
           </div>
         </div>
 
-        <div class="activity-container">
-          <div class="card">
-            <div class="card-header">
-              <h3>Activité récente</h3>
+      </section>
+
+       <!-- Formulaires d'ajout -->
+      <section class="forms-section">
+        <div class="forms-grid">
+          <!-- Formulaire Catégorie -->
+          <div class="form-container">
+            <div class="card">
+              <div class="card-header">
+                <h3> Ajouter une catégorie</h3>
+              </div>
+              <div class="form-content">
+                <form class="admin-form" [formGroup]="myCategoryForm" (ngSubmit)="onSubmitCategory()">
+                  <div class="form-group">
+                    <label for="category-name">Nom de la catégorie</label>
+                    <input 
+                      type="text" 
+                      id="category-name" 
+                      formControlName="categoryName"
+                      placeholder="Entrez le nom de la catégorie"
+                      class="form-input"
+                    >
+                  </div>
+                  <div class="form-group">
+                    <label for="category-description">Description (optionnelle)</label>
+                    <textarea 
+                      id="category-description" 
+                      formControlName="categoryDescription"
+                      placeholder="Description de la catégorie"
+                      class="form-textarea"
+                      rows="3"
+                    ></textarea>
+                  </div>
+                  <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">
+                      <span class="btn-icon">✓</span>
+                      Ajouter la catégorie
+                    </button>
+                  </div>
+                </form>
+              </div>
             </div>
-            <div class="activity-list">
-              <div class="activity-item">
-                <div class="activity-icon">📋</div>
-                <div class="activity-content">
-                  <div class="activity-text">Nouvelle commande reçue</div>
-                  <div class="activity-time">Il y a 2 minutes</div>
-                </div>
+          </div>
+
+          <!-- Formulaire Produit -->
+          <div class="form-container">
+            <div class="card">
+              <div class="card-header">
+                <h3>📦 Ajouter un produit</h3>
               </div>
-              <div class="activity-item">
-                <div class="activity-icon">👤</div>
-                <div class="activity-content">
-                  <div class="activity-text">Nouveau client inscrit</div>
-                  <div class="activity-time">Il y a 15 minutes</div>
-                </div>
-              </div>
-              <div class="activity-item">
-                <div class="activity-icon">⚠️</div>
-                <div class="activity-content">
-                  <div class="activity-text">Stock faible: Bureau Oak</div>
-                  <div class="activity-time">Il y a 1 heure</div>
-                </div>
+              <div class="form-content">
+                <form class="admin-form" [formGroup]="myProductForm" (ngSubmit)="onSubmitProduct()">
+                  <div class="form-group">
+                    <label for="product-name">Nom du produit</label>
+                    <input 
+                      type="text" 
+                      id="product-name" 
+                      formControlName="productName"
+                      placeholder="Entrez le nom du produit"
+                      class="form-input"
+                    >
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label for="product-price">Prix (€)</label>
+                      <input 
+                        type="number" 
+                        id="product-price" 
+                        formControlName="productPrice"
+                        placeholder="0.00"
+                        class="form-input"
+                        step="0.01"
+                        min="0"
+                      >
+                    </div>
+                    <div class="form-group">
+                      <label for="product-category">Catégorie</label>
+                      <select id="product-category" formControlName="productCategory" class="form-select">
+                        <option value="">Sélectionner une catégorie</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="product-description">Description</label>
+                    <textarea 
+                      id="product-description" 
+                      formControlName="productDescription"
+                      placeholder="Description détaillée du produit"
+                      class="form-textarea"
+                      rows="4"
+                    ></textarea>
+                  </div>
+                    <div class="form-group">
+                    <label for="product-stock">Stock</label>
+                    <input 
+                    id="product-stock"
+                    type="number"
+                    formControlName="productStock"
+                    placeholder="Quantité du produit"
+                    >
+                  </div>
+                  <div class="form-group">
+                    <label for="product-image">URL de l'image</label>
+                    <textarea 
+                      formControlName="productImage"
+                      placeholder="Lien de l'image (URL)"
+                      class="form-textarea"
+                      rows="1"
+                    ></textarea>
+                  </div>
+                  <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">
+                      <span class="btn-icon">✓</span>
+                      Ajouter le produit
+                    </button>
+                  </div>
+                </form>
               </div>
             </div>
           </div>

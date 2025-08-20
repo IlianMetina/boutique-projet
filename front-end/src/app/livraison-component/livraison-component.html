@@ -27,7 +27,7 @@
           Adresse de livraison
         </h2>
         
-        <form class="delivery-form" (ngSubmit)="onSubmit()">
+        <form class="delivery-form">
           <div class="form-row">
             <div class="form-group">
               <label for="firstName" class="form-label">Prénom *</label>
@@ -66,8 +66,8 @@
           </div>
 
         <div class="action-buttons">
-            <button class="btn-secondary">Retour au panier</button>
-            <button class="btn-primary" type="submit" (click)="checkOut()">Continuer vers le paiement</button>
+            <button class="btn-secondary"><a routerLink="/panier">Retour au panier</a></button>
+            <button class="btn-primary" type="submit" (click)="onSubmit()">Continuer vers le paiement</button>
         </div>
          
         </form>
@@ -138,11 +138,6 @@
             <span>Total</span>
             <span>{{getSubTotal()}} €</span>
           </div>
-        </div>
-        
-        <div class="promo-code">
-          <input type="text" class="promo-input" placeholder="Code promotionnel">
-          <button class="promo-btn">Appliquer</button>
         </div>
       </div>
     

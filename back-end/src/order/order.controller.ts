@@ -26,7 +26,7 @@ export class OrderController {
 
   @UseGuards(AuthGuard, AdminGuard)
   @Get('total')
-  async adminOrdersDisplay(){
+  async recentOrders(){
     console.log("Entrée méthode countTotalOrders");
     return this.orderService.adminOrdersDisplay();
   }

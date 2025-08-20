@@ -1,7 +1,7 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { AuthService } from '../services/auth/auth.service';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Order } from '../orders-component/orders-component';
 import { CartService } from '../services/cart/cart-service';
 
@@ -19,7 +19,7 @@ interface User {
 
 @Component({
   selector: 'app-livraison-component',
-  imports: [FormsModule],
+  imports: [FormsModule, RouterLink],
   templateUrl: './livraison-component.html',
   styleUrl: './livraison-component.css'
 })
@@ -99,7 +99,7 @@ export class LivraisonComponent implements OnInit{
     return response;
   }
 
-  onSubmit(){
+  async onSubmit(): Promise<void>{
 
     const payload = {
 
@@ -116,17 +116,16 @@ export class LivraisonComponent implements OnInit{
     console.log("---------Payload récupérer livraison :--------");
     console.log(payload);
 
-    const response = this.authService.AuthenticatedRequest(this.postOrderAdressUrl, 'POST', payload);
-
-    this.router.navigate(['panier/paiement']);
-    return response;
+    this.authService.AuthenticatedRequest(this.postOrderAdressUrl, 'POST', payload);
+    await this.checkOut();
+    
   }
 
   getSubTotal(): number {
 
     const order = this.order();
-    console.log('------ ORDER RÉCUPÉREE getSubTotal-----------');
-    console.log(order);
+    // console.log('------ ORDER RÉCUPÉREE getSubTotal-----------');
+    // console.log(order);
     if(!order) throw new Error("Erreur lors du calcul subTotal");
 
     const subTotal = order.productsInOrder.reduce((sum: number, item: { product: { price: any; }; quantity: number; }) => {

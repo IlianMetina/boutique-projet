@@ -15,6 +15,7 @@ export class HeaderComponent {
   allProducts: WritableSignal<Product[]> = signal([]);
 
   search = signal('');
+  isMenuOpen = signal(false);
 
   filteredProducts = computed(() =>
     this.allProducts().filter(product =>
@@ -45,6 +46,10 @@ export class HeaderComponent {
     if(allProducts){
       this.allProducts.set(allProducts);
     }
+  }
+
+  toggleMenu(){
+    this.isMenuOpen.update(value => !value);
   }
 
   logOut(event: Event){

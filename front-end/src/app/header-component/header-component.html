@@ -68,7 +68,10 @@
 
         <div class="flex-menu">
             <div class="menu-icon">
-                <button style="font-size:24px" class="button-menu responsive-menu-button"><i class="material-icons">menu</i>Tous les produits</button>
+                <button style="font-size:24px" class="button-menu" (click)="toggleMenu()">
+                    <i class="material-icons">menu</i>
+                    Tous les produits
+                </button>
             </div>
             <nav class="nav-menu">
                 <a routerLink="/mobilier">Mobilier ergonomique</a>
@@ -84,3 +87,24 @@
     </div>
 
 </header>
+
+<!-- Menu mobile qui s'affiche quand isMenuOpen() est true -->
+<div class="mobile-menu-overlay" [class.active]="isMenuOpen()" (click)="toggleMenu()"></div>
+
+<div class="mobile-menu-container" [class.open]="isMenuOpen()">
+    <div class="mobile-menu-header">
+        <button class="close-menu" (click)="toggleMenu()">
+            <i class="fas fa-times"></i>
+        </button>
+        <h3>Menu</h3>
+    </div>
+    
+    <nav class="mobile-nav-menu">
+        <a routerLink="/mobilier" (click)="toggleMenu()">Mobilier ergonomique</a>
+        <a routerLink="/accessoires" (click)="toggleMenu()">Accessoires</a>
+        <a routerLink="/rangements" (click)="toggleMenu()">Rangements</a>
+        <a routerLink="/tech" (click)="toggleMenu()">Tech & Gadgets</a>
+        <a routerLink="/tables" (click)="toggleMenu()">Tables</a>
+        <a routerLink="/sieges-fauteuils" (click)="toggleMenu()">Sièges & fauteuils</a>
+    </nav>
+</div>

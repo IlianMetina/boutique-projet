@@ -1,7 +1,6 @@
 .main-category-container{
 
   display: grid;
-  grid-template-columns: auto 1fr;
   align-items: start;
   width: 100%;
 }

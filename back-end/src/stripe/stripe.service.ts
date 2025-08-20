@@ -16,8 +16,9 @@ export class StripeService {
         this.stripe = new Stripe(secretKey, {
             apiVersion: '2025-07-30.basil',
         });
-    }
-
+       console.log("Toutes les variables d'environnement:", process.env); 
+    }  
+    
     async createCheckoutSession(orderId: number){
 
         const order = await this.orderService.findUserBasket(orderId);
@@ -48,6 +49,12 @@ export class StripeService {
             cancel_url: `${process.env.FRONTEND_URL}/cancel`
         });
 
+        console.log("Valeur URL SUCCESS Stripe :");
+        console.log(`${process.env.FRONTEND_URL}/success`);
+        
+        console.log("Valeur URL SUCCESS Stripe :");
+        console.log(`${process.env.FRONTEND_URL}/cancel`);
+        
         return {url: session.url};
     }
 }

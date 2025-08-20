@@ -2,13 +2,12 @@ import { Component, inject, PLATFORM_ID, signal, ViewChild, WritableSignal } fro
 import { Product, ProductsService } from '../services/products/products-service';
 import { OnInit } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { FilterProductsComponent } from '../filter-products-component/filter-products-component';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { CartService } from '../services/cart/cart-service';
 
 @Component({
   selector: 'app-meubles-component',
-  imports: [FilterProductsComponent, MatPaginator],
+  imports: [MatPaginator],
   templateUrl: './meubles-component.html',
   styleUrl: '../css/main-components-css.css'
 })

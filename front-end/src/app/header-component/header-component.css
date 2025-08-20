@@ -36,6 +36,8 @@
     border-bottom: 1px solid rgba(148, 163, 184, 0.12);
     margin-bottom: 0.8rem;
     min-height: 60px;
+    position: relative;
+    z-index: 1000;
 }
 
 /* Logo */
@@ -72,6 +74,7 @@
   max-width: 650px;
   min-width: 300px;
   position: relative;
+  z-index: 1001;
 }
 
 .search-input {
@@ -82,7 +85,7 @@
 
 .search-results {
   position: absolute;
-  top: 60px;
+  top: 100%;
   left: 0;
   width: 100%;
   background: white;
@@ -90,17 +93,23 @@
   margin: 0;
   padding: 0.5rem 0;
   max-height: 320px;
-  z-index: 100;
+  overflow-y: auto;
+  z-index: 1002;
   color: #1e3a8a;
   border: 1px solid #ccc;
+  border-top: 1px solid black;
+  border-radius: 2px 2px 10px 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .search-results li {
-  padding: 8px;
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: background-color 0.2s;
 }
 
 .search-results li:hover {
-  background-color: #f0f0f0;
+  background-color: #f0f7ff;
 }
 
 .no-results {
@@ -427,17 +436,10 @@
 }
 
 /* CORRECTION: Bouton menu principal - Taille réduite et repositionnement */
-
-.responsive-menu-button{
-
-    display: none !important;
-}
-
 .button-menu {
-    display: inline-flex;
-    align-items: center;
+    display: none; /* Caché par défaut, affiché seulement en dessous de 1024px */
+    text-align: center;
     gap: 0.6rem;
-    padding: 0.6rem 1.1rem;
     background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
     color: white;
     border: none;
@@ -447,12 +449,8 @@
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 2px 6px rgba(59, 130, 246, 0.25);
-    text-transform: none;
-    letter-spacing: 0.02em;
     position: relative;
     overflow: hidden;
-    flex-shrink: 0;
-    height: 40px;
 }
 
 .button-menu::before {
@@ -492,16 +490,11 @@
 
 /* Navigation principale */
 .nav-menu {
-    display: flex;
+    display: flex; /* Affiché par défaut (au-dessus de 1024px) */
     justify-content: center;
     gap: 2rem;
     align-items: center;
     flex: 1;    
-}
-
-.menu-icon{
-
-    white-space: nowrap;
 }
 
 .nav-menu a {
@@ -596,11 +589,6 @@
         gap: 1rem;
     }
 
-    .button-menu {
-        padding: 0.4rem 0.7rem;
-        font-size: 0.8rem; 
-    }
-
     .nav-menu a {
         padding: 0.4rem 0.7rem; 
         font-size: 0.8rem; 
@@ -614,22 +602,11 @@
         height: auto;
     }
     
-    .responsive-menu-button{
-
-        display: inline-block !important;
-        display: flex;
-        justify-content: center;
-        padding-bottom: 10px;
-    }
-    
-
     .menu-infos {
         gap: 1.5rem;
-
     }
 
     .flex-menu{
-
         justify-content: center;
     }
     
@@ -664,11 +641,10 @@
     .button-menu {
         font-size: 0.85rem;
         padding: 0.55rem 1rem;
-        height: 38px;
+        height: 45px;
     }
     
     .nav-menu {
-        
         display: none;
     }
     
@@ -688,10 +664,10 @@
         height: auto;
     }
 
-    .menu-icon{
-
+    .menu-icon {
         display: flex;
         align-items: center;
+        width: 100%;
     }
     
     .menu-infos {
@@ -771,17 +747,9 @@
         padding: 0.7rem 1rem;
         font-size: 0.85rem;
         width: 100%;
-        justify-content: center;
-        height: 42px;
-    }
-
-    .responsive-menu-button{
-
-        display: inline-block !important;
     }
     
     .nav-menu {
-        
         display: none;
     }
     
@@ -861,6 +829,20 @@
     .nav-menu a {
         padding: 0.7rem;
         font-size: 0.8rem;
+    }
+    
+    .mobile-menu-container {
+        width: 85%;
+        right: -85%;
+    }
+    
+    .mobile-menu-header {
+        padding: 1rem;
+    }
+    
+    .mobile-nav-menu a,
+    .mobile-menu-actions a {
+        padding: 0.8rem 1rem;
     }
 }
 
@@ -980,5 +962,192 @@
         background: none;
         border: none;
         padding: 0;
+    }
+}
+
+/* ===== MENU MOBILE ET BOUTON HAMBURGER ===== */
+.responsive-menu-button {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: #3b82f6;
+    transition: all 0.3s ease;
+    padding: 0.5rem;
+    border-radius: 8px;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+}
+
+.responsive-menu-button:hover {
+    color: #2563eb;
+    background-color: rgba(59, 130, 246, 0.1);
+}
+
+.responsive-menu-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+}
+
+/* Overlay qui s'affiche derrière le menu mobile */
+.mobile-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1001;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.mobile-menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Container du menu mobile */
+.mobile-menu-container {
+    position: fixed;
+    top: 0;
+    right: -300px;
+    width: 280px;
+    height: 100%;
+    background: white;
+    z-index: 1002;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+    transition: right 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.mobile-menu-container.open {
+    right: 0;
+}
+
+/* En-tête du menu mobile */
+.mobile-menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+}
+
+.mobile-menu-header h3 {
+    margin: 0;
+    color: #1e3a8a;
+    font-size: 1.2rem;
+}
+
+.close-menu {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    color: #64748b;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close-menu:hover {
+    color: #1e293b;
+}
+
+/* Navigation mobile */
+.mobile-nav-menu {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+}
+
+.mobile-nav-menu a {
+    padding: 1rem 1.5rem;
+    color: #1e3a8a;
+    text-decoration: none;
+    font-weight: 500;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    margin-bottom: 0.5rem;
+}
+
+.mobile-nav-menu a:hover {
+    background-color: rgba(59, 130, 246, 0.1);
+    color: #3b82f6;
+}
+
+/* Actions du menu mobile */
+.mobile-menu-actions {
+    margin-top: auto;
+    padding: 1rem;
+    border-top: 1px solid rgba(148, 163, 184, 0.15);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.mobile-menu-actions a {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.5rem;
+    color: #475569;
+    text-decoration: none;
+    font-weight: 500;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.mobile-menu-actions a:hover {
+    background-color: rgba(59, 130, 246, 0.1);
+    color: #3b82f6;
+}
+
+.mobile-menu-actions a i {
+    font-size: 1rem;
+    width: 1.5rem;
+    text-align: center;
+}
+
+/* Ajustements pour afficher seulement le bouton en dessous de 1024px
+   et seulement les liens au-dessus de 1024px */
+@media (min-width: 1025px) {
+    .button-menu {
+        display: none;
+    }
+    
+    .nav-menu {
+        display: flex;
+    }
+}
+
+@media (max-width: 1024px) {
+    .nav-menu {
+        display: none;
+    }
+    
+    .button-menu {
+        display: block;
+    }
+}
+
+/* Ajustements pour petits écrans */
+@media (max-width: 480px) {
+    .mobile-menu-container {
+        width: 85%;
+        right: -85%;
+    }
+    
+    .mobile-menu-header {
+        padding: 1rem;
+    }
+    
+    .mobile-nav-menu a,
+    .mobile-menu-actions a {
+        padding: 0.8rem 1rem;
     }
 }

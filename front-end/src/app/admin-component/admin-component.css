@@ -339,11 +339,6 @@
   font-size: 0.875rem;
 }
 
-.customer-name {
-  color: #64748b;
-  font-size: 0.875rem;
-}
-
 .order-amount {
   font-weight: 600;
   color: #0f172a;
@@ -421,6 +416,14 @@
   color: #0f172a;
 }
 
+#product-stock{
+
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 50%;
+  padding: 10px;
+}
+
 /* Activity List */
 .activity-list {
   padding: 0 1.5rem 1.5rem;
@@ -464,6 +467,192 @@
   font-size: 0.75rem;
 }
 
+/* Formulaire ajout catégorie & produit*/
+
+/* Ajout au CSS existant - Styles pour les formulaires */
+
+/* Section des formulaires */
+.forms-section {
+  margin-top: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.forms-grid {
+  display: grid;
+  gap: 1.5rem;
+  width: 80%;
+}
+
+.form-container {
+  grid-column: span 1;
+}
+
+/* Contenu des formulaires */
+.form-content {
+  padding: 1.5rem;
+}
+
+.admin-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* Groupes de champs */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+/* Labels */
+.form-group label {
+  font-weight: 600;
+  color: #374151;
+  font-size: 0.875rem;
+}
+
+/* Inputs */
+.form-input,
+.form-textarea,
+.form-select {
+  padding: 0.75rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  background: white;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.form-input:focus,
+.form-textarea:focus,
+.form-select:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: #9ca3af;
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.form-select {
+  cursor: pointer;
+}
+
+.form-select option {
+  padding: 0.5rem;
+}
+
+/* Actions des formulaires */
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #f1f5f9;
+}
+
+/* Boutons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  font-family: inherit;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Bouton principal */
+.btn-primary {
+  background: linear-gradient(135deg, #2563eb, #1e40af);
+  color: white;
+  box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: linear-gradient(135deg, #1e40af, #1e3a8a);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(37, 99, 235, 0.3);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+/* Bouton secondaire */
+.btn-secondary {
+  background: #f8fafc;
+  color: #64748b;
+  border: 1px solid #e2e8f0;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: #f1f5f9;
+  color: #475569;
+  border-color: #cbd5e1;
+}
+
+/* Icônes des boutons */
+.btn-icon {
+  font-size: 1rem;
+}
+
+/* États de validation */
+.form-input.error,
+.form-textarea.error,
+.form-select.error {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+.form-input.success,
+.form-textarea.success,
+.form-select.success {
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+/* Messages d'erreur/succès */
+.form-message {
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+.form-message.error {
+  color: #ef4444;
+}
+
+.form-message.success {
+  color: #10b981;
+}
+
 /* Responsive */
 @media (max-width: 1024px) {
   .content-grid {
@@ -472,6 +661,14 @@
   
   .chart-container {
     grid-column: span 1;
+  }
+
+    .forms-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .form-row {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -495,5 +692,39 @@
   
   .topbar {
     padding: 0 1rem;
+  }
+
+    .form-actions {
+    flex-direction: column-reverse;
+  }
+  
+  .btn {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .forms-section {
+    padding: 0 0 2rem 0;
+  }
+  
+  .form-content {
+    padding: 1rem;
+  }
+
+  .forms-grid{
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100% !important;
+  }
+
+  .form-container{
+
+    width: 80%;
+  }
+
+  .card{
+    width: 100%;
   }
 }

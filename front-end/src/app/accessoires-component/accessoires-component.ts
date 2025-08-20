@@ -1,5 +1,4 @@
 import { Component, inject, OnInit, PLATFORM_ID, signal, ViewChild, WritableSignal } from '@angular/core';
-import { FilterProductsComponent } from '../filter-products-component/filter-products-component';
 import { isPlatformBrowser } from '@angular/common';
 import { ProductsService, Product } from '../services/products/products-service';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
@@ -8,7 +7,7 @@ import { CartService } from '../services/cart/cart-service';
 
 @Component({
   selector: 'app-accessoires-component',
-  imports: [FilterProductsComponent, MatPaginator],
+  imports: [MatPaginator],
   templateUrl: './accessoires-component.html',
   styleUrl: '../css/main-components-css.css'
 })
