@@ -11,6 +11,13 @@ interface AdminOrder {
   status: string;
 }
 
+interface Category {
+
+  id: number;
+  description: string;
+  name: string;
+}
+
 @Component({
   selector: 'app-admin-component',
   imports: [ReactiveFormsModule],
@@ -21,11 +28,13 @@ export class AdminComponent implements OnInit{
   
   private ordersCountUrl = 'http://localhost:3000/orders/total';
   private clientsCountUrl = 'http://localhost:3000/users/total';
+  private categoriesUrl = 'http://localhost:3000/categories/all';
   private authService = inject(AuthService);
   private adminProductService = inject(AdminProductService);
   private adminCategoryService = inject(AdminCategoryService);
   ordersCount = signal<number>(0);
   clientsCount = signal<number>(0);
+  categories = signal<Category[]>([]);
   orders = signal<AdminOrder[]>([]);
   
   myCategoryForm = new FormGroup({
@@ -72,6 +81,10 @@ export class AdminComponent implements OnInit{
 
     console.log("Orders récupérées:");
     const orders = await this.authService.AuthenticatedRequest(this.ordersCountUrl, 'GET');
+    const categories = await this.authService.AuthenticatedRequest(this.categoriesUrl, 'GET');
+    if(!categories) console.log('|||||||| ERREUR RÉCUPÉRATION DES CATÉGORIES');
+    console.log("categories :", categories);
+    this.categories.set(categories);
     console.log(orders);
     console.log("Taille orders :", orders.length);
     if(orders.statusCode == '404' || orders.statusCode == '500'){
@@ -123,6 +136,8 @@ export class AdminComponent implements OnInit{
       return;
     }
 
+    console.log("CategoryID récupérer : ", this.myProductForm.value.productCategory);
+
     const createProduct = {
       name: this.myProductForm.value.productName || '',
       description: this.myProductForm.value.productDescription || '',
@@ -131,6 +146,7 @@ export class AdminComponent implements OnInit{
       stock: Number(this.myProductForm.value.productStock) || 0,
       categoryId: Number(this.myProductForm.value.productCategory) || 0,
     }
+
 
     console.log("Produit qui va etre créer : ");
     console.log(createProduct);

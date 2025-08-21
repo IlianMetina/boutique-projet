@@ -147,9 +147,12 @@
                       <label for="product-category">Catégorie</label>
                       <select id="product-category" formControlName="productCategory" class="form-select">
                         <option value="">Sélectionner une catégorie</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
+                        @for(category of categories(); track category.id){
+
+                          <option value={{category.id}}>{{category.id}} - {{category.name}}</option>
+                        }
+                        <!-- <option value="2">2</option> -->
+                        <!-- <option value="3">3</option> -->
                       </select>
                     </div>
                   </div>

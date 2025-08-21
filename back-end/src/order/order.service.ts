@@ -182,19 +182,28 @@ export class OrderService {
     let orders = await this.prisma.order.findMany({
       where: {
         userId: userId,
-        status: 'SHIPPED',
+        status: {
+          in: ['SHIPPED', 'DELIVERED']
+        }
       },
       include: {
-
-        productsInOrder: true,
+        productsInOrder: {
+          include: {
+            product: true
+          }
+        },
+        user: {
+          select: {
+            city: true,
+            street: true,
+            zipCode: true,
+          }
+        }
       }
     });
 
-    if(!orders){
-
-      console.log("Aucune order trouvée avec le statut 'SHIPPED'");
-      return null;
-    }
+    console.log("Commande(s) avec statut SHIPPED/DELIVERED récupérée(s) :");
+    console.log(orders);
 
     return orders;
   }
@@ -207,18 +216,23 @@ export class OrderService {
         status: 'CANCELLED',
       },
       include: {
-        productsInOrder: true,
+        productsInOrder: {
+          include: {
+            product: true
+          }
+        },
+        user: {
+          select: {
+            city: true,
+            street: true,
+            zipCode: true,
+          }
+        }
       }
     });
 
-    console.log("Commande(s) récupérée(s) :");
+    console.log("Commande(s) CANCELLED récupérée(s) :");
     console.log(orders);
-
-    if(!orders || orders.length < 1){
-
-      console.log("Aucune order trouvée avec le statut 'CANCELLED'");
-      return null;
-    }
 
     return orders;
   }
@@ -233,18 +247,23 @@ export class OrderService {
         }
       },
       include: {
-        productsInOrder: true,
+        productsInOrder: {
+          include: {
+            product: true
+          }
+        },
+        user: {
+          select: {
+            city: true,
+            street: true,
+            zipCode: true,
+          }
+        }
       },
     });
 
-    console.log("Commande(s) récupérée(s) :");
+    console.log("Commande(s) PENDING/PROCESSING récupérée(s) :");
     console.log(orders);
-
-    if(!orders || orders.length < 1){
-
-      console.log("Aucune order trouvée avec le statut 'PENDING'");
-      return null;
-    }
 
     return orders;
   }

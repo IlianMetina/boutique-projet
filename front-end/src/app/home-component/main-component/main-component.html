@@ -1,7 +1,62 @@
-<div>
-    <div>First card</div>
-    <div>Second card</div>
-    <div>Third card</div>
-    <div>Fourth card</div>
-    <div>Fifth card</div>
-</div>
+<!-- Hero Section -->
+<section class="hero">
+    <div class="hero-content">
+        <h1>Des meubles qui prennent soin de votre bien-être</h1>
+        <p>Découvrez notre collection de meubles ergonomiques conçus pour améliorer votre confort et votre productivité au quotidien.</p>
+    </div>
+</section>
+
+<!-- Featured Products Section -->
+<section class="products-section">
+    <div class="container">
+        <h2>Nos produits phares</h2>
+        <div class="products-grid">
+            
+            <!-- Produits -->
+            @for(product of products(); track product.name){
+
+               <div class="product-card">
+                <a [routerLink]="['/produits', product.id]">
+                    <div class="product-image">
+                        <img [src]='product.imageUrl' alt="Bureau ergonomique moderne">
+                        <div class="product-badge">Bestseller</div>
+                    </div>
+                </a>
+                    <div class="product-info">
+
+                        <h3 class="product-name">{{product.name}}</h3>
+                        <p class="product-description">{{product.description}}</p>
+                        <div class="product-footer">
+                            <div class="price">
+                                <span class="current-price">{{product.price}}€</span>
+                            </div>
+                            <button class="add-to-cart-btn" (click)="addProduct(product)">Ajouter au panier</button>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+            }
+              
+
+                <!-- <div class="product-card">
+                    <div class="product-image">
+                        <img [src]='product.imageUrl' alt="Meubles Workhaus">
+                        <div class="badge bestseller">Bestseller</div>
+                    </div>
+                    <div class="product-info">
+                        <h3>{{product.name}}</h3>
+                        <p>{{product.description}}</p>
+                        <div class="rating">
+                            <span class="stars">★★★★★</span>
+                            <span class="reviews">(127 avis)</span>
+                        </div>
+                        <div class="price">
+                            <span class="current-price">{{product.price}}€</span>
+                        </div>
+                    </div>
+                </div> -->
+            
+        </div>
+    </div>
+</section>

@@ -111,23 +111,6 @@
   margin-bottom: 1.2rem;
 }
 
-.product-features {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 1.5rem;
-}
-
-.feature {
-  background: #eff6ff;
-  color: #1e40af;
-  padding: 0.3rem 0.8rem;
-  border-radius: 12px;
-  font-size: 0.8rem;
-  font-weight: 500;
-  border: 1px solid #bfdbfe;
-}
-
 .product-footer {
   display: flex;
   justify-content: space-between;

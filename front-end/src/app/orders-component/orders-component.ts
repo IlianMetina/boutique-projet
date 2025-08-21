@@ -98,6 +98,9 @@ export class OrdersComponent implements OnInit {
       throw new Error("Erreur récupération de l'userId");
     }
 
+    // Vider le tableau des commandes avant chaque requête
+    this.orders = [];
+
     switch(selectedOption){
 
       case "all":
@@ -105,15 +108,19 @@ export class OrdersComponent implements OnInit {
         const allResponse = await this.authService.AuthenticatedRequest(this.allOrdersUrl, 'GET');
         if(!allResponse){
           
-          throw new Error("Erreur récupération commande 'PENDING'");
+          throw new Error("Erreur récupération commande 'all'");
         }
 
         console.log("Réponse reçue commandes 'all' :");
         console.log(allResponse);
-        if(allResponse && !Array.isArray(allResponse)){
-          console.log("All Response n'est pas un tableau")
+        
+        // Vérifier si la réponse est un tableau valide
+        if(Array.isArray(allResponse)) {
+          this.orders = allResponse;
+        } else {
+          console.log("All Response n'est pas un tableau");
+          this.orders = [];
         }
-        this.orders = allResponse;
 
         return allResponse;
 
@@ -126,7 +133,14 @@ export class OrdersComponent implements OnInit {
         }
         console.log("Réponse reçue commande 'en cours' :");
         console.log(currentResponse);
-        this.orders = currentResponse;
+        
+        // Vérifier si la réponse est un tableau valide
+        if(Array.isArray(currentResponse)) {
+          this.orders = currentResponse;
+        } else {
+          console.log("Current Response n'est pas un tableau");
+          this.orders = [];
+        }
 
         return currentResponse;
 
@@ -135,12 +149,19 @@ export class OrdersComponent implements OnInit {
         const shippedResponse = await this.authService.AuthenticatedRequest(this.shippedOrdersUrl + userId, 'GET');
         if(!shippedResponse){
           
-          throw new Error("Erreur récupération commande 'PENDING'");
+          throw new Error("Erreur récupération commande 'SHIPPED'");
         }
 
         console.log("Réponse reçue commande 'livree' :");
         console.log(shippedResponse);
-        this.orders = shippedResponse;
+        
+        // Vérifier si la réponse est un tableau valide
+        if(Array.isArray(shippedResponse)) {
+          this.orders = shippedResponse;
+        } else {
+          console.log("Shipped Response n'est pas un tableau");
+          this.orders = [];
+        }
 
         return shippedResponse;
 
@@ -149,12 +170,19 @@ export class OrdersComponent implements OnInit {
         const cancelledResponse = await this.authService.AuthenticatedRequest(this.cancelledOrdersUrl + userId, 'GET');
         if(!cancelledResponse){
           
-          throw new Error("Erreur récupération commande 'PENDING'");
+          throw new Error("Erreur récupération commande 'CANCELLED'");
         }
 
         console.log("Réponse reçue commande 'annulee' :");
         console.log(cancelledResponse);
-        this.orders = cancelledResponse;
+        
+        // Vérifier si la réponse est un tableau valide
+        if(Array.isArray(cancelledResponse)) {
+          this.orders = cancelledResponse;
+        } else {
+          console.log("Cancelled Response n'est pas un tableau");
+          this.orders = [];
+        }
 
         return cancelledResponse;        
     }

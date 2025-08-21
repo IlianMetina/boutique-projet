@@ -1,12 +1,11 @@
 import { Component, OnInit, WritableSignal, inject, signal } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ProductsService, Product } from '../services/products/products-service';
 import { CartService } from '../services/cart/cart-service';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-product-component',
-  imports: [CommonModule],
+  imports: [RouterLink],
   templateUrl: './product-component.html',
   styleUrl: './product-component.css'
 })
@@ -22,7 +21,6 @@ export class ProductComponent implements OnInit{
     description: '',
     imageUrl: '',
   });
-  // productId: WritableSignal<string> = signal('');
 
   async ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');

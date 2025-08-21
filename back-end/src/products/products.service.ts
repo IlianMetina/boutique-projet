@@ -46,7 +46,13 @@ export class ProductsService {
   async findOne(id: number) {
 
     console.log("Entrée méthode findOne products.service");
-    return this.prisma.product.findUnique({ where: { id } });
+    return this.prisma.product.findUnique({
+      where: 
+      { id },
+      include: {
+        category: true,
+      }
+    });
   }
 
   async update(id: number, updateProductDto: UpdateProductDto) {

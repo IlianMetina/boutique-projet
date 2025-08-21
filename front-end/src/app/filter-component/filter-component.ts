@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-filter-component',
@@ -8,6 +8,8 @@ import { Component } from '@angular/core';
 })
 export class FilterComponent {
   
+  @Output() sortProductsUpdate = new EventEmitter<string>();
+
   filterChange(event: Event){
 
     const selectElement = event.target as HTMLSelectElement;
@@ -20,19 +22,25 @@ export class FilterComponent {
 
       this.descendingFilter();
     }else{
-      return;
+      this.defaultFilter();
     }
-
   }
 
   ascendingFilter(){
     
-    console.log("Vous avez choisi la méthode de tri par prix croissant")
+    console.log("Vous avez choisi la méthode de tri par prix croissant");
+    this.sortProductsUpdate.emit('asc');
   }
   
   descendingFilter(){
   
-    console.log("Vous avez choisi la méthode de tri par prix décroissant")
+    console.log("Vous avez choisi la méthode de tri par prix décroissant");
+    this.sortProductsUpdate.emit('desc');
+  }
+
+  defaultFilter(){
+
+    this.sortProductsUpdate.emit('default')
   }
 
 }
